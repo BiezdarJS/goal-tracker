@@ -1,0 +1,32 @@
+
+
+.goal-and-time-management {
+    display: grid;
+    @include desktop-sm {
+        grid-template-rows: 130px 55px auto 150px;
+        grid-template-columns: 200px 1fr;
+    }
+    @include desktop-md {
+        grid-template-rows: 150px 55px auto 150px;
+        grid-template-columns: 250px 1fr;
+    }
+    
+    grid-template-areas:
+        "sidenav header"
+        "sidenav main"
+        "sidenav main"
+        "sidenav footer";
+    height: 100vh;
+    &--goal-tracker {
+        grid-template-areas:
+        "sidenav header"
+        "sidenav nav"
+        "sidenav main"
+        "sidenav footer";
+    }
+    @include mobile {
+        display: block;
+    }
+    
+}
+

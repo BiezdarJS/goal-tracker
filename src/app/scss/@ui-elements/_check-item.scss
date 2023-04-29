@@ -1,0 +1,26 @@
+.check-item {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  margin: 20px 0;
+
+  &--form {
+      align-items: center;
+      width: 100%;
+      max-width: 240px;
+      margin: 10px auto 0;
+  }
+
+  &--zeromargin {
+      margin: 0;
+  }
+
+  &__name {
+      margin: 0;
+  }
+
+  &__descr {
+      color: #6e7a90;
+      font-size: 12px;
+      line-height: 18px;
+  }
+}

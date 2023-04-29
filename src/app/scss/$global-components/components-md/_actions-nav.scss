@@ -1,0 +1,102 @@
+
+.actions-nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: 115px 2fr 1fr 220px;
+    align-items: center;
+    padding: 0 45px;
+    height: 55px;
+    &--calendar {
+        grid-template-columns: auto 2fr 1fr 220px;
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .empty {
+            @include mobile {
+                display: none;
+            }
+        }
+        .actions-nav__buttons-right {
+            @include mobile {
+                margin: 25px auto;
+            }
+        }
+    }
+    @include mobile {
+        grid-template-columns: auto auto;
+        height: auto;
+        padding: 25px 15px;
+    }
+    &__buttons-left {
+        @include mobile {
+            order: 1;
+        }
+    }
+    &__buttons-right {
+        margin-left: auto;
+        @include mobile {
+            order: 2;
+        }
+    }
+    .switcher__wrap {
+        text-align: center;
+        @include mobile {
+            display: block;
+            order: 4;
+            grid-area: 3/1/3/3;
+            margin: 25px auto;
+            width: 140px;
+        }
+    }
+    .switcher__nav {
+        padding: 10px 0;
+        @include mobile {
+            width: 60px;
+        }
+    }
+    .switcher-prev {
+        @include desktop-sm {
+            left: 6px;
+        }
+        @include mobile {
+            left: -40px;
+        }
+    }
+    .switcher-next {
+        @include desktop-sm {
+            right: 6px;
+        }
+        @include mobile {
+            right: -40px;
+        }
+    }
+    &__select {
+        @include mobile {
+            display: block;
+            order: 3;
+            grid-area: 2/1/3/3;
+            margin: 0 auto;
+        }
+        @include desktop-sm {
+            display: flex;
+        }
+    }
+    .select {
+        @include mobile {
+            &:nth-of-type(1) {
+                margin: 40px 0 10px;
+            }
+            &:nth-of-type(2) {
+                margin: 0 0 10px;
+            }
+        }
+    }
+    .modal-trigger {
+        margin-left: 25px;
+        @media (max-width: 450px) {
+            margin-left: 7px;
+        }
+    }
+}

@@ -1,0 +1,306 @@
+.theme-dark {
+  header {
+    background-color: #252c3e;
+  }
+  .btn--blue {
+    @if $accent == #269cf4 {
+      $accent: #235bee;
+      border: 1px solid $accent;
+      background-color: $accent;
+    }
+    
+  }
+  .user {
+    background-color: #ddd;
+  }
+  .actions-nav {
+    background-color: #252c3e;
+    .switcher {
+      padding: 10px;
+    }
+    .switcher__wrap {
+      background-color: #343c4f;
+      border-radius: 12px;
+    }
+    .switcher__item {
+      color: #eff5f4;
+    }
+  }
+  .sidenav {
+    background-color: #343c4f;
+  }
+  .sivenav-mobile-open {
+    background-color: #252c3e;
+  }
+  main {
+    background-color: #252c3e;
+  }
+  footer {
+    background-color: #252c3e;
+  }
+  .settings-content {
+    background-color: #252c3e;
+    box-shadow: 0 1px 15px rgba(255, 255, 255, 0.2), 0 1px 15px rgba(255, 255, 255, 0.2);
+  }
+  p {
+    color: #fbfbfd;
+  }
+  input,
+  textarea {
+    background-color: #343c4f;
+  }
+  // fonts
+  .title {
+    color: #cdd2e5;
+  }
+  .title--main {
+    color: #fcd650;
+  }
+  .headline {
+    color: #fbfbfd;
+  }
+  .subhead {
+    color: $white;
+  }
+  .smaller {
+    color: #cfcfcf;
+  }
+  .font-body {
+    color: #eff5f4;
+  }
+  .font-additional {
+    color: #afb6c8;
+  }
+  // labels 
+  .label-priority--high {
+    border: 1px solid #ff8263;
+    color: #ff8263;
+  }
+  .label-priority--medium {
+    border: 1px solid #42dea2;
+    color: #42dea2;
+  }
+  // forms 
+  input,
+  textarea {
+    color: $white;
+    &::placeholder {
+      color: #cfcfcf;
+    }
+  }
+  // menu
+  .menu {
+    @include mobile {
+      border: 1px solid #fff;
+      background-color: #252c3e;
+    }
+  }
+  .menu__link {
+    color: #eff5f4;
+  }
+  .icon {
+    background-color: #fbfbfd;
+  }
+  .icon--close {
+    background-color: transparent;
+    &:before,
+    &:after {
+      background-color: #fbfbfd;
+    }
+  }
+  // floating-nav
+  .floating-nav {
+    background-color: #343c4f;
+    &__diamond {
+      background-color: #343c4f;
+    }
+  }
+
+  // main dashboard
+  .box {
+    background-color: #343c4f;
+  }
+  // summary 
+  .summary__icon--goals {
+    background-color: #42dea2;
+  }
+  .summary__icon--tasks {
+    background-color: #718fff;
+  }
+  .summary__icon--loop {
+    background-color: #ff8263;
+  }
+  .summary__more {
+    background-color: $white;
+  }
+  // balance of goals
+  .balance-list__dot--family {
+    background-color: #718fff;
+  }
+  .balance-list__dot--money {
+    background-color: #a871c2;
+  }
+  .balance-list__dot--career {
+    background-color: #42dea2;
+  }
+  .balance-list__dot--health {
+    background-color: #fcd650;
+  }
+  .balance-list__dot--self {
+    background-color: #ff8263;
+  }
+  .balance-list__dot--inspirations {
+    background-color: #fe94b4;
+  }
+  
+  // calendar
+  .calendar-month-header-selected-month {
+    color: #fbfbfd;
+  }
+  .calendar-month-header-selectors {
+    color: #afb6c8;
+  }
+  .day-of-week {
+    color: #afb6c8;
+  }
+  .calendar-day {
+    color: #afb6c8;
+  }
+  .calendar-day--not-current {
+    color: #fbfbfd;
+  }
+  .calendar-day--today > span {
+    color: #7293fe;
+  }
+  .calendar-grid .calendar-day {
+    background: #343c4f;
+  }
+  .calendar-grid__header li {
+    color: #ffffff;
+  }
+  // progress towards the goal
+  .progress-towards-the-goal-item__status--inprogress {
+    color: #fcd650;
+  }
+  .progress-towards-the-goal-item__status--paused {
+    color: #718fff;
+  }
+  // My activity
+  .select {
+    box-shadow: rgba(238, 238, 238, 0.1) 0px 1px 15px;
+  }
+
+  // Today tasks
+  .btn--green {
+    background-color: #42dea2;
+  }
+  .task-item {
+    background-color: #343c4f;
+  }
+  .task-list__item--styling {
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+  }
+  .task-item__name {
+    color: #fbfbfd;
+  }
+  .task-item--self-knowledge {
+    @if $redStrong == #ffa38f {
+      $redStrong: #ff8263;
+      border-right: 8px solid $redStrong;
+    }
+  }
+  .task-item--health-and-sports {
+    @if $yellowStrong == #fde38a {
+      $yellowStrong: #fdd751;
+      border-right: 8px solid $yellowStrong;
+    }
+  }
+  .task-item--career {
+    @if $greenStrong == #8eefca {
+      $greenStrong: #42dea2;
+      border-right: 8px solid $greenStrong;
+    }
+  }
+  .task-item__additional-info p {
+    color: #afb6c8;
+  }
+  .task-item__descr {
+    color: #afb6c8;
+  }
+  .checkbox--green .checkbox__input:checked ~ .checkbox__checkmark {
+    background-color: #42dea2;
+  }
+  // goal list
+  .goals-grid--box .goal-item {
+    background-color: #343c4f;
+    border: none;
+  }
+  .goals-grid--box .goal-item__img {
+    box-shadow: none;
+  }
+  .goals-grid--box .goal-item__headline {
+    color: #fbfbfd;
+  }
+  .btn--switcher {
+    background-color: #343c4f;
+    box-shadow: none;
+  }
+  .label-title--red {
+    background-color: #f89075;
+    border: 1px solid #cb5d4b;
+    color: #000;
+  }
+  .label-title--green {
+    background-color: #42cc98;
+    border: 1px solid #1c906b;
+    color: #000;
+  }
+  .label-title--yellow {
+    background-color: #f0cc5e;
+    border: 1px solid #bc9725;
+    color: #000;
+  }
+  // calendar page
+  .btn--calendar {
+    color: #fbfbfd;
+  }
+  // modal
+  .modal {
+    background-color: #252c3e;
+    border: 1px solid #ddd;
+  }
+  .modal__heading {
+    color: #fbfbfd;
+  }
+  .select--modal {
+    border: none;
+  }
+  .select.select--modal {
+   background-color: #343c4f; 
+   border: 2px solid #f3f3f3;
+   box-shadow: none;
+   color: #fff;
+   .select-dropdown {
+    background-color: #343c4f; 
+    color: #fff;
+   }
+   .option:hover,
+   .option:focus,
+   .option.selected.focus {
+    background-color: #1f232e; 
+    color: #fff;
+   }
+  }
+  .modal__footer .btn__back {
+    border: 1px solid $white;
+    color: $white;
+  }
+  .progressBar__dot2 {
+    background-color: #42cc98;
+  }
+  .progressBar__step.done {
+    &:before {
+      background-color: #42cc98;
+    }
+  }
+}

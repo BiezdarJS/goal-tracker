@@ -1,0 +1,25 @@
+.goal-details {
+    // display: none;
+}
+
+.goal-setup {
+    &__item {
+        border-right: 1px solid #ddd;
+        display: inline-block;
+        padding: 0 15px;
+    }
+    &__title {
+        color: $secondText;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 19px;
+    }
+    &__info {
+        color: $secondText;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 19px;
+        margin: 4px 0 0;
+    }
+    
+}

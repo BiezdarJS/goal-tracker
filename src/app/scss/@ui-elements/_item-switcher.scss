@@ -1,0 +1,51 @@
+@import '../assets-path';
+
+.switcher {
+    border-right: 1px solid #aeafcb;
+    border-left: 1px solid #aeafcb;
+    margin: 0 auto;
+    padding: 2px 10px;
+    width: 60px;
+    &__wrap {
+        display: inline-block;
+        position: relative;
+        width: 140px;
+        @include desktop-sm {
+            margin-left: auto;
+        }
+    }
+    &__item {
+        display: none;
+
+        &.active {
+            display: inline-block;
+        }
+    }
+    &__nav {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin: auto;
+    }
+    &-prev {
+        border: none;
+        background: url(#{$assetPath}/icons/chevron-left.svg) center/cover no-repeat;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: 0;
+    }
+    &-next {
+        border: none;
+        background: url(#{$assetPath}/icons/chevron-right.svg) center/cover no-repeat;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 0;
+    }
+}

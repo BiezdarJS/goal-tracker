@@ -1,0 +1,154 @@
+/*
+*
+*  Project Name: Goal Tracker
+*  Version: 1.0
+*  Author: Piotr Deja
+*
+*/
+
+
+
+// =============================================================================
+// CSS RESET
+// =============================================================================
+@import 'app/scss/css-reset';
+
+
+// =============================================================================
+// SETTINGS
+// =============================================================================
+@import 'app/scss/functions';
+@import 'app/scss/mixins';
+@import 'app/scss/fonts';
+@import 'app/scss/colors';
+
+
+// =============================================================================
+// COMMON STYLES TO ALL PROJECTS
+// =============================================================================
+@import 'app/scss/utils';
+
+// =============================================================================
+// THEME
+// =============================================================================
+@import 'app/scss/theme';
+
+
+// =============================================================================
+// @ UI ELEMENTS
+// =============================================================================
+@import 'app/scss/@ui-elements/button';
+@import 'app/scss/@ui-elements/checkbox';
+@import 'app/scss/@ui-elements/check-item';
+@import 'app/scss/@ui-elements/select-2';
+@import 'app/scss/@ui-elements/forms';
+@import 'app/scss/@ui-elements/icons';
+@import 'app/scss/@ui-elements/item-switcher';
+@import 'app/scss/@ui-elements/labels';
+@import 'app/scss/@ui-elements/scrollbar';
+@import 'app/scss/@ui-elements/search-bar';
+@import 'app/scss/@ui-elements/tooltip';
+@import 'app/scss/@ui-elements/switcher-light-dark';
+
+
+// =============================================================================
+// $ GLOBAL COMPONENTS
+// =============================================================================
+
+//sm
+//md
+@import 'app/scss/$global-components/components-md/calendar-day';
+@import 'app/scss/$global-components/components-md/task-item';
+@import 'app/scss/$global-components/components-md/goal-item';
+@import 'app/scss/$global-components/components-md/actions-nav';
+@import 'app/scss/$global-components/components-md/box';
+@import 'app/scss/$global-components/components-md/chart-wrapper';
+@import 'app/scss/$global-components/components-md/modal';
+@import 'app/scss/$global-components/components-md/social-list';
+@import 'app/scss/$global-components/components-md/tab-list';
+@import 'app/scss/$global-components/components-md/task-list';
+@import 'app/scss/$global-components/components-md/calendar';
+@import 'app/scss/$global-components/components-md/floating-nav';
+
+
+// =============================================================================
+// 1 - GOAL AND TIME MANAGEMENT
+// =============================================================================
+@import 'app/scss/1-goal-and-time-management/_goal-and-time-management';
+
+
+// =============================================================================
+// 2 - HEADER
+// =============================================================================
+@import 'app/scss/2-header/header';
+// components-sm
+@import 'app/scss/2-header/components-sm/user';
+
+
+// =============================================================================
+// 3 - SIDENAV
+// =============================================================================
+@import 'app/scss/3-sidenav/sidenav';
+// components sm
+@import 'app/scss/3-sidenav/components-sm/site-logo';
+@import 'app/scss/3-sidenav/components-sm/sidenav-mobile-open';
+@import 'app/scss/3-sidenav/components-sm/sidenav-mobile-close';
+// components md
+@import 'app/scss/3-sidenav/components-md/menu';
+@import 'app/scss/3-sidenav/components-md/nav-bar';
+
+
+// =============================================================================
+// 4 - FOOTER
+// =============================================================================
+@import 'app/scss/4-footer/footer';
+
+
+
+// =============================================================================
+// 5 - LOGIN
+// =============================================================================
+@import 'app/scss/5-login/login';
+// components md
+@import 'app/scss/5-login/components-md/login-nav';
+@import 'app/scss/5-login/components-md/login-box';
+
+
+// =============================================================================
+// 6 - WELCOME DASHBOARD
+// =============================================================================
+@import 'app/scss/6-dashboard/dashboard';
+// components md
+@import 'app/scss/6-dashboard/components-md/balance-list';
+@import 'app/scss/6-dashboard/components-md/balance-of-goals';
+@import 'app/scss/6-dashboard/components-md/summary';
+@import 'app/scss/6-dashboard/components-md/progress-towards-the-goal';
+@import 'app/scss/6-dashboard/components-md/my-activity';
+// components sm
+
+
+// =============================================================================
+// 7 - GOALS LIST
+// =============================================================================
+@import 'app/scss/7-goals-list/goals-grid';
+// components md
+@import 'app/scss/7-goals-list/components-md/new-goal';
+@import 'app/scss/7-goals-list/components-md/progress-bar';
+@import 'app/scss/7-goals-list/components-md/priority-list';
+@import 'app/scss/7-goals-list/components-md/goal-details';
+
+
+
+// =============================================================================
+// 8 - CALENDAR
+// =============================================================================
+
+// components md
+@import 'app/scss/8-calendar/components-md/calendar-type';
+@import 'app/scss/8-calendar/components-md/calendar-grid';
+
+
+// =============================================================================
+// 9 - SETTINGS
+// =============================================================================
+@import 'app/scss/9-settings-page/settings';

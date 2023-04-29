@@ -1,0 +1,45 @@
+.progress-towards-the-goal {
+ p {
+  margin: 0;
+ }
+ &-item {
+  display: grid;
+  margin: 0 0 20px;
+  @include desktop-sm {
+    grid-template-columns: 90px 1fr;
+  }
+  @include desktop-md {
+    grid-template-columns: 90px 1fr;
+  }
+  &__left {
+   padding: 0;
+   @include mobile {
+    width: auto;
+    max-width: 90px;
+    margin: 0 auto 25px;
+   }
+  }
+  &__right {
+   display: grid;
+   align-content: center;
+   padding-left: 30px;
+   @include mobile {
+    padding: 0;
+    text-align: center;
+   }
+  }
+  &__status {
+    
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 21px;
+    margin: 0;
+    &--inprogress {
+     color: $yellowStrong;
+    }
+    &--paused {
+     color: $blueStrong;
+    }
+  }
+ }
+}

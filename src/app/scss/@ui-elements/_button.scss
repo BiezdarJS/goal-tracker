@@ -1,0 +1,63 @@
+.btn {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid $accent;
+    color: $accent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    padding: 8px 0;
+    width: 115px;
+    &--no-style {
+        background-color: transparent;
+        border: none;
+    }
+    &--sm {
+        width: 24px;
+        height: 24px;
+    }
+    &--green {
+        background-color: $greenStrong;
+        border-radius: 50%;
+        border: none;
+    }
+    &--blue {
+        background-color: $accent;
+        color: $white;
+    }
+    &--grey {
+        border: 1px solid #d8d8d8;
+        background-color: #fbfbfd;
+        color: $inputText;
+    }
+    &--switcher {
+        border: none;
+        box-shadow: 0 1px 15px rgba(238, 238, 238, 0.6);
+        width: auto;
+        padding: 12px;
+        &.active {
+            box-shadow: $box-shadow;
+            .icon {
+                background-color: $accent;
+            }
+        }
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+    &--scale {
+        transition: transform 0.15s ease-in-out;
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+    &--calendar {
+        border: none;
+        color: $black;
+        width: auto;
+    }
+}

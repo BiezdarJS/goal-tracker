@@ -1,0 +1,54 @@
+.balance-list {
+    display: inline-block;
+    @include desktop-sm {
+        margin: 0 0 0 20px;
+    }
+    @include desktop-md {
+        margin: 0 0 0 50px;
+    }
+    @media (max-width: 340px) {
+        margin-top: 0;
+    }
+    &__item {
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        align-items: center;
+        padding: 0 0;
+        margin: 0 0 10px;
+    }
+    &__dot {
+        display: inline-block;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        &--family {
+            background-color: $blueStrong;
+        }
+        &--money {
+            background-color: $purpleStrong
+        }
+        &--career {
+            background-color: $greenStrong;
+        }
+        &--health {
+            background-color: $yellowStrong;
+        }
+        &--self {
+            background-color: $redStrong;
+        }
+        &--inspirations {
+            background-color: #f3c3d1;
+        }
+    }
+    &__txt {
+        padding: 0 0 0 15px;
+        margin: 0;
+        text-align: left;
+        @include mobile {
+            font-size: 14px;
+        }
+        @media (max-width: 500px) {
+            font-size: 12px;
+        }
+    }
+}

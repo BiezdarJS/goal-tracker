@@ -1,0 +1,223 @@
+@import '../assets-path';
+
+.form-field {
+  position: relative;
+  width: 100%;
+  &__wrap {
+      margin: 0 0 25px;
+  }
+  &__label {
+      color: #6e7a90;
+      display: block;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0 0 15px;
+  }
+  &__input {
+      border: none;
+      display: block;
+      outline: none;
+      width: inherit;
+      margin: 0;
+      &:focus {
+          border-color: #b7ecdc;
+      }
+      &--border {
+          border-radius: 30px;
+          border: 2px solid transparent;
+          box-shadow: 0 2px 2px #ddd;
+      }
+
+      &--search {
+          border-radius: 16px;
+          box-shadow: $box-shadow;
+          padding: 15px 40px 15px 15px;
+          margin: 0;
+      }
+
+      &--password {
+          padding: 15px 40px 15px 50px;
+          font-size: 30px;
+          height: 53px;
+      }
+      &--edit {
+          padding: 15px 40px 15px 50px;
+      }
+      &--user {
+          padding: 15px 15px 15px 50px;
+
+          &:focus {
+              border-color: #a0b7fd;
+              box-shadow: none;
+          }
+      }
+      &--email {
+          padding: 15px 15px 15px 50px;
+
+          &:focus {
+              border-color: #a0b7fd;
+              box-shadow: none;
+          }
+      }
+  }
+
+  &--search {
+      margin: 0;
+      &:after {
+          background: url(#{$assetPath}/icons/search.svg) center/cover no-repeat;
+          content: "";
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          top: 13px;
+          right: 15px;
+      }
+  }
+
+  &--user,
+  &--email,
+  &--password {
+      &:before {
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          border-radius: 50%;
+          content: "";
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          left: 15px;
+      }
+  }
+  &--user {
+      &:before {
+          background: url(#{$assetPath}/icons/user.svg) center no-repeat;
+          background-size: 70% auto;
+          border: 1px solid #a0b7fd;
+      }
+  }
+  &--email {
+      &:before {
+          background: url(#{$assetPath}/icons/letter.svg) center no-repeat;
+          background-size: 70% auto;
+          border: 1px solid #a0b7fd;
+      }
+  }
+
+  &--password {
+      &:before {
+          background: url(#{$assetPath}/icons/lock.svg) center/cover no-repeat;
+          background-size: 70% auto;
+          border: 1px solid #a0b7fd;
+      }
+      .icon-toggle {
+              &:after {
+                mask-image: url(#{$assetPath}/icons/eye.svg);
+              }
+          }
+
+      &.swap-on {
+          .icon-toggle {
+              &:after {
+                mask-image: url(#{$assetPath}/icons/eye-off.svg);
+              }
+          }
+      }
+  }
+}
+
+
+// .password-toggle {
+//     cursor: pointer;
+//     display: inline-block;
+//     width: 24px;
+//     height: 24px;
+//     position: absolute;
+//     top: 13px;
+//     right: 15px;
+
+//     &:after {
+//         content: "";
+//         background: url(#{$assetPath}/eye.svg) center/cover no-repeat;
+//         width: 100%;
+//         height: 100%;
+//         position: absolute;
+//         z-index: 1;
+//     }
+// }
+
+.icon-toggle {
+  cursor: pointer;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  margin: auto 0;
+  &:after {
+    background-color: #aeafcb;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    mask-size: cover;
+    mask-position: center;
+    mask-repeat: no-repeat;
+  }
+  &--edit {
+    width: 14px;
+    height: 14px;
+    &:after {
+      mask-image: url(#{$assetPath}/icons/edit.svg);
+    }
+  }
+  &--password {
+    width: 24px;
+    height: 24px;
+    &:after {
+      mask-image: url(#{$assetPath}/icons/eye.svg);
+    }
+  }
+}
+
+
+
+
+input,
+textarea {
+    background-color: #fafbfc;
+    border: 2px solid #f3f3f3;
+    border-radius: 5px;
+    outline: none;
+    margin: 0 0 20px;
+    padding: 20px;
+    width: 100%;
+    &::placeholder {
+        color: #b9b9b9;
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
+
+
+
+textarea {
+    height: 100px;
+
+}
+
+.form-submit {
+    background: rgb(0, 139, 214);
+    background: linear-gradient(90deg, rgba(0, 139, 214, 1) 0%, rgba(1, 189, 218, 1) 100%);
+    border-radius: 50px;
+    border: none;
+    color: $white;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 40px auto 0;
+    letter-spacing: 0.5px;
+}

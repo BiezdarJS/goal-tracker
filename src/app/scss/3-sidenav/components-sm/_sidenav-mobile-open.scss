@@ -1,0 +1,21 @@
+.sivenav-mobile-open {
+  border: 1px solid #269cf4;
+  display: none;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  line-height: 0px;
+  padding: 7.5px;
+  width: auto;
+  transform: translate3d(0, 150%, 0);
+  transition: transform 0.35s ease-in-out;
+  &.active {
+    transform: translate3d(0, 0, 0);
+  }
+  .icon {
+    background-color: #269cf4;
+  }
+  @include mobile {
+    display: block;
+  }
+}

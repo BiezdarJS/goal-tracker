@@ -1,0 +1,31 @@
+.balance-of-goals {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: auto;
+    .chart-wrapper {
+        padding: 0 10px;
+        width: 40%;
+        @include mobile {
+            margin: 0 auto;
+            width: auto;
+        }
+    }
+    .balance-list {
+        width: 80%;
+        @include mobile {
+            width: auto;
+        }
+    }
+    @include mobile {
+        display: block;
+        text-align: center;
+    }
+    @include desktop-sm {
+        padding: 0;
+    }
+    @include desktop-md {
+        padding: 0;
+    }
+}

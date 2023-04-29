@@ -1,0 +1,87 @@
+
+.label {
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 17px;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    @include mobile {
+        max-width: 120px;
+    }
+    @include desktop-sm {
+        max-width: 120px;
+        padding: 7px 0;
+    }
+    @include desktop-md {
+        max-width: 150px;
+        padding: 10px 0;
+    }
+    &-title {
+        line-height: 16px;
+        text-transform: uppercase;
+        @include mobile {
+            font-size: 10px;
+            line-height: 10px;
+        }
+        @include desktop-sm {
+            font-size: 10px;
+            line-height: 10px;
+        }
+        @include desktop-md {
+            font-size: 11px;
+            line-height: 11px;
+        }
+        &--red {
+            background-color: #fff5f3;
+            border: 1px solid $redStrong;
+            color: $secondText;
+        }
+        &--green {
+            background-color: #e2fffd;
+            border: 1px solid $greenStrong;
+            color: $secondText;
+        }
+        &--yellow {
+            background-color: #fff9e7;
+            border: 1px solid $yellowStrong;
+            color: $secondText;
+        }
+    }
+    &-priority {
+        &--high {
+            background-color: $white;
+            border: 1px solid $redStrong;
+            color: $redStrong;
+            &.active {
+                background-color: $redStrong;
+                border: 1px solid $redStrong;
+                color: $white;
+            }
+        }
+        &--medium {
+            background-color: $white;
+            border: 1px solid $greenStrong;
+            color: $greenStrong;
+            &.active {
+                    background-color: $greenStrong;
+                    border: 1px solid $greenStrong;
+                    color: $white;
+                }
+        }
+        &--nopriority {
+            background-color: $white;
+            border: 1px solid $inputText;
+            color: $inputText;
+            &.active {
+                background-color: $inputText;
+                border: 1px solid $inputText;
+                color: $white;
+            }
+        }
+    }
+    &--105width {
+        min-width: 105px;
+    }
+}

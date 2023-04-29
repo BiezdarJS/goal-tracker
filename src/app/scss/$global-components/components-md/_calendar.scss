@@ -1,0 +1,71 @@
+body {
+  --grey-100: #e4e9f0;
+  --grey-200: #cfd7e3;
+  --grey-300: #b5c0cd;
+  --grey-800: #3e4e63;
+  --grid-gap: 1px;
+  --day-label-size: 30px;
+}
+
+
+ol,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.calendar-month {
+  position: relative;
+}
+
+.calendar-month-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.calendar-month-header-selected-month {
+  color: #455964;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.calendar-month-header-selectors {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80px;
+}
+
+.calendar-month-header-selectors > * {
+  cursor: pointer;
+}
+
+.day-of-week {
+  color: var(--grey-800);
+  font-size: 12px;
+  background-color: #fff;
+  padding-bottom: 5px;
+  padding-top: 10px;
+}
+
+.day-of-week,
+.days-grid {
+  background-color: transparent;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.day-of-week > * {
+  text-align: right;
+  padding-right: 5px;
+}
+
+.days-grid {
+  position: relative;
+  grid-column-gap: var(--grid-gap);
+  grid-row-gap: var(--grid-gap);
+  border-top: solid 1px var(--grey-200);
+}
+

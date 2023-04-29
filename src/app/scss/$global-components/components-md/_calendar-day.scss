@@ -1,0 +1,33 @@
+.calendar-day {
+  position: relative;
+  font-size: 16px;
+  color: var(--grey-800);
+  padding: 5px 5px 2px;
+  &:hover {
+    background-color: var(--grey-300);
+    color: $white;
+  }
+  &--sm {
+    & > span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      padding: 5px;
+    }
+  }
+  &--not-current {
+    color: var(--grey-300);
+  }
+  &--today {
+    padding-top: 4px;
+    & > span {
+      color: #19a0f2;
+      border-radius: 9999px;
+      font-weight: 700;
+    }
+    &:hover {
+      background-color: var(--grey-300);
+    }
+  }
+}

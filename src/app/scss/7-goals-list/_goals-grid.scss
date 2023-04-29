@@ -1,0 +1,29 @@
+.goals-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    grid-area: main;
+    width: 100%;
+    @include mobile {
+        display: block;
+        padding: 0 30px;
+    }
+    @include desktop-sm {
+        padding: 45px 25px 0;
+    }
+    @include desktop-md {
+        padding: 45px 45px 0;
+    }
+    &__column {
+        width: calc(33.333% - 20px);
+        @include mobile {
+            width: auto;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    }
+    
+    &__headline {
+        margin-top: 30px;
+    }
+}

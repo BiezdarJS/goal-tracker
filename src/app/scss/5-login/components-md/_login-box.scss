@@ -1,0 +1,26 @@
+.login-box {
+    background: rgba(255,255,255,.8);
+    border-radius: 30px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 25px;
+    bottom: 25px;
+    padding: 50px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+        border-radius: 0 0 5px 0;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #9E9E9E;
+    }
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}

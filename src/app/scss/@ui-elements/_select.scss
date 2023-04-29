@@ -1,0 +1,192 @@
+@import '../assets-path';
+
+.select {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-size: 16px;
+    color: #fff;
+    width: 100%;
+    height: auto;
+    &--box {
+        width: 150px;
+        .select-options {
+            background-color: #f2f7fa;
+            li {
+                &:hover {
+                    background-color: #dbeaf2;
+                }
+            }
+        }
+    }
+    &__wrap {
+        display: flex;
+        margin: 0 0 15px;
+        @include desktop-sm {
+            justify-content: flex-end;
+        }
+    }
+}
+
+select {
+    display: none;
+}
+
+.wrap h1 {
+    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18, -40px -40px 0px rgba(28, 110, 164, 0);
+    color: #181B33;
+    background: #232323;
+    font-size: 47px;
+    text-align: center;
+    font-family: monospace;
+}
+
+.custom-select {
+    border: 1px solid #999;
+    box-shadow: 0 1px 15px rgba(238, 238, 238, 0.6);
+    border-radius: 5px;
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-size: 14px;
+    background-color: #fff;
+    color: #000000;
+    height: 35px;
+    padding: 8px 15px;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    width: 150px;
+    &:after {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: url(#{$assetPath}/icons/chevron-down.svg) center/cover no-repeat;
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        transform: rotateZ(0deg);
+        transition: all 0.5s;
+        transform-origin: 50% 50%;
+    }
+    &:active,
+    &.active {
+        background-color: #fff;
+        color: #9E9E9E;
+    }
+    &:active::after,
+    &.active::after {
+        transform: rotateZ(180deg);
+        transition: all 0.5s;
+        transform-origin: 50% 50%;
+    }
+    &:focus {
+        outline: 2px;
+    }
+    &--box {
+        background-color: #f2f7fa;
+        border: none;
+        &.active {
+            background-color: #f2f7fa;
+        }
+    }
+    &--theme {
+        background-color: #fafbfc;
+        border: 2px solid #f3f3f3;
+        margin: 20px 0;
+        height: 65px;
+        display: flex;
+        align-items: center;
+        width: auto!important;
+        &:after {
+            top: 18px!important;
+        }
+        & + .select-options {
+            top: 85px;
+        }
+    }
+    &--border {
+        border: 1px solid #999;
+    }
+    &.margin-left-15 {
+        width: 200px;
+        & + .select-options {
+            left: 15px;
+        }
+    }
+}
+
+
+
+.select-options {
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ddd;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #fff;
+    &.active {
+        display: block;
+    }
+}
+
+.select-options li {
+    color: #424242;
+    font-size: 14px;
+    margin: 0;
+    padding: 12px 0;
+    -moz-transition: all 0.15s ease-in;
+    -o-transition: all 0.15s ease-in;
+    -webkit-transition: all 0.15s ease-in;
+    transition: all 0.15s ease-in;
+    padding-left: 15px;
+    &.select--red {
+        color: $redStrong;
+    }
+    &.select--violet {
+        color: $violetStong;
+    }
+    &.select--pink {
+        color: $pinkStrong;
+    }
+    &.select--yellow {
+        color: $yellowStrong;
+    }
+    &.select--blue {
+        color: $blueStrong;
+    }
+    &.select--green {
+        color: $greenStrong;
+    }
+}
+
+.select-options li:hover {
+    background: #eee;
+}
+
+.select-options li[rel="hide"] {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+    border-radius: 0 0 5px 0;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #9E9E9E;
+}
+
+

@@ -1,0 +1,130 @@
+@import '../assets-path';
+
+.icon {
+    background-color: #aeafcb;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    mask-size: 100% 100%;
+    transition: all .15s ease-in-out;
+    &:hover {
+      @include desktop-sm {
+          background-color: $accent;
+          &.icon--plus {
+              background-color: $white;
+          }
+      }
+    }
+    &--blue {
+        background-color: $accent!important;
+    }
+    &--sm {
+        width: 18px;
+        height: 18px;
+    }
+    &--medium-sm {
+        width: 14px;
+        height: 14px;
+    }
+    &--xsm {
+        width: 10px;
+        height: 10px;
+    }
+    &--more {
+        cursor: pointer;
+        mask-image: url(#{$assetPath}/icons/more.svg);
+    }
+    &--more-vertical {
+        cursor: pointer;
+        mask-image: url(#{$assetPath}/icons/more-vertical.svg);
+    }
+    &--clock {
+        mask-image: url(#{$assetPath}/icons/clock.svg);
+    }
+    &--bell {
+        border: none;
+        mask-image: url(#{$assetPath}/icons/bell.svg);
+    }
+    &--grid {
+        mask-image: url(#{$assetPath}/icons/grid.svg);
+    }
+    &--grid2 {
+        mask-image: url(#{$assetPath}/icons/grid2.svg);
+    }
+    &--target {
+        mask-image: url(#{$assetPath}/icons/target.svg);
+    }
+    &--calendar {
+        mask-image: url(#{$assetPath}/icons/calendar.svg);
+    }
+    &--list {
+        mask-image: url(#{$assetPath}/icons/list.svg);
+    }
+    &--list2 {
+        mask-image: url(#{$assetPath}/icons/list-2.svg);
+    }
+    &--settings {
+        mask-image: url(#{$assetPath}/icons/settings.svg);
+    }
+    &--hamburger {
+        mask-image: url(#{$assetPath}/icons/grid.svg);
+    }
+    &--plus {
+        background-color: $white;
+        mask-image: url(#{$assetPath}/icons/plus.svg);
+        width: 17px!important;
+        height: 17px!important;
+    }
+    &--filter {
+        mask-image: url(#{$assetPath}/icons/filter.svg);
+    }
+    &--edit {
+        mask-image: url(#{$assetPath}/icons/edit.svg);
+    }
+    &--chart {
+        mask-image: url(#{$assetPath}/icons/chart.svg);
+    }
+    &--attachment {
+        mask-image: url(#{$assetPath}/icons/attachment.svg);
+    }
+    &--close {
+        background-color: transparent;
+        &:hover {
+            background-color: transparent!important;
+            opacity: 1;
+        }
+        &:before,
+        &:after {
+            position: absolute;
+            left: 7px;
+            content: ' ';
+            height: 18px;
+            width: 2px;
+            background-color: #333;
+            @include mobile {
+                height: 12px;
+            }
+        }
+        &:before {
+            transform: rotate(45deg);
+        }
+        &:after {
+            transform: rotate(-45deg);
+        }
+    }
+    &--tasks {
+        mask-image: url(#{$assetPath}/icons/tasks.svg);
+    }
+    &--info {
+        align-items: center;
+        display: flex;
+        mask-image: url(#{$assetPath}/icons/info-icon.svg);
+        width: 20px;
+        height: 20px;
+    }
+    &--mr-3 {
+        margin-right: 3px;
+    }
+}

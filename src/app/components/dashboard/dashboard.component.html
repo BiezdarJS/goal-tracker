@@ -1,0 +1,413 @@
+<section class="dashboard__top">
+  <div class="box box--28 box-summary">
+      <div class="hstack justify-content-between mb-20">
+          <h3 class="headline d-flex m-0">
+              Summary
+          </h3>
+          <button class="btn btn--no-style btn--sm btn-more-js">
+              <i class="icon icon--more"></i>
+          </button>
+      </div>
+      <ul class="summary list">
+          <li class="summary__item">
+              <i class="summary__icon summary__icon--goals"></i>
+              <p class="summary__number">
+                  <span style="display: block;" class="subhead">
+                      16
+                  </span>
+                  <span class="smaller">
+                      Goals
+                  </span>
+              </p>
+              <div class="summary__right">
+                  <p class="summary__txt font-additional">
+                      3 completed
+                  </p>
+                  <a href="#" class="summary__more"></a>
+              </div>
+          </li>
+          <li class="summary__item">
+              <i class="summary__icon summary__icon--tasks"></i>
+              <p class="summary__number">
+                  <span style="display: block;" class="subhead">
+                      8
+                  </span>
+                  <span class="smaller">
+                      Tasks
+                  </span>
+              </p>
+              <div class="summary__right">
+                  <p class="summary__txt font-additional">
+                      6 subtasks
+                  </p>
+                  <a href="#" class="summary__more"></a>
+              </div>
+          </li>
+          <li class="summary__item">
+              <i class="summary__icon summary__icon--loop"></i>
+              <p class="summary__number">
+                  <span style="display: block;" class="subhead">
+                      10
+                  </span>
+                  <span class="smaller">
+                      Habits
+                  </span>
+              </p>
+              <div class="summary__right">
+                  <p class="summary__txt font-additional">
+                      2 new habits
+                  </p>
+                  <a href="#" class="summary__more"></a>
+              </div>
+          </li>
+      </ul>
+  </div>
+  <div class="box box--44">
+      <h3 class="headline d-flex">
+          Balance of goals
+      </h3>
+      <div class="balance-of-goals">
+          <div class="chart-wrapper">
+              <canvas class="balanceOfGoalsChart"></canvas>
+          </div>
+          <ul class="balance-list list">
+              <li class="balance-list__item">
+                  <i class="balance-list__dot balance-list__dot--family"></i>
+                  <p class="balance-list__txt font-additional">
+                      Family/communication 1
+                  </p>
+              </li>
+              <li class="balance-list__item">
+                  <i class="balance-list__dot balance-list__dot--money"></i>
+                  <p class="balance-list__txt font-additional">
+                      Money 2
+                  </p>
+              </li>
+              <li class="balance-list__item">
+                  <i class="balance-list__dot balance-list__dot--career"></i>
+                  <p class="balance-list__txt font-additional">
+                      Work/career 3
+                  </p>
+              </li>
+              <li class="balance-list__item">
+                  <i class="balance-list__dot balance-list__dot--health"></i>
+                  <p class="balance-list__txt font-additional">
+                      Health and sports 4
+                  </p>
+              </li>
+              <li class="balance-list__item">
+                  <i class="balance-list__dot balance-list__dot--self"></i>
+                  <p class="balance-list__txt font-additional">
+                      Self-knowledge 4
+                  </p>
+              </li>
+              <li class="balance-list__item">
+                  <i class="balance-list__dot balance-list__dot--inspirations"></i>
+                  <p class="balance-list__txt font-additional">
+                      Travels 2
+                  </p>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <div class="box box--28 d-flex justify-content-center align-items-center">
+      <div id="calendar-sm"></div>
+  </div>
+</section>
+<section class="dashboard__bottom">
+  <div class="box box--progress-towards-the-goal">
+      <h3 class="headline d-flex justify-content-center">
+          Progress towards the goal
+      </h3>
+      <ul class="progress-towards-the-goal list">
+          <li class="progress-towards-the-goal-item">
+              <div class="progress-towards-the-goal-item__left">
+                  <canvas id="myChart1" class="circularChart"></canvas>
+              </div>
+              <div class="progress-towards-the-goal-item__right">
+                  <p class="progress-towards-the-goal-item__status progress-towards-the-goal-item__status--inprogress">
+                      In progress
+                  </p>
+                  <p class="smaller">
+                      UI/UX Design Workshop
+                  </p>
+                  <p class="font-additional">
+                      8 of 12 modules
+                  </p>
+              </div>
+          </li>
+          <li class="progress-towards-the-goal-item">
+              <div class="progress-towards-the-goal-item__left">
+                  <canvas id="myChart2" class="circularChart"></canvas>
+              </div>
+              <div class="progress-towards-the-goal-item__right">
+                  <p class="progress-towards-the-goal-item__status progress-towards-the-goal-item__status--inprogress">
+                      In progress
+                  </p>
+                  <p class="smaller">
+                      Kazan half marathon
+                  </p>
+                  <p class="font-additional">
+                      8 of 12 modules
+                  </p>
+              </div>
+          </li>
+          <li class="progress-towards-the-goal-item">
+              <div class="progress-towards-the-goal-item__left">
+                  <canvas id="myChart3" class="circularChart"></canvas>
+              </div>
+              <div class="progress-towards-the-goal-item__right">
+                  <p class="progress-towards-the-goal-item__status progress-towards-the-goal-item__status--paused">
+                      Paused
+                  </p>
+                  <p class="smaller">
+                      TOEFL Exam
+                  </p>
+                  <p class="font-additional">
+                      8 of 12 modules
+                  </p>
+              </div>
+          </li>
+          <li class="progress-towards-the-goal-item">
+              <div class="progress-towards-the-goal-item__left">
+                  <canvas id="myChart4" class="circularChart"></canvas>
+              </div>
+              <div class="progress-towards-the-goal-item__right">
+                  <p class="progress-towards-the-goal-item__status progress-towards-the-goal-item__status--inprogress">
+                      In progress
+                  </p>
+                  <p class="smaller">
+                      60 books per year
+                  </p>
+                  <p class="font-additional">
+                      8 of 12 modules
+                  </p>
+              </div>
+          </li>
+      </ul>
+  </div>
+  <div class="portion-of-motivation box box--portion-of-motivation">
+      <h3 class="headline d-flex m-0">
+          A portion of motivation :)
+      </h3>
+      <p>
+          Obstacjes are those scary things that you see when
+          you look away from the goal.
+      </p>
+  </div>
+  <div class="box box--my-activity">
+      <div class="hstack justify-content-between mb-20">
+          <h3 class="headline d-flex m-0">
+              My activity
+          </h3>
+          <select class="select--dashboard select-my-activity">
+              <option value="week">Week</option>
+              <option value="month">Month</option>
+          </select>
+      </div>
+      <div class="chart-wrapper">
+          <canvas id="myChart5" class="myActivityChart"></canvas>
+      </div>
+  </div>
+  <div class="box box--health-and-sports">
+      <div class="hstack justify-content-between mb-20">
+          <h3 class="headline d-flex m-0">
+              Health and sports
+          </h3>
+          <select class="select--dashboard select-health-and-sports">
+              <option value="week">Week</option>
+              <option value="month">Month</option>
+          </select>
+      </div>
+      <div class="chart-wrapper">
+          <canvas id="myChart6" class="healthAndSportsChart"></canvas>
+      </div>
+
+  </div>
+  <div class="box box--today-tasks">
+      <div class="hstack justify-content-between mb-30">
+          <h3 class="headline d-flex m-0">
+              Today Tasks
+          </h3>
+          <div class="hstack">
+              <button class="btn btn--sm btn--green mr-15 modal-trigger">
+                  <i class="icon icon--plus"></i>
+              </button>
+              <button class="btn btn--no-style btn--sm btn-more-js">
+                  <i class="icon icon--more"></i>
+              </button>
+          </div>
+
+      </div>
+      <ul class="task-list list">
+          <li class="task-list__item task-list__item--styling">
+              <div class="task-item task-item--styling task-item--health-and-sports task-item-1" draggable="true">
+                  <div class="task-item__additional-info">
+                      <span></span>
+                      <div class="hstack align-items-center">
+                          <i class="icon icon--xsm icon--clock"></i>
+                          <p class="ms-5">4 times a week</p>
+                          <button class="btn btn--sm btn--no-style">
+                              <i class="icon icon--medium-sm icon--edit"></i>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="task-item__main">
+                      <label class="checkbox checkbox--green">
+                          <input class="checkbox__input" type="checkbox" name="">
+                          <span class="checkbox__checkmark"></span>
+                      </label>
+                      <div class="task-item__content">
+                          <h4 class="task-item__name subhead">
+                              Warm up and run
+                          </h4>
+                          <p class="task-item__descr">
+                              Distance 5km time 20min
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="task-list__item task-list__item--styling">
+              <div class="task-item task-item--styling task-item--self-knowledge task-item-2" draggable="true">
+                  <div class="task-item__additional-info">
+                      <span></span>
+                      <div class="hstack align-items-center">
+                          <i class="icon icon--xsm icon--clock"></i>
+                          <p class="ms-5">Deadline until July 30</p>
+                          <button class="btn btn--sm btn--no-style">
+                              <i class="icon icon--medium-sm icon--edit"></i>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="task-item__main">
+                      <label class="checkbox checkbox--green">
+                          <input class="checkbox__input" type="checkbox" name="">
+                          <span class="checkbox__checkmark"></span>
+                      </label>
+                      <div class="task-item__content">
+                          <h4 class="task-item__name subhead">
+                              Complete task 2 week
+                          </h4>
+                          <p class="task-item__descr">
+                              Visual Elements of User Interface Design
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="task-list__item task-list__item--styling">
+              <div class="task-item task-item--styling task-item--career" draggable="true">
+                  <div class="task-item__additional-info">
+                      <span></span>
+                      <div class="hstack align-items-center">
+                          <i class="icon icon--xsm icon--clock"></i>
+                          <p class="ms-5">Everyday</p>
+                          <button class="btn btn--sm btn--no-style">
+                              <i class="icon icon--medium-sm icon--edit"></i>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="task-item__main">
+                      <label class="checkbox checkbox--green">
+                          <input class="checkbox__input" type="checkbox" name="">
+                          <span class="checkbox__checkmark"></span>
+                      </label>
+                      <div class="task-item__content">
+                          <h4 class="task-item__name subhead">
+                              Marathon day 8 listening
+                          </h4>
+                          <p class="task-item__descr">
+                              Listen to a podcaset BBC 6 Minute Learning
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="task-list__item task-list__item--styling">
+              <div class="task-item task-item--styling task-item--health-and-sports" draggable="true">
+                  <div class="task-item__additional-info">
+                      <span></span>
+                      <div class="hstack align-items-center">
+                          <i class="icon icon--xsm icon--clock"></i>
+                          <p class="ms-5">High priority</p>
+                          <button class="btn btn--sm btn--no-style">
+                              <i class="icon icon--medium-sm icon--edit"></i>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="task-item__main">
+                      <label class="checkbox checkbox--green">
+                          <input class="checkbox__input" type="checkbox" name="">
+                          <span class="checkbox__checkmark"></span>
+                      </label>
+                      <div class="task-item__content">
+                          <h4 class="task-item__name subhead">
+                              Make a case for module 8
+                          </h4>
+                          <p class="task-item__descr">
+                              UI / UX design workshop
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="task-list__item task-list__item--styling">
+              <div class="task-item task-item--styling task-item--health-and-sports" draggable="true">
+                  <div class="task-item__additional-info">
+                      <span></span>
+                      <div class="hstack align-items-center">
+                          <i class="icon icon--xsm icon--clock"></i>
+                          <p class="ms-5">High priority</p>
+                          <button class="btn btn--sm btn--no-style">
+                              <i class="icon icon--medium-sm icon--edit"></i>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="task-item__main">
+                      <label class="checkbox checkbox--green">
+                          <input class="checkbox__input" type="checkbox" name="">
+                          <span class="checkbox__checkmark"></span>
+                      </label>
+                      <div class="task-item__content">
+                          <h4 class="task-item__name subhead">
+                              Make a case for module 8
+                          </h4>
+                          <p class="task-item__descr">
+                              UI / UX design workshop
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="task-list__item task-list__item--styling">
+              <div class="task-item task-item--styling task-item--health-and-sports" draggable="true">
+                  <div class="task-item__additional-info">
+                      <span></span>
+                      <div class="hstack align-items-center">
+                          <i class="icon icon--xsm icon--clock"></i>
+                          <p class="ms-5">High priority</p>
+                          <button class="btn btn--sm btn--no-style">
+                              <i class="icon icon--medium-sm icon--edit"></i>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="task-item__main">
+                      <label class="checkbox checkbox--green">
+                          <input class="checkbox__input" type="checkbox" name="">
+                          <span class="checkbox__checkmark"></span>
+                      </label>
+                      <div class="task-item__content">
+                          <h4 class="task-item__name subhead">
+                              Make a case for module 8
+                          </h4>
+                          <p class="task-item__descr">
+                              UI / UX design workshop
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </li>
+      </ul>
+  </div>
+</section>

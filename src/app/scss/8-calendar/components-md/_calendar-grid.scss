@@ -1,0 +1,125 @@
+.calendar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  grid-area: main;
+  width: 100%;
+  &--day {
+    gap: 30px;
+  }
+  &--week {
+    gap: 15px;
+  }
+//   @include mobile {
+//       display: block;
+//       padding: 0 30px;
+//   }
+  @include desktop-sm {
+      padding: 45px 25px 0;
+  }
+  @include desktop-md {
+      padding: 45px 45px 0;
+  }
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    li {
+        text-align: center;
+    }
+  }
+  &__column {
+      &--day {
+        width: calc(33.333% - 20px);
+      }
+      &--week {
+        width: calc(14.29% - 12.95px)
+      }
+      @include mobile {
+          width: auto;
+          max-width: 400px;
+          margin: 0 auto;
+      }
+      .title {
+        @media (min-width: 551px) and (max-width: 650px) {
+            font-size: 20px;
+        }
+        @media (max-width: 550px) {
+            display: flex;
+            flex-direction: column;
+            font-size: 16px;
+            line-height: 20px;
+        }
+        span {
+            @media (max-width: 550px) {
+                display: block;
+                order: 2;
+            }
+        }
+      }
+  }
+  &__item {
+      background-color: $white;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      margin: 20px 0;
+      padding: 45px;
+      
+  }
+  &__imgwrap {
+      position: relative;
+      .label {
+          position: absolute;
+          top: -20px;
+          left: 0px;
+          z-index: 1;
+      }
+  }
+  &__img {
+      box-shadow: 0 0 10px #ddd;
+      border-radius: 14px;
+      display: block;
+      margin: 0 auto;
+      opacity: 0.85;
+      width: 80%;
+      object-fit: cover;
+      @include mobile {
+          height: 150px;
+      }
+      @media (max-width: 400px) {
+          height: 105px;
+      }
+      @include desktop-sm {
+          height: 125px;
+      }
+      @media (min-width: 1500px) and (max-width: 1799px) {
+          height: 150px;
+      }
+      @media (min-width: 1800px) {
+          height: 200px;;
+      }
+  }
+  &__progress {
+      display: block;
+      margin: 15px auto 0;
+      width: 80%;
+      height: auto;
+  }
+  &__headline {
+      margin-top: 30px;
+  }
+  .days-grid {
+    border-top: none;
+    margin: 25px 0 0;
+    width: 100%;
+  }
+  .calendar-day {
+    border: 1px solid #ddd;
+    &:hover {
+        background-color: initial;
+        color: initial;
+    }
+    @media (min-width: 992px) {
+        height: 115px;
+    }
+  }
+}

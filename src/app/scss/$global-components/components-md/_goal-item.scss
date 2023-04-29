@@ -1,0 +1,117 @@
+// global
+.goal-item {
+	.font-body {
+		@media (max-width: 600px) {
+			font-size: 14px;
+			text-align: center;
+		}
+	}
+}
+
+.goals-grid--box {
+		.goal-item {
+				background-color: $white;
+				border: 1px solid #ddd;
+				border-radius: 14px;
+				margin: 20px 0;
+				padding: 45px;
+				@include mobile {
+						padding: 45px 15px;
+				}
+				&__img-wrap {
+					position: relative;
+						.label {
+								position: absolute;
+								top: -20px;
+								left: 0px;
+								z-index: 1;
+						}
+				}
+				&__img {
+					box-shadow: 0 0 10px #ddd;
+					border-radius: 14px;
+					display: block;
+					margin: 0 auto;
+					opacity: 0.85;
+					width: 80%;
+					object-fit: cover;
+					@include mobile {
+							height: 150px;
+					}
+					@media (max-width: 400px) {
+							height: 105px;
+					}
+					@include desktop-sm {
+							height: 125px;
+					}
+					@media (min-width: 1500px) and (max-width: 1799px) {
+							height: 150px;
+					}
+					@media (min-width: 1800px) {
+							height: 200px;;
+					}
+				}
+				&__progress {
+					display: block;
+					margin: 15px auto 0;
+					width: 80%;
+					height: auto;
+				}
+				&-misc {
+					margin: 30px auto 20px;
+					text-align: center;
+					&__item {
+							display: inline-block;
+							margin-right: 20px;
+							&:nth-child(3) {
+									margin-right: 0;
+							}
+					}
+			}
+		}
+}
+
+.goals-grid--list {
+		.goal-item {
+			background-color: #ffffff;
+			border: 1px solid #ddd;
+			border-radius: 14px;
+			margin: 20px 0;
+			padding: 45px;
+			&--career {
+				border-left: 8px solid #8eefca;
+			}
+			&--health-and-sports {
+				border-left: 8px solid #fde38a;
+			}
+			&--knowledge {
+				border-left: 8px solid #ffa38f;
+			}
+			&__img-wrap {
+					display: none;
+			}
+			&__name {
+				color: #455964;
+				font-size: 22px;
+				font-weight: 500;
+				letter-spacing: 1px;
+				line-height: 25px;
+				margin: 0;
+			}
+			&__hr {
+				height: 1px;
+				background-color: #000;
+				width: 50px;
+			}
+			&__deadline {
+				color: #6e7a90;
+				font-size: 12px;
+				line-height: 18px;
+				margin: 0 0 0 15px;
+			}
+			.btn {
+				position: relative;
+				right: -25px;
+			}
+		}
+}

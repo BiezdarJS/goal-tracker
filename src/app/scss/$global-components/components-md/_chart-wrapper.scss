@@ -1,0 +1,12 @@
+.chart-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	position: relative;
+	width: auto;
+	height: 20vw;
+	min-height: 200px;
+	@include desktop-sm {
+		height: calc(100% - 54px);
+	}
+}

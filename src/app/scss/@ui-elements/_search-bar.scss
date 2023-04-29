@@ -1,0 +1,26 @@
+@import '../assets-path';
+
+.search-bar {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    &__input {
+        border: none;
+        border-radius: 16px;
+        box-shadow: $box-shadow;
+        padding: 15px 40px 15px 15px;
+        outline: none;
+        width: inherit;
+    }
+    &:after {
+        background: url(#{$assetPath}/icons/search.svg) center/cover no-repeat;
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 13px;
+        right: 15px;
+    }
+}

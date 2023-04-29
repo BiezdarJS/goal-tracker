@@ -1,0 +1,115 @@
+@import './colors';
+
+
+h1,h2,h3,h4,h5,h6 {
+    margin: 0 0 20px;
+}
+
+.title {
+    color: #3e4756;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 29px;
+    margin: 0;
+    &--login {
+        color: #19232f;
+        font-size: 35px;
+        font-weight: 700;
+        letter-spacing: .5px;
+        margin: 0 0 20px;
+    }
+}
+
+.headline {
+    color: $mainText;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 23px;
+    &--minheight {
+        min-height: 65px;
+    }
+    &--lg {
+        font-size: 25px;
+        font-weight: 600;
+    }
+}
+
+
+
+.heading {
+    color: $heading;
+    margin: 0;
+}
+
+.subhead {
+    color: $mainText;
+    font-weight: 900;
+    @include mobile {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    @include desktop-sm {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    @include desktop-md {
+        font-size: 16px;
+        line-height: 25px;
+    }
+}
+
+.smaller {
+    color: $secondText;
+    font-weight: 500;
+    @include mobile {
+        font-size: 14px;
+        line-height: 17px;
+    }
+    @include desktop-sm {
+        font-size: 14px;
+        line-height: 17px;
+    }
+    @include desktop-md {
+        font-size: 16px;
+        line-height: 21px;
+    }
+}
+
+.font-body {
+    color: $secondText;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+    @include desktop-sm {
+        font-size: 14px;
+    }
+    @include desktop-md {
+        font-size: 16px;
+    }
+}
+.font-description {
+    color: $secondText;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+}
+
+.font-additional {
+    color: $secondText;
+    font-weight: 400;
+    @include desktop-sm {
+        font-size: 12px;
+        line-height: 12px;
+    }
+    @include desktop-md {
+        font-size: 14px;
+        line-height: 16px;
+    }
+}
+.font-footnote {
+    color: #ADB2CD;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+}
+

@@ -1,0 +1,15 @@
+@import '../assets-path';
+
+.login {
+    background: url(#{$assetPath}/login-bg-4.webp) center bottom/cover no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+
+.login input,
+.login textarea {
+    &::placeholder {
+        color: #aec0ff;
+    }
+}

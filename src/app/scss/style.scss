@@ -1,0 +1,157 @@
+/*
+*
+*  Project Name: Goal and Time Management
+*  Version: 1.0
+*  Author: Piotr Deja
+*
+*/
+
+
+
+// =============================================================================
+// CSS RESET
+// =============================================================================
+@import 'css-reset';
+
+
+// =============================================================================
+// SETTINGS
+// =============================================================================
+@import 'functions';
+@import 'assets-path';
+@import 'mixins';
+@import 'fonts';
+@import 'colors';
+
+
+
+// =============================================================================
+// COMMON STYLES TO ALL PROJECTS
+// =============================================================================
+@import 'utils';
+
+// =============================================================================
+// THEME
+// =============================================================================
+@import 'theme';
+
+
+// =============================================================================
+// @ UI ELEMENTS
+// =============================================================================
+@import '@ui-elements/button';
+@import '@ui-elements/checkbox';
+@import '@ui-elements/check-item';
+@import '@ui-elements/select-2';
+@import '@ui-elements/forms';
+@import '@ui-elements/icons';
+@import '@ui-elements/item-switcher';
+@import '@ui-elements/labels';
+@import '@ui-elements/scrollbar';
+@import '@ui-elements/search-bar';
+@import '@ui-elements/tooltip';
+@import '@ui-elements/switcher-light-dark';
+
+
+// =============================================================================
+// $ GLOBAL COMPONENTS
+// =============================================================================
+
+//sm
+//md
+@import '$global-components/components-md/calendar-day';
+@import '$global-components/components-md/task-item';
+@import '$global-components/components-md/goal-item';
+@import '$global-components/components-md/actions-nav';
+@import '$global-components/components-md/box';
+@import '$global-components/components-md/chart-wrapper';
+@import '$global-components/components-md/modal';
+@import '$global-components/components-md/social-list';
+@import '$global-components/components-md/tab-list';
+@import '$global-components/components-md/task-list';
+@import '$global-components/components-md/calendar';
+@import '$global-components/components-md/floating-nav';
+
+
+// =============================================================================
+// 1 - GOAL AND TIME MANAGEMENT
+// =============================================================================
+@import '1-goal-and-time-management/_goal-and-time-management';
+
+
+// =============================================================================
+// 2 - HEADER
+// =============================================================================
+@import '2-header/header';
+// components-sm
+@import '2-header/components-sm/user';
+
+
+// =============================================================================
+// 3 - SIDENAV
+// =============================================================================
+@import '3-sidenav/sidenav';
+// components sm
+@import '3-sidenav/components-sm/site-logo';
+@import '3-sidenav/components-sm/sidenav-mobile-open';
+@import '3-sidenav/components-sm/sidenav-mobile-close';
+// components md
+@import '3-sidenav/components-md/menu';
+@import '3-sidenav/components-md/nav-bar';
+
+
+// =============================================================================
+// 4 - FOOTER
+// =============================================================================
+@import '4-footer/footer';
+
+
+
+// =============================================================================
+// 5 - LOGIN
+// =============================================================================
+@import '5-login/login';
+// components md
+@import '5-login/components-md/login-nav';
+@import '5-login/components-md/login-box';
+
+
+// =============================================================================
+// 6 - WELCOME DASHBOARD
+// =============================================================================
+@import '6-dashboard/dashboard';
+// components md
+@import '6-dashboard/components-md/balance-list';
+@import '6-dashboard/components-md/balance-of-goals';
+@import '6-dashboard/components-md/summary';
+@import '6-dashboard/components-md/progress-towards-the-goal';
+@import '6-dashboard/components-md/portion-of-motivation';
+@import '6-dashboard/components-md/my-activity';
+// components sm
+
+
+// =============================================================================
+// 7 - GOALS LIST
+// =============================================================================
+@import '7-goals-list/goals-grid';
+// components md
+@import '7-goals-list/components-md/new-goal';
+@import '7-goals-list/components-md/progress-bar';
+@import '7-goals-list/components-md/priority-list';
+@import '7-goals-list/components-md/goal-details';
+
+
+
+// =============================================================================
+// 8 - CALENDAR
+// =============================================================================
+
+// components md
+@import '8-calendar/components-md/calendar-type';
+@import '8-calendar/components-md/calendar-grid';
+
+
+// =============================================================================
+// 9 - SETTINGS
+// =============================================================================
+@import '9-settings-page/settings';

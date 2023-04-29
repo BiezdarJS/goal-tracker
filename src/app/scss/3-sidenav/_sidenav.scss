@@ -1,0 +1,48 @@
+.sidenav {
+    box-shadow: 5px 0 13px -14px #999;
+    position: relative;
+    z-index: 3;
+    @include desktop-sm {
+        grid-area: sidenav;
+        padding: 30px 0 0;
+    }
+    @include desktop-md {
+        padding: 45px 0 0;
+    }
+    @include mobile {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform: translate3d(0, 0, 0);
+        
+        transition: transform 0.35s ease-in-out;
+    }
+    &.hidden {
+        @include mobile {
+            transform: translate3d(0, 100%, 0);
+        }
+    }
+    .icon--close {
+        @include desktop-sm {
+            display: none;
+        }
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        right: 10px;
+        width: 16px;
+        height: 16px;
+        &:before,
+        &:after {
+            background-color: $white;
+        }
+        @media (max-width: 350px) {
+            right: 3px;
+            top: 3px;
+        }
+    }
+}
