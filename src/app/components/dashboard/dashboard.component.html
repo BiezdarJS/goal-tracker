@@ -67,7 +67,7 @@
           Balance of goals
       </h3>
       <div class="balance-of-goals">
-          <ng-content select="[balanceOfGoalsChart]"></ng-content>
+          <gt-balance-of-goals-chart balanceOfGoalsChart></gt-balance-of-goals-chart>
           <ul class="balance-list list">
               <li class="balance-list__item">
                   <i class="balance-list__dot balance-list__dot--family"></i>
@@ -109,17 +109,21 @@
       </div>
   </div>
   <div class="box box--28 d-flex justify-content-center align-items-center">
-      <div id="calendar-sm"></div>
+    <gt-calendar-dashboard calendarDashboard></gt-calendar-dashboard>
   </div>
 </section>
 <section class="dashboard__bottom">
   <div class="box box--progress-towards-the-goal">
-      <h3 class="headline d-flex justify-content-center">
+      <h3 class="headline d-flex">
           Progress towards the goal
       </h3>
       <ul class="progress-towards-the-goal list">
           <li class="progress-towards-the-goal-item">
-              <ng-content select="[progressTowardsTheGoalChart1]"></ng-content>
+              <gt-progress-towards-the-goal-chart progressTowardsTheGoalChart1
+              [progressTowardsTheGoalConfig]="progressTowardsTheGoalOptions"
+              [progressTowardsTheGoalData]="progressTowardsTheGoalData1"
+              [progressTowardsTheGoalType]="'doughnut'">
+              </gt-progress-towards-the-goal-chart>
               <div class="progress-towards-the-goal-item__right">
                   <p class="progress-towards-the-goal-item__status progress-towards-the-goal-item__status--inprogress">
                       In progress
@@ -133,7 +137,11 @@
               </div>
           </li>
           <li class="progress-towards-the-goal-item">
-            <ng-content select="[progressTowardsTheGoalChart2]"></ng-content>
+            <gt-progress-towards-the-goal-chart progressTowardsTheGoalChart2
+            [progressTowardsTheGoalConfig]="progressTowardsTheGoalOptions"
+            [progressTowardsTheGoalData]="progressTowardsTheGoalData2"
+            [progressTowardsTheGoalType]="'doughnut'">
+            </gt-progress-towards-the-goal-chart>
               <div class="progress-towards-the-goal-item__right">
                   <p class="progress-towards-the-goal-item__status progress-towards-the-goal-item__status--inprogress">
                       In progress
@@ -147,7 +155,11 @@
               </div>
           </li>
           <li class="progress-towards-the-goal-item">
-            <ng-content select="[progressTowardsTheGoalChart3]"></ng-content>
+            <gt-progress-towards-the-goal-chart progressTowardsTheGoalChart3
+            [progressTowardsTheGoalConfig]="progressTowardsTheGoalOptions"
+            [progressTowardsTheGoalData]="progressTowardsTheGoalData3"
+            [progressTowardsTheGoalType]="'doughnut'">
+            </gt-progress-towards-the-goal-chart>
               <div class="progress-towards-the-goal-item__right">
                   <p class="progress-towards-the-goal-item__status progress-towards-the-goal-item__status--paused">
                       Paused
@@ -161,7 +173,11 @@
               </div>
           </li>
           <li class="progress-towards-the-goal-item">
-            <ng-content select="[progressTowardsTheGoalChart4]"></ng-content>
+            <gt-progress-towards-the-goal-chart progressTowardsTheGoalChart4
+            [progressTowardsTheGoalConfig]="progressTowardsTheGoalOptions"
+            [progressTowardsTheGoalData]="progressTowardsTheGoalData4"
+            [progressTowardsTheGoalType]="'doughnut'">
+            </gt-progress-towards-the-goal-chart>
               <div class="progress-towards-the-goal-item__right">
                   <p class="progress-towards-the-goal-item__status progress-towards-the-goal-item__status--inprogress">
                       In progress
@@ -195,7 +211,7 @@
               <option value="month">Month</option>
           </select>
       </div>
-      <ng-content select="[myActivityChart]"></ng-content>
+      <gt-my-activity-chart myActivityChart></gt-my-activity-chart>
   </div>
   <div class="box box--health-and-sports">
       <div class="hstack justify-content-between mb-20">
@@ -207,7 +223,7 @@
               <option value="month">Month</option>
           </select>
       </div>
-      <ng-content select="[healthAndSportsChart]"></ng-content>
+      <gt-health-and-sports-chart healthAndSportsChart></gt-health-and-sports-chart>
 
   </div>
   <div class="box box--today-tasks">

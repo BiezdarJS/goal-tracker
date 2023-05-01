@@ -33,7 +33,8 @@ export class HealthAndSportsChartComponent {
   };
 
   public healthAndSportsOptions: ChartConfiguration<'bar'>['options'] = {
-
+    responsive: true,
+    maintainAspectRatio: true,
     scales: {
       x: {
         beginAtZero: true,
@@ -50,8 +51,6 @@ export class HealthAndSportsChartComponent {
         }
       }
     },
-    responsive: true,
-    maintainAspectRatio: true,
     events: [],
     plugins: {
       legend: {

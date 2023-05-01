@@ -1,3 +1,7 @@
 # goal-tracker
 
-Start project by: npm i
+
+Currently in development.
+
+To install project -> npm i
+To start project after install -> ng serve -o

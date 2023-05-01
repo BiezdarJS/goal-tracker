@@ -46,7 +46,6 @@ export function textInCenterWithLineBreak(chart:any) {
   // jak zrobić tekst w 2 liniach ?
   var lineHeight = 30;
   let value = chart.data.labels;
-  console.log(ctx.measureText(value).width);
 
   // Define text position
   var textPosition = {

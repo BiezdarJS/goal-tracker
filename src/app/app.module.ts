@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgChartsModule } from 'ng2-charts';
+import { AngularDayjsModule } from 'angular-dayjs';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/_global/header/header.component';
 import { SidenavComponent } from './components/_global/sidenav/sidenav.component';
@@ -14,6 +15,12 @@ import { BalanceOfGoalsChartComponent } from './components/charts/balance-of-goa
 import { MyActivityChartComponent } from './components/charts/my-activity-chart/my-activity-chart.component';
 import { ProgressTowardsTheGoalChartComponent } from './components/charts/progress-towards-the-goal-chart/progress-towards-the-goal-chart.component';
 import { HealthAndSportsChartComponent } from './components/charts/health-and-sports-chart/health-and-sports-chart.component';
+import { CalendarDashboardComponent } from './components/calendars/calendar-dashboard/calendar-dashboard.component';
+import { ActionsNavCalendarComponent } from './components/calendars/actions-nav-calendar/actions-nav-calendar.component';
+import { CalendarTypeWeekComponent } from './components/calendars/calendar-type-week/calendar-type-week.component';
+import { CalendarTypeMonthComponent } from './components/calendars/calendar-type-month/calendar-type-month.component';
+import { CalendarTypeDayComponent } from './components/calendars/calendar-type-day/calendar-type-day.component';
+import { CalendarsMainComponent } from './components/calendars/calendars-main/calendars-main.component';
 
 @NgModule({
   declarations: [
@@ -27,12 +34,19 @@ import { HealthAndSportsChartComponent } from './components/charts/health-and-sp
     BalanceOfGoalsChartComponent,
     MyActivityChartComponent,
     ProgressTowardsTheGoalChartComponent,
-    HealthAndSportsChartComponent
+    HealthAndSportsChartComponent,
+    CalendarDashboardComponent,
+    ActionsNavCalendarComponent,
+    CalendarTypeWeekComponent,
+    CalendarTypeMonthComponent,
+    CalendarTypeDayComponent,
+    CalendarsMainComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgChartsModule
+    NgChartsModule,
+    AngularDayjsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

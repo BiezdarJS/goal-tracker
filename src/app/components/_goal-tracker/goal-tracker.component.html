@@ -5,37 +5,8 @@
 <gt-sidenav></gt-sidenav>
 
 <!-- MAIN -->
-<gt-dashboard>
-  <gt-balance-of-goals-chart balanceOfGoalsChart></gt-balance-of-goals-chart>
-  <gt-my-activity-chart myActivityChart></gt-my-activity-chart>
+<router-outlet></router-outlet>
 
-  <gt-progress-towards-the-goal-chart progressTowardsTheGoalChart1
-  [progressTowardsTheGoalConfig]="progressTowardsTheGoalOptions"
-  [progressTowardsTheGoalData]="progressTowardsTheGoalData1"
-  [progressTowardsTheGoalType]="'doughnut'">
-  </gt-progress-towards-the-goal-chart>
-
-  <gt-progress-towards-the-goal-chart progressTowardsTheGoalChart2
-  [progressTowardsTheGoalConfig]="progressTowardsTheGoalOptions"
-  [progressTowardsTheGoalData]="progressTowardsTheGoalData2"
-  [progressTowardsTheGoalType]="'doughnut'">
-  </gt-progress-towards-the-goal-chart>
-
-  <gt-progress-towards-the-goal-chart progressTowardsTheGoalChart3
-  [progressTowardsTheGoalConfig]="progressTowardsTheGoalOptions"
-  [progressTowardsTheGoalData]="progressTowardsTheGoalData3"
-  [progressTowardsTheGoalType]="'doughnut'">
-  </gt-progress-towards-the-goal-chart>
-
-  <gt-progress-towards-the-goal-chart progressTowardsTheGoalChart4
-  [progressTowardsTheGoalConfig]="progressTowardsTheGoalOptions"
-  [progressTowardsTheGoalData]="progressTowardsTheGoalData4"
-  [progressTowardsTheGoalType]="'doughnut'">
-  </gt-progress-towards-the-goal-chart>
-
-  <gt-health-and-sports-chart healthAndSportsChart></gt-health-and-sports-chart>
-
-</gt-dashboard>
 
 <!-- FOOTER -->
 <gt-footer></gt-footer>
