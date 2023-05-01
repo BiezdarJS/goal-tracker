@@ -1,0 +1,16 @@
+<div class="calendar-month">
+  <section class="calendar-month-header">
+    <div class="calendar-month-header-selected-month">
+      {{ headerMonthAndYear  }}
+    </div>
+    <section class="calendar-month-header-selectors">
+      <span (click)="prevMonthSelector()">&lt;</span> <span (click)="presentMonthSelector()">Today</span> <span (click)="nextMontSelector()">&gt;</span>
+    </section>
+  </section>
+  <ol class="day-of-week">
+      <li *ngFor="let weekday of WEEKDAYS">
+        {{ weekday }}
+      </li>
+  </ol>
+  <ol class="days-grid" #calendarDaysElement></ol>
+</div>
