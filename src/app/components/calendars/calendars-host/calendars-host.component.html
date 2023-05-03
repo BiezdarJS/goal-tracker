@@ -1,0 +1,14 @@
+<gt-actions-nav-calendar></gt-actions-nav-calendar>
+
+
+<ng-container *ngIf="this.currentCalendarType === 'day'">
+  <gt-calendar-type-day></gt-calendar-type-day>
+</ng-container>
+
+<ng-container *ngIf="this.currentCalendarType === 'week'">
+  <gt-calendar-type-week></gt-calendar-type-week>
+</ng-container>
+
+<ng-container *ngIf="this.currentCalendarType === 'month'">
+  <gt-calendar-type-month></gt-calendar-type-month>
+</ng-container>
