@@ -13,7 +13,6 @@ dayjs.extend(weekOfYear);
 @Component({
   selector: 'gt-calendar-type-day',
   templateUrl: './calendar-type-day.component.html',
-  host: { 'class': 'calendar-grid calendar-grid--day'},
   styleUrls: ['./calendar-type-day.component.scss']
 })
 export class CalendarTypeDayComponent implements AfterContentChecked, AfterViewChecked, OnChanges, DoCheck {
