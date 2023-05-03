@@ -1,8 +1,13 @@
-import { AfterViewInit, Component, ElementRef } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, OnChanges } from '@angular/core';
+// Interfaces
+import { ICalendar } from '../calendar.model';
+// Services
+import { CalendarService } from 'src/app/services/calendar.service';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
@@ -13,34 +18,42 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid calendar-grid--week'},
   styleUrls: ['./calendar-type-week.component.scss']
 })
-export class CalendarTypeWeekComponent implements AfterViewInit {
+export class CalendarTypeWeekComponent implements AfterContentChecked {
+
+
 
   firstMonthDays!: any;
   secondMonthDays!: any;
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  INITIAL_YEAR = dayjs().format("YYYY");
-  INITIAL_MONTH = dayjs().format("M");
-  INITIAL_DAY = dayjs().format("D");
-  selectedMonth = dayjs(`${this.INITIAL_YEAR}-${this.INITIAL_MONTH}-${this.INITIAL_DAY}`);
+  selectedMonth:any;
+  calendar!: ICalendar;
 
   constructor(
-    private elementRef:ElementRef
+    private elementRef:ElementRef,
+    private calendarService: CalendarService
   ) {}
 
 
-  ngAfterViewInit() {
-    this.createCalendar();
+
+
+  ngAfterContentChecked():void {
+    console.log('test');
+    this.calendar = {
+      year: this.calendarService.selectedMonth.format("YYYY"),
+      month: this.calendarService.selectedMonth.format("M"),
+      first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
+    }
+    this.createCalendar(this.calendar);
   }
 
 
-
-  createCalendar(year = this.INITIAL_YEAR, month = this.INITIAL_MONTH, first_day = this.INITIAL_DAY) {
+  createCalendar(calendar: ICalendar) {
 
     this.removeAllDayElements(this.elementRef.nativeElement);
 
-    this.firstMonthDays = this.createFirstMonthDays(year, month, first_day);
+    this.firstMonthDays = this.createFirstMonthDays(this.calendar);
 
-    this.secondMonthDays = this.createSecondMonthDays(year, month, first_day);
+    this.secondMonthDays = this.createSecondMonthDays(this.calendar);
 
     const days = [...this.firstMonthDays, ...this.secondMonthDays];
 
@@ -48,56 +61,53 @@ export class CalendarTypeWeekComponent implements AfterViewInit {
   }
 
 
-  createFirstMonthDays(year:any,month:any,first_day:any) {
+  createFirstMonthDays(calendar: ICalendar) {
 
-    const monthOfTheFirstDay = dayjs(`${year}-${month}-${first_day}`).month() + 1;
+    const monthOfTheFirstDay = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).month() + 1;
 
-    const numberOfDaysInFirstMonth = this.getNumberOfDaysInMonth(year,monthOfTheFirstDay);
+    const numberOfDaysInFirstMonth = this.getNumberOfDaysInMonth(calendar.year,monthOfTheFirstDay);
 
-    let visibleNumberOfDaysFromFirstMonth = numberOfDaysInFirstMonth - first_day + 1;
+    let visibleNumberOfDaysFromFirstMonth = numberOfDaysInFirstMonth - calendar.first_day + 1;
     visibleNumberOfDaysFromFirstMonth = visibleNumberOfDaysFromFirstMonth <= 7 ? visibleNumberOfDaysFromFirstMonth : 0;
 
 
     return [...Array(visibleNumberOfDaysFromFirstMonth)].map((day, index) => {
       return {
         date: dayjs(
-          `${year}-${month}-${parseInt(first_day,10)+index}`
+          `${calendar.year}-${calendar.month}-${calendar.first_day+index}`
         ).format("YYYY-MM-DD"),
-        dayOfMonth: parseInt(first_day,10) + index,
-        dayOfWeek: dayjs(`${year}-${month}-${parseInt(first_day,10)+index}`).day(),
+        dayOfMonth: calendar.first_day + index,
+        dayOfWeek: dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day+index}`).day(),
         isCurrentMonth: false
       };
     });
   }
 
 
-  createSecondMonthDays(year:any, month:any, first_day:any) {
+  createSecondMonthDays(calendar: ICalendar) {
 
-    const monthOfTheFirstDay = dayjs(`${year}-${month}-${first_day}`).month() + 1;
+    console.log('First day ' + calendar.first_day);
 
-    const numberOfDaysInFirstMonth = this.getNumberOfDaysInMonth(year,monthOfTheFirstDay);
+    const monthOfTheFirstDay = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).month() + 1;
 
-    let visibleNumberOfDaysFromFirstMonth = numberOfDaysInFirstMonth - first_day + 1;
+    const numberOfDaysInFirstMonth = this.getNumberOfDaysInMonth(calendar.year,monthOfTheFirstDay);
+
+    let visibleNumberOfDaysFromFirstMonth = numberOfDaysInFirstMonth - calendar.first_day + 1;
     visibleNumberOfDaysFromFirstMonth = visibleNumberOfDaysFromFirstMonth <= 7 ? visibleNumberOfDaysFromFirstMonth : 0;
 
-
     let numberOfSecondMonthDays = 7 - visibleNumberOfDaysFromFirstMonth;
-    // console.log(numberOfSecondMonthDays);
 
-    // do first_day trzeba dodać
-    first_day = dayjs(`${year}-${month}-${first_day}`).add(visibleNumberOfDaysFromFirstMonth, "day");
-    // console.log(dayjs(first_day).date());
+    let first_day = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).add(visibleNumberOfDaysFromFirstMonth, "day");
+    // first_day = ;
+    let first_day_of_second_month = dayjs(first_day).date();
 
-    first_day = dayjs(first_day).date();
-    // console.log(first_day);
-
-    month = visibleNumberOfDaysFromFirstMonth > 0 ? parseInt(month,10) + 1 : month;
+    let month = visibleNumberOfDaysFromFirstMonth > 0 ? parseInt(calendar.month,10) + 1 : calendar.month;
 
     return [...Array(numberOfSecondMonthDays)].map((day, index) => {
       return {
-        date: dayjs(`${year}-${month}-${first_day + index}`).format("YYYY-MM-DD"),
-        dayOfMonth: parseInt(first_day,10) + index,
-        dayOfWeek: dayjs(`${year}-${month}-${parseInt(first_day,10)+index}`).day(),
+        date: dayjs(`${calendar.year}-${month}-${first_day_of_second_month + index}`).format("YYYY-MM-DD"),
+        dayOfMonth: first_day_of_second_month + index,
+        dayOfWeek: dayjs(`${calendar.year}-${month}-${first_day_of_second_month+index}`).day(),
         isCurrentMonth: true
       };
     });
@@ -149,6 +159,18 @@ export class CalendarTypeWeekComponent implements AfterViewInit {
       first = calendarGrid.firstElementChild;
     }
   }
+
+
+  // previousWeekSelector() {
+  //   this.selectedMonth = dayjs(this.selectedMonth).subtract(7, "day");
+  //   this.createCalendar(this.calendar);
+  // }
+
+  // nextWeekSelector() {
+  //   this.selectedMonth = dayjs(this.selectedMonth).add(7, "day");
+  //   this.createCalendar(this.selectedMonth.format("YYYY"), this.selectedMonth.format("M"), this.selectedMonth.format("D"));
+  // }
+
 
 
 }

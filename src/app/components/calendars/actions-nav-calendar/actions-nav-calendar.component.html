@@ -1,17 +1,17 @@
 <div class="actions-nav__buttons-left">
   <ul class="calendar-type-list list">
-    <li class="calendar-type active" data-calendar-type="day">
-        <button class="btn btn--calendar">
+    <li class="calendar-type active">
+        <button class="btn btn--calendar" data-calendar-type="day" (click)="switchCalendarType($event)">
             Day
         </button>
     </li>
-    <li class="calendar-type" data-calendar-type="week">
-        <button class="btn btn--calendar">
+    <li class="calendar-type">
+        <button class="btn btn--calendar" data-calendar-type="week" (click)="switchCalendarType($event)">
             Week
         </button>
     </li>
-    <li class="calendar-type" data-calendar-type="month">
-        <button class="btn btn--calendar">
+    <li class="calendar-type">
+        <button class="btn btn--calendar" data-calendar-type="month">
             Month
         </button>
     </li>
@@ -33,7 +33,7 @@
       </li>
   </ul>
   <nav class="switcher__nav">
-      <button class="switcher-prev">
+      <button class="switcher-prev" (click)="triggerPrevBtn()">
       </button>
       <button class="switcher-next">
       </button>

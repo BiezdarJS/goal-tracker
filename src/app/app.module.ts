@@ -20,7 +20,7 @@ import { ActionsNavCalendarComponent } from './components/calendars/actions-nav-
 import { CalendarTypeWeekComponent } from './components/calendars/calendar-type-week/calendar-type-week.component';
 import { CalendarTypeMonthComponent } from './components/calendars/calendar-type-month/calendar-type-month.component';
 import { CalendarTypeDayComponent } from './components/calendars/calendar-type-day/calendar-type-day.component';
-import { CalendarsMainComponent } from './components/calendars/calendars-main/calendars-main.component';
+import { CalendarsHostComponent } from './components/calendars/calendars-host/calendars-host.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { CalendarsMainComponent } from './components/calendars/calendars-main/ca
     CalendarTypeWeekComponent,
     CalendarTypeMonthComponent,
     CalendarTypeDayComponent,
-    CalendarsMainComponent
+    CalendarsHostComponent
   ],
   imports: [
     BrowserModule,

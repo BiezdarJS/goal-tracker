@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { CalendarsMainComponent } from './components/calendars/calendars-main/calendars-main.component';
+import { CalendarsHostComponent } from './components/calendars/calendars-host/calendars-host.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: 'calendar', component: CalendarsMainComponent }
+  { path: 'calendar', component: CalendarsHostComponent }
 ];
 
 @NgModule({
