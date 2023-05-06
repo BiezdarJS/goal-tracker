@@ -16,10 +16,9 @@ dayjs.extend(weekOfYear);
 })
 export class CalendarService {
 
-  private output: ReplaySubject<string> = new ReplaySubject<string>(0);
-
 
   currentCalendarType: string = CalendarType.Day;
+  TODAY = dayjs().format("YYYY-MM-DD");
   INITIAL_YEAR = dayjs().format("YYYY");
   INITIAL_MONTH = dayjs().format("M");
   INITIAL_DAY = dayjs().format("D");
@@ -29,9 +28,8 @@ export class CalendarService {
 
 
 
-  switchCalendarType(calendarType:string) {
+  switchCalendarType(calendarType:string):string {
     this.currentCalendarType = calendarType;
-    // this.subject.next(this.currentCalendarType);
     return this.currentCalendarType;
   }
 

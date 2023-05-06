@@ -26,7 +26,7 @@ export class ActionsNavCalendarComponent {
   }
 
 
-  value = this.calendarService.observable.subscribe(isActive => this.test = isActive);
+  // value = this.calendarService.observable.subscribe(isActive => this.test = isActive);
 
 
 

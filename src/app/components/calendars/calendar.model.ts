@@ -5,15 +5,21 @@ export enum CalendarType {
 }
 
 
-export interface ICalendarDay {
+export interface ICalendar {
+  year: string;
+  month: string;
+}
+
+export interface ICalendarExtended extends ICalendar {
+  first_day: number;
+}
+
+export interface ICalendarDays {
   date: string;
   dayOfMonth: number;
   isCurrentMonth: boolean
 }
 
-
-export interface ICalendar {
-  year: string;
-  month: string;
-  first_day: number;
+export interface ICalendarDaysExtended extends ICalendarDays {
+  dayOfWeek: number;
 }

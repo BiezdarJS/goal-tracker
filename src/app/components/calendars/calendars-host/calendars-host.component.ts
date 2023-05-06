@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
 import { CalendarType } from '../calendar.model';
 import { CalendarService } from 'src/app/services/calendar.service';
 import {Subject} from 'rxjs';
@@ -14,9 +14,14 @@ dayjs.extend(weekOfYear);
   templateUrl: './calendars-host.component.html',
   styleUrls: ['./calendars-host.component.scss']
 })
-export class CalendarsHostComponent implements AfterViewInit {
+export class CalendarsHostComponent implements OnInit, DoCheck {
 
-  @ViewChild('calendarTypeWeek') calendarTypeWeek!: ElementRef<any>;
+
+
+  ngDoCheck() {
+    this.currentCalendarType = this.calendarService.currentCalendarType;
+  }
+
 
   value: boolean = false;
   childNotifier : Subject<boolean> = new Subject<boolean>
@@ -32,9 +37,6 @@ export class CalendarsHostComponent implements AfterViewInit {
   }
 
 
-  ngAfterViewInit():void {
-    // console.log(this.calendarTypeWeek.);
-  }
 
 
 }

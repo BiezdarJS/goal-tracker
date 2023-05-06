@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { ICalendarDay } from '../calendar.model';
+import { ICalendarDays } from '../calendar.model';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
@@ -11,7 +11,7 @@ dayjs.extend(weekOfYear);
 @Component({
   selector: 'gt-calendar-dashboard',
   templateUrl: './calendar-dashboard.component.html',
-  host: {'id': 'calendar-dashboard'},
+  host: {'class': 'calendar-month'},
   styleUrls: ['./calendar-dashboard.component.scss']
 })
 export class CalendarDashboardComponent implements AfterViewInit {
@@ -55,7 +55,7 @@ export class CalendarDashboardComponent implements AfterViewInit {
 
   createDaysForCurrentMonth(year:any, month:any) {
     return [...Array(this.getNumberOfDaysInMonth(year, month))].map((day, index) => {
-      const currentMonthDays: ICalendarDay = {
+      const currentMonthDays: ICalendarDays = {
         date: dayjs(`${year}-${month}-${index + 1}`).format("YYYY-MM-DD"),
         dayOfMonth: index + 1,
         isCurrentMonth: true
@@ -79,7 +79,7 @@ export class CalendarDashboardComponent implements AfterViewInit {
       .date();
 
     return [...Array(visibleNumberOfDaysFromPreviousMonth)].map((day, index) => {
-      const previousMonthDays: ICalendarDay = {
+      const previousMonthDays: ICalendarDays = {
         date: dayjs(
           `${previousMonth.year()}-${previousMonth.month() + 1}-${
             previousMonthLastMondayDayOfMonth + index}`).format("YYYY-MM-DD"),
@@ -102,7 +102,7 @@ export class CalendarDashboardComponent implements AfterViewInit {
       : lastDayOfTheMonthWeekday;
 
     return [...Array(visibleNumberOfDaysFromNextMonth)].map((day, index) => {
-      const nextMonthDays: ICalendarDay = {
+      const nextMonthDays: ICalendarDays = {
         date: dayjs(
           `${nextMonth.year()}-${nextMonth.month() + 1}-${index + 1}`
         ).format("YYYY-MM-DD"),
@@ -113,7 +113,7 @@ export class CalendarDashboardComponent implements AfterViewInit {
     });
   }
 
-  appendDay(day:ICalendarDay, calendarDaysElement:any) {
+  appendDay(day:ICalendarDays, calendarDaysElement:any) {
     const tasks = `
     <li class="task-item-sm task-item-sm--self-knowledge">
     </li>
