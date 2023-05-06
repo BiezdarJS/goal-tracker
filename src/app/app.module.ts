@@ -21,6 +21,8 @@ import { CalendarTypeWeekComponent } from './components/calendars/calendar-type-
 import { CalendarTypeMonthComponent } from './components/calendars/calendar-type-month/calendar-type-month.component';
 import { CalendarTypeDayComponent } from './components/calendars/calendar-type-day/calendar-type-day.component';
 import { CalendarsHostComponent } from './components/calendars/calendars-host/calendars-host.component';
+import { CalendarTypeItemDirective } from './directives/calendar-type-item.directive';
+import { CalendarTypeListDirective } from './directives/calendar-type-list.directive';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { CalendarsHostComponent } from './components/calendars/calendars-host/ca
     CalendarTypeWeekComponent,
     CalendarTypeMonthComponent,
     CalendarTypeDayComponent,
-    CalendarsHostComponent
+    CalendarsHostComponent,
+    CalendarTypeItemDirective,
+    CalendarTypeListDirective
   ],
   imports: [
     BrowserModule,

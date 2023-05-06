@@ -1,21 +1,30 @@
 <div class="actions-nav__buttons-left">
-  <ul class="calendar-type-list list">
-    <li class="calendar-type active">
-        <button class="btn btn--calendar" data-calendar-type="day" (click)="switchCalendarType($event)">
+  <ul class="calendar-type-list list" calendarTypeListHandler>
+    <li class="calendar-type">
+        <button class="btn btn--calendar"
+        [ngClass]="this.currentCalendarType === 'day' ? 'active' : ''"
+        data-calendar-type="day"
+        (click)="switchCalendarType($event)" calendarTypeItemHandler>
             Day
         </button>
     </li>
     <li class="calendar-type">
-        <button class="btn btn--calendar" data-calendar-type="week" (click)="switchCalendarType($event)">
+        <button class="btn btn--calendar"
+        [ngClass]="this.currentCalendarType === 'week' ? 'active' : ''"
+        data-calendar-type="week"
+        (click)="switchCalendarType($event)" calendarTypeItemHandler>
             Week
         </button>
     </li>
     <li class="calendar-type">
-        <button class="btn btn--calendar" data-calendar-type="month" (click)="switchCalendarType($event)">
+        <button class="btn btn--calendar"
+        [ngClass]="this.currentCalendarType === 'month' ? 'active' : ''"
+        data-calendar-type="month"
+        (click)="switchCalendarType($event)" calendarTypeItemHandler>
             Month
         </button>
     </li>
-    <li class="calendar-type-indicator"></li>
+    <li class="calendar-type-indicator" #calendarTypeIndicator></li>
   </ul>
 </div>
 <div class="empty">

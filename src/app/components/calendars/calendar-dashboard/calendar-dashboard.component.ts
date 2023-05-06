@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ICalendarDays } from '../calendar.model';
 // Day.js
 import * as dayjs from 'dayjs';
@@ -14,7 +14,7 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-month'},
   styleUrls: ['./calendar-dashboard.component.scss']
 })
-export class CalendarDashboardComponent implements AfterViewInit {
+export class CalendarDashboardComponent implements OnInit {
 
   // Month Element
   @ViewChild('calendarDaysElement') calendarDaysElement!: ElementRef<HTMLOListElement>;
@@ -22,13 +22,21 @@ export class CalendarDashboardComponent implements AfterViewInit {
 
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   TODAY = dayjs().format("YYYY-MM-DD");
-  INITIAL_YEAR = parseInt(dayjs().format("YYYY"), 10);
-  INITIAL_MONTH = parseInt(dayjs().format("M"));
+  INITIAL_YEAR:any;
+  INITIAL_MONTH:any;
   headerMonthAndYear: string = '';
-  selectedMonth = dayjs(new Date(this.INITIAL_YEAR, this.INITIAL_MONTH - 1, 1));
+  selectedMonth:any;
   currentMonthDays!: any;
   previousMonthDays!: any;
   nextMonthDays!: any;
+
+
+  ngOnInit():void {
+    this.INITIAL_YEAR = parseInt(dayjs().format("YYYY"), 10);
+    this.INITIAL_MONTH = parseInt(dayjs().format("M"));
+    this.selectedMonth = dayjs(new Date(this.INITIAL_YEAR, this.INITIAL_MONTH - 1, 1));
+  }
+
 
 
   ngAfterViewInit() {

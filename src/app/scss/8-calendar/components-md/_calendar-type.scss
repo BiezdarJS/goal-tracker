@@ -3,14 +3,9 @@
     margin: 0;
     position: relative;
   }
-  display: inline-block; 
+  display: inline-block;
   padding: 0 15px;
   margin: 0;
-  &.active {
-   > .btn {
-    color: $accent;
-   }
-  }
   &-indicator {
     background-color: $accent;
     border-radius: 5px;
@@ -18,6 +13,11 @@
     bottom: 0;
     height: 2px;
     opacity: 1;
-    transition: all 0.45s ease-in-out;
+    transition: all 0.45s ease;
+  }
+  .btn {
+    &.active {
+      color: $accent;
+    }
   }
 }
