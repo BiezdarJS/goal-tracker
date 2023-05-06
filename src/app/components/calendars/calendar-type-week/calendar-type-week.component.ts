@@ -1,6 +1,6 @@
 import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, OnChanges } from '@angular/core';
 // Interfaces
-import { ICalendar } from '../calendar.model';
+import { ICalendarDaysExtended, ICalendarExtended } from '../calendar.model';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
 // Day.js
@@ -26,7 +26,7 @@ export class CalendarTypeWeekComponent implements AfterContentChecked {
   secondMonthDays!: any;
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   selectedMonth:any;
-  calendar!: ICalendar;
+  calendar!: ICalendarExtended;
 
   constructor(
     private elementRef:ElementRef,
@@ -37,7 +37,6 @@ export class CalendarTypeWeekComponent implements AfterContentChecked {
 
 
   ngAfterContentChecked():void {
-    console.log('test');
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M"),
@@ -47,7 +46,7 @@ export class CalendarTypeWeekComponent implements AfterContentChecked {
   }
 
 
-  createCalendar(calendar: ICalendar) {
+  createCalendar(calendar: ICalendarExtended) {
 
     this.removeAllDayElements(this.elementRef.nativeElement);
 
@@ -61,7 +60,7 @@ export class CalendarTypeWeekComponent implements AfterContentChecked {
   }
 
 
-  createFirstMonthDays(calendar: ICalendar) {
+  createFirstMonthDays(calendar: ICalendarExtended) {
 
     const monthOfTheFirstDay = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).month() + 1;
 
@@ -72,7 +71,7 @@ export class CalendarTypeWeekComponent implements AfterContentChecked {
 
 
     return [...Array(visibleNumberOfDaysFromFirstMonth)].map((day, index) => {
-      return {
+        const firstMonthDays: ICalendarDaysExtended = {
         date: dayjs(
           `${calendar.year}-${calendar.month}-${calendar.first_day+index}`
         ).format("YYYY-MM-DD"),
@@ -80,13 +79,12 @@ export class CalendarTypeWeekComponent implements AfterContentChecked {
         dayOfWeek: dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day+index}`).day(),
         isCurrentMonth: false
       };
+      return firstMonthDays;
     });
   }
 
 
-  createSecondMonthDays(calendar: ICalendar) {
-
-    console.log('First day ' + calendar.first_day);
+  createSecondMonthDays(calendar: ICalendarExtended) {
 
     const monthOfTheFirstDay = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).month() + 1;
 
@@ -98,18 +96,18 @@ export class CalendarTypeWeekComponent implements AfterContentChecked {
     let numberOfSecondMonthDays = 7 - visibleNumberOfDaysFromFirstMonth;
 
     let first_day = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).add(visibleNumberOfDaysFromFirstMonth, "day");
-    // first_day = ;
     let first_day_of_second_month = dayjs(first_day).date();
 
     let month = visibleNumberOfDaysFromFirstMonth > 0 ? parseInt(calendar.month,10) + 1 : calendar.month;
 
     return [...Array(numberOfSecondMonthDays)].map((day, index) => {
-      return {
+      const secondMonthDays: ICalendarDaysExtended = {
         date: dayjs(`${calendar.year}-${month}-${first_day_of_second_month + index}`).format("YYYY-MM-DD"),
         dayOfMonth: first_day_of_second_month + index,
         dayOfWeek: dayjs(`${calendar.year}-${month}-${first_day_of_second_month+index}`).day(),
         isCurrentMonth: true
       };
+      return secondMonthDays;
     });
   }
 

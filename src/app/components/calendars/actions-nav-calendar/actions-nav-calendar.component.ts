@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { CalendarService } from 'src/app/services/calendar.service';
-
 @Component({
   selector: 'gt-actions-nav-calendar',
   templateUrl: './actions-nav-calendar.component.html',
@@ -26,7 +25,7 @@ export class ActionsNavCalendarComponent {
   }
 
 
-  value = this.calendarService.observable.subscribe(isActive => this.test = isActive);
+  // value = this.calendarService.observable.subscribe(isActive => this.test = isActive);
 
 
 
