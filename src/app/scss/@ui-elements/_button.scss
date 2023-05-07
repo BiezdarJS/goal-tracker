@@ -44,6 +44,11 @@
                 background-color: $accent;
             }
         }
+        &:hover {
+          .icon {
+            background-color: $accent;
+          }
+        }
         .icon {
             width: 16px;
             height: 16px;

@@ -8,7 +8,7 @@
       border: 1px solid $accent;
       background-color: $accent;
     }
-    
+
   }
   .user {
     background-color: #ddd;
@@ -29,7 +29,7 @@
   .sidenav {
     background-color: #343c4f;
   }
-  .sivenav-mobile-open {
+  .sidenav-mobile-open {
     background-color: #252c3e;
   }
   main {
@@ -71,7 +71,7 @@
   .font-additional {
     color: #afb6c8;
   }
-  // labels 
+  // labels
   .label-priority--high {
     border: 1px solid #ff8263;
     color: #ff8263;
@@ -80,7 +80,7 @@
     border: 1px solid #42dea2;
     color: #42dea2;
   }
-  // forms 
+  // forms
   input,
   textarea {
     color: $white;
@@ -120,7 +120,7 @@
   .box {
     background-color: #343c4f;
   }
-  // summary 
+  // summary
   .summary__icon--goals {
     background-color: #42dea2;
   }
@@ -152,7 +152,7 @@
   .balance-list__dot--inspirations {
     background-color: #fe94b4;
   }
-  
+
   // calendar
   .calendar-month-header-selected-month {
     color: #fbfbfd;
@@ -276,18 +276,18 @@
     border: none;
   }
   .select.select--modal {
-   background-color: #343c4f; 
+   background-color: #343c4f;
    border: 2px solid #f3f3f3;
    box-shadow: none;
    color: #fff;
    .select-dropdown {
-    background-color: #343c4f; 
+    background-color: #343c4f;
     color: #fff;
    }
    .option:hover,
    .option:focus,
    .option.selected.focus {
-    background-color: #1f232e; 
+    background-color: #1f232e;
     color: #fff;
    }
   }

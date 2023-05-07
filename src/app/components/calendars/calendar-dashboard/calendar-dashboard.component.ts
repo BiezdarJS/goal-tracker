@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ICalendarDays } from '../calendar.model';
+import { ICalendarDays } from '../../../models/calendar.model';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';

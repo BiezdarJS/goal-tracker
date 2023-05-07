@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
-import { CalendarType } from '../calendar.model';
+import { CalendarType } from '../../../models/calendar.model';
 import { CalendarService } from 'src/app/services/calendar.service';
 import {Subject} from 'rxjs';
 // Day.js
@@ -16,7 +16,7 @@ dayjs.extend(weekOfYear);
 })
 export class CalendarsHostComponent implements OnInit, DoCheck {
 
-
+  WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   ngDoCheck() {
     this.currentCalendarType = this.calendarService.currentCalendarType;

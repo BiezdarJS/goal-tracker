@@ -10,5 +10,12 @@
 </ng-container>
 
 <ng-container *ngIf="this.currentCalendarType === 'month'">
-  <gt-calendar-type-month></gt-calendar-type-month>
+  <gt-calendar-type-month>
+    <ol class="calendar-grid__header">
+      <li *ngFor="let weekday of WEEKDAYS">
+        {{ weekday }}
+      </li>
+    </ol>
+    <ol class="days-grid"></ol>
+  </gt-calendar-type-month>
 </ng-container>

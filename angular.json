@@ -12,11 +12,16 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "gt",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "dayjs",
+              "dayjs/plugin/weekOfYear",
+              "dayjs/plugin/weekly"
+           ],
             "outputPath": "dist/goal-tracker",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -32,7 +37,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/select.js",
+              "src/assets/js/modal.js"
+            ]
           },
           "configurations": {
             "production": {

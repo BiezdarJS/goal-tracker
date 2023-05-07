@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CalendarType } from '../components/calendars/calendar.model';
+import { CalendarType } from '../models/calendar.model';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
@@ -35,11 +35,26 @@ export class CalendarService {
 
 
   previousBtnHandler() {
+    if (this.currentCalendarType === CalendarType.Day) {
+      this.selectedMonth = dayjs(this.selectedMonth).subtract(3, "day");
+    }
     if (this.currentCalendarType === CalendarType.Week) {
       this.selectedMonth = dayjs(this.selectedMonth).subtract(7, "day");
     }
+    if (this.currentCalendarType === CalendarType.Month) {
+      this.selectedMonth = dayjs(this.selectedMonth).subtract(1, "month");
+    }
+  }
+
+  nextBtnHandler() {
     if (this.currentCalendarType === CalendarType.Day) {
-      this.selectedMonth = dayjs(this.selectedMonth).subtract(3, "day");
+      this.selectedMonth = dayjs(this.selectedMonth).add(3, "day");
+    }
+    if (this.currentCalendarType === CalendarType.Week) {
+      this.selectedMonth = dayjs(this.selectedMonth).add(7, "day");
+    }
+    if (this.currentCalendarType === CalendarType.Month) {
+      this.selectedMonth = dayjs(this.selectedMonth).add(1, "month");
     }
   }
 

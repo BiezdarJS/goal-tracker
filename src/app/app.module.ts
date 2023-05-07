@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NgChartsModule } from 'ng2-charts';
-import { AngularDayjsModule } from 'angular-dayjs';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/_global/header/header.component';
 import { SidenavComponent } from './components/_global/sidenav/sidenav.component';
@@ -23,6 +22,12 @@ import { CalendarTypeDayComponent } from './components/calendars/calendar-type-d
 import { CalendarsHostComponent } from './components/calendars/calendars-host/calendars-host.component';
 import { CalendarTypeItemDirective } from './directives/calendar-type-item.directive';
 import { CalendarTypeListDirective } from './directives/calendar-type-list.directive';
+import { GoalsHostComponent } from './components/goals/goals-host/goals-host.component';
+import { ActionsNavGoalsComponent } from './components/goals/actions-nav-goals/actions-nav-goals.component';
+import { NewGoalComponent } from './components/goals/new-goal/new-goal.component';
+import { GoalsGridComponent } from './components/goals/goals-grid/goals-grid.component';
+import { NewGoalDirective } from './directives/goals/new-goal.directive';
+import { OpenMobileMenuDirective } from './directives/sidenav/open-mobile-menu';
 
 @NgModule({
   declarations: [
@@ -44,13 +49,18 @@ import { CalendarTypeListDirective } from './directives/calendar-type-list.direc
     CalendarTypeDayComponent,
     CalendarsHostComponent,
     CalendarTypeItemDirective,
-    CalendarTypeListDirective
+    CalendarTypeListDirective,
+    GoalsHostComponent,
+    ActionsNavGoalsComponent,
+    NewGoalComponent,
+    GoalsGridComponent,
+    NewGoalDirective,
+    OpenMobileMenuDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgChartsModule,
-    AngularDayjsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

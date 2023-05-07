@@ -1,0 +1,51 @@
+<div class="actions-nav__buttons-left">
+  <button class="btn btn--grey btn--switcher">
+      <i class="icon icon--list2"></i>
+  </button>
+  <button class="btn btn--grey btn--switcher ms-15 active">
+      <i class="icon icon--grid2"></i>
+  </button>
+</div>
+<div class="actions-nav__select">
+  <select class="select--nav1 w-260 ms-15" #select_area>
+      <option value="all" > All </option>
+      <option value="family/communication"> Family/communication </option>
+      <option value="money"> Money </option>
+      <option value="work/career"> Work/career </option>
+      <option value="health and sports"> Health and sports </option>
+      <option value="self knowledge"> Self-knowledge </option>
+      <option value="travels"> Travels </option>
+  </select>
+  <select class="select--nav2 w-260 ms-15" data-txt="Sort by: " #select_time>
+      <option value="creation date">Creation Date</option>
+      <option value="deadline date">Deadline Date</option>
+  </select>
+</div>
+<div class="switcher__wrap">
+  <ul class="switcher list">
+      <li class="switcher__item">
+          2020
+      </li>
+      <li class="switcher__item active">
+          2021
+      </li>
+      <li class="switcher__item">
+          2022
+      </li>
+  </ul>
+  <nav class="switcher__nav">
+      <button class="switcher-prev" (click)="triggerPrevBtn()">
+      </button>
+      <button class="switcher-next" (click)="triggerNextBtn()">
+      </button>
+  </nav>
+</div>
+<div class="actions-nav__buttons-right">
+  <button class="btn btn--grey btn--switcher">
+      <i class="icon icon--filter"></i>
+  </button>
+  <button class="btn btn--blue btn--scale modal-trigger" (click)="emitNewGoalEvent()">
+      <i class="icon icon--plus icon--mr-3"></i>
+      New Goal
+  </button>
+</div>

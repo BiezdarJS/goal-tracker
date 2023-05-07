@@ -1,6 +1,6 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, OnChanges } from '@angular/core';
+import { AfterContentInit, Component, ElementRef } from '@angular/core';
 // Interfaces
-import { ICalendarDaysExtended, ICalendarExtended } from '../calendar.model';
+import { ICalendarDaysExtended, ICalendarExtended } from '../../../models/calendar.model';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
 // Day.js
@@ -18,7 +18,7 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid calendar-grid--week'},
   styleUrls: ['./calendar-type-week.component.scss']
 })
-export class CalendarTypeWeekComponent implements AfterContentChecked {
+export class CalendarTypeWeekComponent implements AfterContentInit {
 
 
 
@@ -36,7 +36,7 @@ export class CalendarTypeWeekComponent implements AfterContentChecked {
 
 
 
-  ngAfterContentChecked():void {
+  ngAfterContentInit():void {
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M"),

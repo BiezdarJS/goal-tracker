@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { CalendarService } from 'src/app/services/calendar.service';
 @Component({
   selector: 'gt-actions-nav-calendar',
@@ -7,7 +7,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
   styleUrls: ['./actions-nav-calendar.component.scss']
 })
 
-export class ActionsNavCalendarComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class ActionsNavCalendarComponent implements OnInit, AfterViewInit, AfterViewInit {
 
   @Output() prevBtnEvent = new EventEmitter();
 
@@ -22,17 +22,17 @@ export class ActionsNavCalendarComponent implements OnInit, AfterViewInit, After
   triggerPrevBtn() {
     this.calendarService.previousBtnHandler();
   }
+  triggerNextBtn() {
+    this.calendarService.nextBtnHandler();
+  }
 
   ngOnInit():void {
     this.currentCalendarType = this.calendarService.currentCalendarType;
   }
   ngAfterViewInit(): void {
     this.setActiveIndicatior();
-
   }
-  ngAfterViewChecked() {
 
-  }
 
 
 

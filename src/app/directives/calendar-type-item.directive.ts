@@ -19,7 +19,7 @@ export class CalendarTypeItemDirective {
     const calendarTypeList = this.el.nativeElement.parentNode.parentNode;
     const indicator = this.el.nativeElement.parentNode.parentNode.querySelector('.calendar-type-indicator');
     if (document.documentElement.clientWidth >= 1200) {
-        indicator.style.transition = "0.35s";
+        indicator.style.transition = "0.35s .1s";
     }
     if (document.documentElement.clientWidth < 1200) {
         indicator.style.transition = "0s";
@@ -47,16 +47,6 @@ export class CalendarTypeItemDirective {
     if (!clickedElement.classList.contains('active')) {
       clickedElement.classList.add('active');
     }
-    // if (type === 'day') {
-    //   active_calendar = new Calendar_Type_Day();
-    // }
-    // if (type === 'week') {
-    //   active_calendar = new Calendar_Type_Week();
-    // }
-    // if (type === 'month') {
-    //   active_calendar = new Calendar_Type_Month();
-    // }
-
     });
 
   }

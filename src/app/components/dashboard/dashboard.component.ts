@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+// select
+declare function Select(): void;
 // chartjs
 import { Chart, ChartData, ChartConfiguration } from "chart.js";
 import { chartColors } from '../charts/charts.config';
@@ -10,7 +12,23 @@ import { textInCenter } from '../charts/utils';
   host: {'class': 'dashboard'},
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('select_my_activity') select_my_activity!: ElementRef;
+  @ViewChild('select_health_and_sports') select_health_and_sports!: ElementRef;
+
+  ngOnInit() {
+
+  }
+
+  ngAfterViewInit():void {
+    new (Select as any)(this.select_my_activity.nativeElement, {
+      placeholder: 'Week'
+    });
+    new (Select as any)(this.select_health_and_sports.nativeElement, {
+      placeholder: 'Week'
+    });
+  }
 
 
   public progressTowardsTheGoalOptions: ChartConfiguration<'doughnut'>['options'] = {

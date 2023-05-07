@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ElementRef } from '@angular/core';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
 // Interfaces
-import { ICalendar, ICalendarDays } from '../calendar.model';
+import { ICalendar, ICalendarDays } from '../../../models/calendar.model';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
@@ -17,9 +17,9 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid'},
   styleUrls: ['./calendar-type-month.component.scss']
 })
-export class CalendarTypeMonthComponent implements AfterViewInit {
+export class CalendarTypeMonthComponent implements AfterContentInit {
 
-  @ViewChild('calendarDaysElement') calendarDaysElement!: ElementRef<HTMLOListElement>;
+  // @ViewChild('calendarDaysElement') calendarDaysElement!: ElementRef<HTMLOListElement>;
 
   calendar!: ICalendar;
   currentMonthDays: any;
@@ -27,12 +27,15 @@ export class CalendarTypeMonthComponent implements AfterViewInit {
   nextMonthDays: any;
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   selectedMonth:any;
+  calendarDaysElement = this.elementRef.nativeElement.querySelector('.days-grid');
 
   constructor(
+    private elementRef: ElementRef,
     private calendarService: CalendarService
   ) {}
 
-  ngAfterViewInit() {
+
+  ngAfterContentInit():void {
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M")
@@ -40,9 +43,10 @@ export class CalendarTypeMonthComponent implements AfterViewInit {
     this.createCalendar(this.calendar);
   }
 
+
   createCalendar(calendar: ICalendar) {
     // If exist, remove all Days
-    const calendarDaysElement = this.calendarDaysElement.nativeElement;
+    const calendarDaysElement = this.elementRef.nativeElement.querySelector('.days-grid');
     this.removeAllDayElements(calendarDaysElement);
     // Create Days
     this.currentMonthDays = this.createDaysForCurrentMonth(calendar);
@@ -52,7 +56,7 @@ export class CalendarTypeMonthComponent implements AfterViewInit {
     const days = [...this.previousMonthDays, ...this.currentMonthDays, ...this.nextMonthDays];
     // Append All Days
     days.forEach(day => {
-      this.appendDay(day, this.calendarDaysElement);
+      this.appendDay(day, calendarDaysElement);
     });
   }
 
@@ -132,7 +136,7 @@ export class CalendarTypeMonthComponent implements AfterViewInit {
     const tasksListElement = document.createElement("ul");
     tasksListElement.classList.add('tasks-list', 'list', 'hstack', 'justify-content-center');
     tasksListElement.innerHTML = tasks;
-    calendarDaysElement.nativeElement.appendChild(dayElement);
+    calendarDaysElement.appendChild(dayElement);
     if (day.dayOfMonth === 12) {
       dayElement.appendChild(tasksListElement);
     }

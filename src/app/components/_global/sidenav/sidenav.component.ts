@@ -1,7 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { GlobalConstants } from 'src/app/_utils/global-constants';
-import { LocationStrategy } from '@angular/common';
-import { Router } from '@angular/router';
+import { GlobalVariablesService } from 'src/app/services/global-variables.service';
+
 
 @Component({
   selector: 'gt-sidenav',
@@ -14,14 +13,22 @@ export class SidenavComponent implements AfterViewInit {
   public imagesURL: string = '';
 
   constructor(
-    private locationStrategy: LocationStrategy
+    private globalVars: GlobalVariablesService,
   ) {
 
-    this.imagesURL = this.locationStrategy.getBaseHref() + '/' + GlobalConstants.imagesURL;
+
+  }
+
+  ngOnInit():void {
+    this.imagesURL = this.globalVars.imagesURL;
   }
 
   ngAfterViewInit() {
     console.log();
+  }
+
+  closeMobileMenu() {
+
   }
 
 }

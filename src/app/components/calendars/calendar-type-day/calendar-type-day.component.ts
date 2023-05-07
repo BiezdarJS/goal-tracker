@@ -1,6 +1,6 @@
-import { AfterContentChecked, AfterViewChecked, Component, DoCheck, ElementRef, OnChanges } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, ElementRef } from '@angular/core';
 // Interfaces
-import { ICalendarDaysExtended, ICalendarExtended } from '../calendar.model';
+import { ICalendarDaysExtended, ICalendarExtended } from '../../../models/calendar.model';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
 // Day.js
@@ -16,13 +16,14 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid calendar-grid--day'},
   styleUrls: ['./calendar-type-day.component.scss']
 })
-export class CalendarTypeDayComponent implements AfterContentChecked, AfterViewChecked, OnChanges, DoCheck {
+export class CalendarTypeDayComponent implements AfterContentInit, AfterContentChecked {
 
   firstMonthDays!: any;
   secondMonthDays!: any;
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   selectedMonth:any;
   calendar!: ICalendarExtended;
+  checkSelectedDay:any;
 
 
   constructor(
@@ -31,18 +32,7 @@ export class CalendarTypeDayComponent implements AfterContentChecked, AfterViewC
   ) {}
 
 
-  ngOnChanges() {
-    // console.log('test');
-  }
-  ngDoCheck() {
-    // console.log('test');
-  }
-  ngAfterViewChecked() {
-    // console.log('test');
-  }
-
-
-  ngAfterContentChecked():void {
+  ngAfterContentInit():void {
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M"),
@@ -50,6 +40,17 @@ export class CalendarTypeDayComponent implements AfterContentChecked, AfterViewC
     }
     this.createCalendar(this.calendar);
   }
+
+  // do poprawy
+  ngAfterContentChecked():void {
+      this.calendar = {
+        year: this.calendarService.selectedMonth.format("YYYY"),
+        month: this.calendarService.selectedMonth.format("M"),
+        first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
+      }
+      this.createCalendar(this.calendar);
+  }
+
 
 
   createCalendar(calendar: ICalendarExtended) {
@@ -188,6 +189,7 @@ export class CalendarTypeDayComponent implements AfterContentChecked, AfterViewC
         dayOfWeek: dayjs(`${calendar.year}-${month}-${first_day_of_second_month+index}`).day(),
         isCurrentMonth: true
       };
+      console.log(secondMonthDays);
       return secondMonthDays;
     });
   }

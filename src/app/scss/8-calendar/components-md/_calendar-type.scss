@@ -13,7 +13,7 @@
     bottom: 0;
     height: 2px;
     opacity: 1;
-    transition: all 0.45s ease;
+    transition: all 0.45s 1s ease;
   }
   .btn {
     &.active {
