@@ -1,8 +1,21 @@
 .progressBar {
     align-items: center;
     display: grid;
+    gap: 4px;
     margin: 20px 0;
-    
+    .headline {
+      @media (max-width: 400px) {
+        font-size: 12px;
+        line-height: 14px;
+      }
+      @media (min-width: 401px) and (max-width: 500px) {
+        font-size: 14px;
+        line-height: 16px;
+      }
+      @media (min-width: 501px) and (max-width: 800px) {
+        font-size: 16px;
+      }
+    }
     &--left {
         grid-template-columns: 100px 1fr;
     }
@@ -69,7 +82,7 @@
                 }
             }
         }
-        
+
         &.done {
             &:before {
                 background-color: $greenStrong;
@@ -82,7 +95,9 @@
         &--newgoal {
             height: auto;
             padding-bottom: 35px;
-
+            @media (max-width: 400px) {
+              min-height: 103px;
+            }
             &:first-of-type {
                 &:before {
                     border-bottom-left-radius: 30px;

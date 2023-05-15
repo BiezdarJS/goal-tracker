@@ -1,14 +1,18 @@
-import { AfterContentInit, Component, ElementRef } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
+// Types
+import { Goal } from 'src/app/types/goal.type';
 // Services
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
-import { CalendarService } from 'src/app/services/calendar.service';
+import { GoalsService } from 'src/app/services/goals.service';
 // Interfaces
 import { IGoalsGrid, ICalendarMonths } from '../../../models/calendar.model';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
-import { GoalsCalendarService } from 'src/app/services/goals-calendar.service';
+import { GoalsHostComponent } from '../goals-host/goals-host.component';
+import { map } from 'rxjs';
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
@@ -18,50 +22,143 @@ dayjs.extend(weekOfYear);
   host: {'class': 'goals-grid goals-grid--box'},
   styleUrls: ['./goals-grid.component.scss']
 })
-export class GoalsGridComponent implements AfterContentInit {
+export class GoalsGridComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, OnDestroy {
 
+
+  public loading$!: boolean;
   public imagesURL: string = '';
-
 
   firstYearMonths!: any;
   secondYearMonths!: any;
-  MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  monthNames = this.goalsService.monthNames;
   selectedMonth:any;
   calendar!: IGoalsGrid;
+  monthsCollection!: any;
+  allGoals: Array<Goal> = [];
+  // select values
+  selectCategoryValue!: string;
+  selectDateValue = 'all';
+  objectValues = Object.values;
 
 
   constructor(
     private globalVars: GlobalVariablesService,
     private elementRef: ElementRef,
-    private goalsCalendarService: GoalsCalendarService
+    private parentRef: GoalsHostComponent,
+    private goalsService: GoalsService
   ) {}
 
+  ngOnInit():void {
+    console.log('ng oninit')
+    this.loading$ = false;
+    this.imagesURL = this.globalVars.imagesURL;
+  }
 
 
+  // ngAfterContentInit():void {
+  //   // Goals Grid
+  //   this.calendar = {
+  //     year: this.goalsService.selectedMonth.format("YYYY"),
+  //     month: this.goalsService.selectedMonth.format("M"),
+  //     first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
+  //   }
+  //   this.monthsCollection = this.collectMonths(this.calendar);
+  // }
+
+  ngAfterViewChecked():void {
+    console.log('goals grid -> after view checked');
+
+  }
 
   ngAfterContentInit():void {
+    this.loading$ = true;
     // Goals Grid
     this.calendar = {
-      year: this.goalsCalendarService.selectedMonth.format("YYYY"),
-      month: this.goalsCalendarService.selectedMonth.format("M"),
-      first_month: parseInt(this.goalsCalendarService.selectedMonth.format("M"), 10)
+      year: this.goalsService.selectedMonth.format("YYYY"),
+      month: this.goalsService.selectedMonth.format("M"),
+      first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
     }
-    this.createCalendar(this.calendar);
+    this.monthsCollection = this.collectMonths(this.calendar);
+  }
+  //  ngAfterContentChecked():void {
+  //   // Goals Grid
+  //   this.calendar = {
+  //     year: this.goalsService.selectedMonth.format("YYYY"),
+  //     month: this.goalsService.selectedMonth.format("M"),
+  //     first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
+  //   }
+  //   this.monthsCollection = this.collectMonths(this.calendar);
+  // }
+
+  ngAfterViewInit(): void {
+    console.log(this.loading$);
+    setTimeout(() => {
+
+      this.goalsService.fetchGoals()
+        .pipe(
+          map(response => {
+            const goalsArray = [];
+            for (const key in response) {
+              if (response.hasOwnProperty(key)) {
+                goalsArray.push({ ...response[key], id: key })
+              }
+            }
+            return goalsArray;
+          }),
+          map(response => {
+            // Filtrowanie po Kategorii
+            if (this.selectCategoryValue !== 'all') {
+              response = response.filter(v => v.category === this.selectCategoryValue)
+            }
+            // Sortowanie po Dacie
+            if (this.selectDateValue === 'creation date') {
+              let creationDates = response.map(item => item.creationDate.split('-')).map(item => {
+                return {
+                  timepstamp: new Date(item[0], item[1]-1, item[2]).getTime()
+                }
+              }).map(item => item.timepstamp);
+              response = response.map((item, idx, array) => {
+                return {
+                  category: item.category,
+                  creationDate: creationDates[idx],
+                  details: item.details,
+                  id: item.id,
+                  isMainGoal: item.isMainGoal,
+                  name: item.name
+                }
+              })
+              // sortowanie
+              .sort((item1, item2) => item1.creationDate - item2.creationDate);
+            }
+            return response;
+            })
+        )
+        .subscribe((goals:any) => {
+          this.allGoals = goals;
+          this.loading$ = false;
+        })
+    }, 550);
   }
 
-  ngAfterContentChecked():void {
-    // Goals Grid
-    this.calendar = {
-      year: this.goalsCalendarService.selectedMonth.format("YYYY"),
-      month: this.goalsCalendarService.selectedMonth.format("M"),
-      first_month: parseInt(this.goalsCalendarService.selectedMonth.format("M"), 10)
-    }
-    this.createCalendar(this.calendar);
+
+
+  ngOnDestroy():void {
+    // this.loading$ = false;
   }
 
+  // ngAfterContentChecked():void {
+  //   // Goals Grid
+  //   this.calendar = {
+  //     year: this.goalsService.selectedMonth.format("YYYY"),
+  //     month: this.goalsService.selectedMonth.format("M"),
+  //     first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
+  //   }
+  //   this.monthsCollection = this.collectMonths(this.calendar);
+  // }
 
 
-  createCalendar(calendar: IGoalsGrid) {
+
+  collectMonths(calendar: IGoalsGrid) {
 
     this.removeAllMonthElements(this.elementRef.nativeElement);
 
@@ -69,19 +166,21 @@ export class GoalsGridComponent implements AfterContentInit {
     this.secondYearMonths = this.createSecondYearMonths(calendar);
     const months = [...this.firstYearMonths, ...this.secondYearMonths];
 
-    months.forEach((month) => { this.appendMonth(month, this.elementRef.nativeElement) });
+    return months;
+
+    // months.forEach((month) => { this.appendMonth(month, this.elementRef.nativeElement) });
   }
 
   appendMonth(month:any, goalsGrid:any) {
 
-    const monthOfTheYear = month.monthOfYear-1 !== -1 ? month.monthOfYear : 0;
+    const monthOfTheYear = month.monthOfTheYear-1 !== -1 ? month.monthOfTheYear : 0;
 
     const monthElement = `
       <div class="calendar-grid__column calendar-grid__column--day">
       <p class="title txt-center">
-        ${this.MONTHS[monthOfTheYear]}
+
       </p>
-      <ul class="task-list list">
+      <ul class="goals-list list">
         <li class="goals-grid__item">
             <div class="goal-item">
                 <div class="goal-item__img-wrap">
@@ -125,7 +224,7 @@ export class GoalsGridComponent implements AfterContentInit {
         date: dayjs(
           `${calendar.year}-${calendar.month}-${calendar.first_month+index}`
         ).format("YYYY-MM-DD"),
-        monthOfYear: dayjs(`${calendar.year}-${parseInt(calendar.month,10)+index}-1`).month(),
+        monthOfTheYear: dayjs(`${calendar.year}-${parseInt(calendar.month,10)+index}-1`).month(),
       };
       return firstYearMonths;
     });
@@ -137,7 +236,7 @@ export class GoalsGridComponent implements AfterContentInit {
     let visibleNumberOfMonthsFromFirstYear = 11 - calendar.first_month;
     visibleNumberOfMonthsFromFirstYear = visibleNumberOfMonthsFromFirstYear <= 3 ? visibleNumberOfMonthsFromFirstYear : 0;
 
-    let numberOfSecondMonthDays = 3 - visibleNumberOfMonthsFromFirstYear;
+    let numberOfSecondYearMonths = 3 - visibleNumberOfMonthsFromFirstYear;
     // console.log(numberOfSecondMonthDays);
 
     let first_month = dayjs(`${calendar.year}-${calendar.month}-1`).add(visibleNumberOfMonthsFromFirstYear, "month");
@@ -150,10 +249,10 @@ export class GoalsGridComponent implements AfterContentInit {
 
     let month = visibleNumberOfMonthsFromFirstYear > 0 ? parseInt(calendar.month,10) + 1 : calendar.month;
 
-    return [...Array(numberOfSecondMonthDays)].map((day, index) => {
+    return [...Array(numberOfSecondYearMonths)].map((day, index) => {
       const secondYearMonths: ICalendarMonths = {
         date: dayjs(`${calendar.year}-${parseInt(calendar.month,10)+index}-1`).format("YYYY-MM-DD"),
-        monthOfYear: dayjs(`${calendar.year}-${parseInt(calendar.month,10)+index}-1`).month(),
+        monthOfTheYear: dayjs(`${calendar.year}-${parseInt(calendar.month,10)+index}-1`).month(),
       };
       return secondYearMonths;
     });

@@ -32,5 +32,5 @@ export interface IGoalsGrid {
 }
 export interface ICalendarMonths {
   date: string;
-  monthOfYear: number;
+  monthOfTheYear: number;
 }

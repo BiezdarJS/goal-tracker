@@ -5,11 +5,9 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class OpenMobileMenuDirective {
 
-
-  mobileMenuCloseBtn = this.elRef.nativeElement;
-  mobileMenu = this.mobileMenuCloseBtn.parentNode.parentNode;
-  mobileMenuOpenBtn:any;
-
+  mobileMenuOpenBtn = this.elRef.nativeElement;
+  mobileMenu = this.mobileMenuOpenBtn.parentNode.parentNode.querySelector('.sidenav');
+  // mobileMenuOpenBtn:any;
 
 
   constructor(
@@ -17,13 +15,12 @@ export class OpenMobileMenuDirective {
   ) {  }
 
 
-
-
   @HostListener('click')
-  async closeMobileMenu() {
-    await this.handleMobileMenuSidenav();
+  async openMobileMenu() {
     await this.handleMobileMenuOpenBtn();
+    await this.handleMobileMenuSidenav();
   }
+
 
   handleMobileMenuSidenav = () => {
     if (this.mobileMenu.classList.contains('hidden')) {
@@ -36,7 +33,6 @@ export class OpenMobileMenuDirective {
   }
 
   handleMobileMenuOpenBtn = () => {
-    this.mobileMenuOpenBtn = this.mobileMenuCloseBtn.parentNode.parentNode.parentNode.querySelector('.sidenav-mobile-open');
     if (this.mobileMenuOpenBtn.classList.contains('active')) {
       this.mobileMenuOpenBtn.classList.toggle('active');
     } else {
@@ -45,9 +41,5 @@ export class OpenMobileMenuDirective {
       },350);
     }
   }
-
-
-
-
 
 }

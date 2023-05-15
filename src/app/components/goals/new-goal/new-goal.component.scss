@@ -1,0 +1,20 @@
+.js-btn-back {
+  display: none;
+  &.active {
+      display: inline-flex;
+  }
+}
+
+.js-btn-next {
+  display: none;
+  &.active {
+      display: inline-flex;
+  }
+}
+
+.js-btn-create {
+  display: none;
+  &.active {
+      display: inline-flex;
+  }
+}

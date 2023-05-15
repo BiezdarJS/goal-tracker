@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { GoalsCalendarService } from 'src/app/services/goals-calendar.service';
+import { GoalsService } from 'src/app/services/goals.service';
 // select
 declare function Select(): void;
 
@@ -11,8 +11,8 @@ declare function Select(): void;
 })
 export class ActionsNavGoalsComponent implements AfterViewInit {
 
-  @ViewChild('select_area') select_area!: ElementRef;
-  @ViewChild('select_time') select_time!: ElementRef;
+  @ViewChild('select_category') select_category!: ElementRef;
+  @ViewChild('select_date') select_date!: ElementRef;
   // Emit New Goal Event
   @Output() goalEvent = new EventEmitter();
   emitNewGoalEvent() {
@@ -21,16 +21,16 @@ export class ActionsNavGoalsComponent implements AfterViewInit {
   }
 
   constructor(
-    private goalsCalendarService: GoalsCalendarService
+    private goalsService: GoalsService
   ) {}
 
 
   ngAfterViewInit():void {
-    new (Select as any)(this.select_area.nativeElement, {
+    new (Select as any)(this.select_category.nativeElement, {
       placeholder: 'All',
       textBefore: "Show: "
     });
-    new (Select as any)(this.select_time.nativeElement, {
+    new (Select as any)(this.select_date.nativeElement, {
       placeholder: 'Creation Date',
       textBefore: "Sort By: "
     });
@@ -38,11 +38,11 @@ export class ActionsNavGoalsComponent implements AfterViewInit {
 
 
   triggerPrevBtn() {
-    this.goalsCalendarService.previousBtnHandler();
+    this.goalsService.previousBtnHandler();
   }
 
   triggerNextBtn() {
-    this.goalsCalendarService.nextBtnHandler();
+    this.goalsService.nextBtnHandler();
   }
 
 

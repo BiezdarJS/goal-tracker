@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-// select
+// Select
 declare function Select(): void;
 // chartjs
 import { Chart, ChartData, ChartConfiguration } from "chart.js";

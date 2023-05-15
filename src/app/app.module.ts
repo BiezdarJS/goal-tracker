@@ -1,8 +1,11 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgChartsModule } from 'ng2-charts';
+import { DatePipe } from '@angular/common';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/_global/header/header.component';
 import { SidenavComponent } from './components/_global/sidenav/sidenav.component';
@@ -27,7 +30,8 @@ import { ActionsNavGoalsComponent } from './components/goals/actions-nav-goals/a
 import { NewGoalComponent } from './components/goals/new-goal/new-goal.component';
 import { GoalsGridComponent } from './components/goals/goals-grid/goals-grid.component';
 import { NewGoalDirective } from './directives/goals/new-goal.directive';
-import { OpenMobileMenuDirective } from './directives/sidenav/open-mobile-menu';
+import { OpenMobileMenuDirective } from './directives/sidenav/open-mobile-menu.directive';
+import { CloseMobileMenuDirective } from './directives/sidenav/close-mobile-menu.directive';
 
 @NgModule({
   declarations: [
@@ -55,14 +59,21 @@ import { OpenMobileMenuDirective } from './directives/sidenav/open-mobile-menu';
     NewGoalComponent,
     GoalsGridComponent,
     NewGoalDirective,
-    OpenMobileMenuDirective
+    OpenMobileMenuDirective,
+    CloseMobileMenuDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgChartsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

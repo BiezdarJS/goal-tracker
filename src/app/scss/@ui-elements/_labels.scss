@@ -23,11 +23,11 @@
         text-transform: uppercase;
         @include mobile {
             font-size: 10px;
-            line-height: 10px;
+            line-height: 11px;
         }
         @include desktop-sm {
             font-size: 10px;
-            line-height: 10px;
+            line-height: 11px;
         }
         @include desktop-md {
             font-size: 11px;
@@ -47,6 +47,11 @@
             background-color: #fff9e7;
             border: 1px solid $yellowStrong;
             color: $secondText;
+        }
+        &--purple {
+          background-color: $purple;
+          border: 1px solid $purpleStrong;
+          color: $secondText;
         }
     }
     &-priority {

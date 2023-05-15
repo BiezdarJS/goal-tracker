@@ -7,215 +7,232 @@
           </button>
       </div>
   </header>
-  <main class="modal__main">
+  <main #modal_main id="modal__main" class="modal__main">
       <ul class="progressBar progressBar--steps progressBar--newgoal list">
-          <li class="progressBar__step progressBar__step--newgoal done">
+          <li class="progressBar__step progressBar__step--newgoal done" #progressBarStep>
               <div class="progressBar__content">
                   <span class="progressBar__dot2">
                       1
                   </span>
-                  <span class="subhead">
+                  <span class="headline">
                       Goal Details
                   </span>
               </div>
           </li>
-          <li class="progressBar__step progressBar__step--newgoal">
+          <li class="progressBar__step progressBar__step--newgoal" #progressBarStep>
               <div class="progressBar__content">
                   <span class="progressBar__dot2">
                       2
                   </span>
-                  <span class="subhead">
+                  <span class="headline">
                       Action Plan
                   </span>
               </div>
           </li>
-          <li class="progressBar__step progressBar__step--newgoal">
+          <li class="progressBar__step progressBar__step--newgoal" #progressBarStep>
               <div class="progressBar__content">
                   <span class="progressBar__dot2">
                       3
                   </span>
-                  <span class="subhead">
+                  <span class="headline">
                       Create
                   </span>
               </div>
           </li>
       </ul>
-      <ul class="modal-list list">
-          <li class="modal-list__step active" data-id="0">
-              <p class="modal__heading modal__heading--center">
-                  Start by stating a goal
-              </p>
-              <div class="modal__section">
-                  <h3 class="modal__section-name headline">
-                      Goal name
-                  </h3>
-                  <input type="text" name="" placeholder="State your goal" />
-                  <div class="d-flex">
-                      <div class="modal__half check-item">
-                          <label class="checkbox checkbox--green">
-                              <input class="checkbox__input" type="checkbox" name="">
-                              <span class="checkbox__checkmark checkbox__checkmark--radius-square"></span>
-                          </label>
-                          <div class="check-item__content">
-                              <h4 class="check-item__name subhead d-flex">
-                                  The main goal&nbsp;&nbsp;&nbsp;<i class="icon icon--info" data="To jest test&#10;to jest test"></i>
-                              </h4>
+      <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <ul class="modal-list list">
+            <li class="modal-list__step active" data-id="0" #newGoalStep>
+                <p class="modal__heading modal__heading--center">
+                    Start by stating a goal
+                </p>
+                <div class="modal__section">
+                    <h3 class="modal__section-name headline">
+                        Goal name
+                    </h3>
+                    <input type="text" name="name" placeholder="State your goal" required minlength=5 ngModel #name="ngModel" />
+                    <div class="d-flex">
+                        <div class="modal__half check-item">
+                            <label class="checkbox checkbox--green">
+                                <input class="checkbox__input" type="checkbox" name="isMainGoal" ngModel>
+                                <span class="checkbox__checkmark checkbox__checkmark--radius-square"></span>
+                            </label>
+                            <div class="check-item__content">
+                                <h4 class="check-item__name subhead d-flex">
+                                    The main goal&nbsp;&nbsp;&nbsp;<i class="icon icon--info" data="To jest test&#10;to jest test"></i>
+                                </h4>
 
-                          </div>
-                      </div>
-                      <div class="modal__half">
+                            </div>
+                        </div>
+                        <div class="modal__half">
 
-                      </div>
-                  </div>
-              </div>
-              <div class="modal__section">
-                  <h3 class="modal__section-name headline">
-                      Goal completion criterion
-                  </h3>
-                  <textarea
-                      placeholder="Describe your goal in details. This will help break down&#10;into tasks more accurately and get exactly what you want."></textarea>
-              </div>
-              <div class="modal__section d-flex">
-                  <div class="modal__half">
-                      <h3 class="modal__section-name headline headline--minheight">
-                          Which area of life will this goal improve ?
-                      </h3>
-                      <select class="select--categories select--modal list">
-                          <option value="family/communication">
-                              Family/communication
-                          </option>
-                          <option value="money">
-                              Money
-                          </option>
-                          <option value="work/career">
-                              Work/career
-                          </option>
-                          <option value="health and sports">
-                              Health and sports
-                          </option>
-                          <option value="self knowledge">
-                              Self-knowledge
-                          </option>
-                          <option value="travels">
-                              Travels
-                          </option>
-                      </select>
-                  </div>
-                  <div class="modal__half">
-                      <h3 class="modal__section-name headline headline--minheight">
-                          Deadline Date
-                      </h3>
-                      <input type="date" name="test" />
-                  </div>
-              </div>
-              <div class="modal__section">
-                  <h3 class="modal__section-name headline">
-                      Attached files
-                  </h3>
-                  <textarea placeholder="Drop Files Here"></textarea>
-              </div>
-          </li>
-          <li class="modal-list__step" data-id="1">
-              <p class="modal__heading modal__heading--center">
-                  Action plan
-              </p>
-              <p class="txt-center">
-                  Make a to-do list. This will clarify the path to the goal and<br>
-                  make it more interesting to achieve it by deleting cases.
-              </p>
-              <div class="modal__section">
-                  <h3 class="modal__section-name headline">
-                      Task 1
-                  </h3>
-                  <input type="text" name="" placeholder="Formulate a task" />
-              </div>
-              <div class="modal__section">
-                  <h3 class="modal__section-name headline">
-                      Task description
-                  </h3>
-                  <textarea
-                      placeholder="Describe the task you are trying to complete."></textarea>
-              </div>
-              <div class="modal__section d-flex">
-                  <div class="modal__half">
-                      <h3 class="modal__section-name headline">
-                          A priority
-                      </h3>
-                      <ul class="priority list">
-                          <li class="priority__item">
-                              <button class="label label-priority label-priority--high label--105width">
-                                  High priority
-                              </button>
-                          </li>
-                          <li class="priority__item">
-                              <button class="label label-priority label-priority--medium label--105width">
-                                  Medium priority
-                              </button>
-                          </li>
-                          <li class="priority__item">
-                              <button class="label label-priority label-priority--nopriority label--105width">
-                                  No priority
-                              </button>
-                          </li>
-                      </ul>
-                  </div>
-                  <div class="modal__half">
-                      <h3 class="modal__section-name headline">
-                          Deadline Date
-                      </h3>
-                      <input type="date" name="test">
-                  </div>
-              </div>
-          </li>
-          <li class="modal-list__step" data-id="2">
-              <p class="modal__heading modal__heading--center">
-                  Create a goal
-              </p>
-              <p class="txt-center">
-                  A public pledge 'burns bridges', leaving no other path, except for success.<br>
-                  And it gives a signal to friends that they need support or help that motivates <br>
-                  and increases the chances of success.
-              </p>
-              <div class="modal__section">
-                  <h3 class="modal__section-name headline">
-                      1. Write a promise to successfully achieve your goal
-                  </h3>
-                  <p>
-                      Make a public promise that you will reach your goal on time.
-                  </p>
-              </div>
-              <div class="modal__section">
-                  <h3 class="modal__section-name headline">
-                      2. Post a promise
-                  </h3>
-                  <ul class="social-list list">
-                      <li class="social-list__item">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal__section">
+                    <h3 class="modal__section-name headline">
+                        Goal completion criterion
+                    </h3>
+                    <textarea name="details"
+                        placeholder="Describe your goal in details. This will help break down&#10;into tasks more accurately and get exactly what you want."
+                        ngModel>
+                    </textarea>
+                </div>
+                <div class="modal__section d-flex">
+                    <div class="modal__half">
+                        <h3 class="modal__section-name headline headline--minheight">
+                            Which area of life will this goal improve ?
+                        </h3>
+                        <select class="select--categories select--modal list" name="select_category" #select_category [(ngModel)]="select_category.value">
+                            <option value="family/communication">
+                                Family/communication
+                            </option>
+                            <option value="money">
+                                Money
+                            </option>
+                            <option value="work/career">
+                                Work/career
+                            </option>
+                            <option value="health and sports">
+                                Health and sports
+                            </option>
+                            <option value="self knowledge">
+                                Self-knowledge
+                            </option>
+                            <option value="travels">
+                                Travels
+                            </option>
+                        </select>
+                    </div>
+                    <div class="modal__half">
+                        <h3 class="modal__section-name headline headline--minheight">
+                            Creation Date
+                        </h3>
+                        <input name="creationDate" type="date" ngModel>
+                    </div>
+                </div>
+                <div class="modal__section">
+                    <h3 class="modal__section-name headline">
+                        Attached files
+                    </h3>
+                    <textarea placeholder="Drop Files Here"></textarea>
+                </div>
+            </li>
+            <li class="modal-list__step" data-id="1" #newGoalStep>
+                <p class="modal__heading modal__heading--center">
+                    Action plan
+                </p>
+                <p class="txt-center">
+                    Make a to-do list. This will clarify the path to the goal and<br>
+                    make it more interesting to achieve it by deleting cases.
+                </p>
+                <div class="modal__section">
+                    <h3 class="modal__section-name headline">
+                        Task 1
+                    </h3>
+                    <input type="text" name="" placeholder="Formulate a task" />
+                </div>
+                <div class="modal__section">
+                    <h3 class="modal__section-name headline">
+                        Task description
+                    </h3>
+                    <textarea
+                        placeholder="Describe the task you are trying to complete."></textarea>
+                </div>
+                <div class="modal__section d-flex">
+                    <div class="modal__half">
+                        <h3 class="modal__section-name headline">
+                            A priority
+                        </h3>
+                        <ul class="priority list">
+                            <li class="priority__item">
+                                <button class="label label-priority label-priority--high label--105width">
+                                    High priority
+                                </button>
+                            </li>
+                            <li class="priority__item">
+                                <button class="label label-priority label-priority--medium label--105width">
+                                    Medium priority
+                                </button>
+                            </li>
+                            <li class="priority__item">
+                                <button class="label label-priority label-priority--nopriority label--105width">
+                                    No priority
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal__half">
+                        <h3 class="modal__section-name headline">
+                            Deadline Date
+                        </h3>
+                        <input type="date" name="test">
+                    </div>
+                </div>
+            </li>
+            <li class="modal-list__step" data-id="2" #newGoalStep>
+                <p class="modal__heading modal__heading--center">
+                    Create a goal
+                </p>
+                <p class="txt-center">
+                    A public pledge 'burns bridges', leaving no other path, except for success.<br>
+                    And it gives a signal to friends that they need support or help that motivates <br>
+                    and increases the chances of success.
+                </p>
+                <div class="modal__section">
+                    <h3 class="modal__section-name headline">
+                        1. Write a promise to successfully achieve your goal
+                    </h3>
+                    <p>
+                        Make a public promise that you will reach your goal on time.
+                    </p>
+                </div>
+                <div class="modal__section">
+                    <h3 class="modal__section-name headline">
+                        2. Post a promise
+                    </h3>
+                    <ul class="social-list list">
+                        <li class="social-list__item">
 
-                      </li>
-                      <li class="social-list__item">
+                        </li>
+                        <li class="social-list__item">
 
-                      </li>
-                      <li class="social-list__item">
+                        </li>
+                        <li class="social-list__item">
 
-                      </li>
-                  </ul>
-              </div>
-          </li>
-      </ul>
-
-
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <input class="visuallyhidden" type="submit" value="wyślij" #submitBtn>
+    </form>
   </main>
   <footer class="modal__footer d-flex">
       <div class="modal__half">
-          <button class="btn btn__back">
-              Back
-          </button>
+          <a href="#modal__main"
+            [class.active]="btnBackIsActive"
+            class="btn btn__back js-btn-back"
+            (click)="showPrevStep($event)"
+            (click)="modal_main.scrollIntoView({behavior: 'smooth'})"
+          >Back
+          </a>
       </div>
       <div class="modal__half d-flex">
-          <button class="btn btn__next btn--blue left-auto">
-              Next
-          </button>
+          <a href="#modal__main"
+            [class.active]="btnNextIsActive"
+            class="btn btn__next btn--blue left-auto js-btn-next"
+            (click)="showNextStep($event)"
+            (click)="modal_main.scrollIntoView({behavior: 'smooth', block: 'start'})"
+            >Next
+        </a>
+        <button
+            [class.active]="btnCreateIsActive"
+            class="btn btn__next btn--blue btn--scale left-auto js-btn-create"
+            (click)="triggerFormSubmit(submitBtn)"
+            #create
+        >Create
+        </button>
       </div>
-
   </footer>
 </section>
