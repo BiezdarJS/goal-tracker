@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgChartsModule } from 'ng2-charts';
 import { DatePipe } from '@angular/common';
-import { AngularDayjsModule } from 'angular-dayjs';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/_global/header/header.component';
@@ -77,8 +76,7 @@ import { GetTaskPriorityDirective } from './directives/tasks/get-task-priority.d
     NgChartsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    AngularDayjsModule
+    HttpClientModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
