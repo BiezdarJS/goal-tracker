@@ -3,10 +3,14 @@ import { AfterContentChecked, AfterContentInit, Component, ElementRef } from '@a
 import { ICalendarDaysExtended, ICalendarExtended } from '../../../models/calendar.model';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
+import { TasksService } from 'src/app/services/tasks.service';
+// Types
+import { Task } from 'src/app/types/task.type';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
@@ -18,27 +22,51 @@ dayjs.extend(weekOfYear);
 })
 export class CalendarTypeDayComponent implements AfterContentInit, AfterContentChecked {
 
+
+  public loading$!: boolean;
   firstMonthDays!: any;
   secondMonthDays!: any;
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   selectedMonth:any;
   calendar!: ICalendarExtended;
   checkSelectedDay:any;
-
+  databaseContent: Array<Task> = [];
+  currentDaysArray: any;
+  objectValues = Object.values;
 
   constructor(
     private elementRef: ElementRef,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private tasksService: TasksService
   ) {}
+
+  ngOnInit():void {
+    this.currentDaysArray = this.createCalendar(this.calendar);
+
+  }
+
+  ngAfterViewInit(): void {
+    // console.log(this.loading$);
+    setTimeout(() => {
+
+      this.tasksService.fetchTasks()
+        .subscribe((tasks:any) => {
+          this.databaseContent = tasks;
+          this.loading$ = false;
+        })
+    }, 550);
+  }
 
 
   ngAfterContentInit():void {
+    this.loading$ = true;
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M"),
       first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
     }
-    this.createCalendar(this.calendar);
+    // this.createCalendar(this.calendar);
+    this.currentDaysArray = this.createCalendar(this.calendar);
   }
 
   // do poprawy
@@ -48,7 +76,7 @@ export class CalendarTypeDayComponent implements AfterContentInit, AfterContentC
         month: this.calendarService.selectedMonth.format("M"),
         first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
       }
-      this.createCalendar(this.calendar);
+      this.currentDaysArray = this.createCalendar(this.calendar);
   }
 
 
@@ -61,7 +89,9 @@ export class CalendarTypeDayComponent implements AfterContentInit, AfterContentC
     this.secondMonthDays = this.createSecondMonthDays(this.calendar);
     const days = [...this.firstMonthDays, ...this.secondMonthDays];
 
-    days.forEach((day) => { this.appendDay(day, this.elementRef.nativeElement) });
+    return days;
+
+    // days.forEach((day) => { this.appendDay(day, this.elementRef.nativeElement) });
   }
 
   appendDay(day:any, calendarGrid:any) {
@@ -69,69 +99,7 @@ export class CalendarTypeDayComponent implements AfterContentInit, AfterContentC
     const dayOfTheWeek = day.dayOfWeek-1 !== -1 ? day.dayOfWeek-1 : 6;
 
     const dayElement = `
-      <div class="calendar-grid__column calendar-grid__column--day">
-      <p class="title txt-center">
-        ${this.WEEKDAYS[dayOfTheWeek] + ' ' + '<span>' + day.dayOfMonth + '</span>' }
-      </p>
-      <ul class="task-list list">
-        <li class="task-list__item task-list__item--styling">
-          <div class="task-item task-item--styling task-item--health-and-sports task-item-1" draggable="true">
-              <div class="task-item__additional-info">
-                  <span></span>
-                  <div class="hstack align-items-center">
-                      <i class="icon icon--xsm icon--clock"></i>
-                      <p class="ms-5">4 times a week</p>
-                      <button class="btn btn--sm btn--no-style">
-                          <i class="icon icon--medium-sm icon--edit"></i>
-                      </button>
-                  </div>
-              </div>
-              <div class="task-item__main">
-                  <label class="checkbox checkbox--green">
-                      <input class="checkbox__input" type="checkbox" name="">
-                      <span class="checkbox__checkmark"></span>
-                  </label>
-                  <div class="task-item__content">
-                      <h4 class="task-item__name subhead">
-                          Warm up and run
-                      </h4>
-                      <p class="task-item__descr">
-                          Distance 5km time 20min
-                      </p>
-                  </div>
-              </div>
-          </div>
-        </li>
-        <li class="task-list__item task-list__item--styling">
-          <div class="task-item task-item--styling task-item--self-knowledge task-item-2" draggable="true">
-              <div class="task-item__additional-info">
-                  <span></span>
-                  <div class="hstack align-items-center">
-                      <i class="icon icon--xsm icon--clock"></i>
-                      <p class="ms-5">Deadline until July 30</p>
-                      <button class="btn btn--sm btn--no-style">
-                          <i class="icon icon--medium-sm icon--edit"></i>
-                      </button>
-                  </div>
-              </div>
-              <div class="task-item__main">
-                  <label class="checkbox checkbox--green">
-                      <input class="checkbox__input" type="checkbox" name="">
-                      <span class="checkbox__checkmark"></span>
-                  </label>
-                  <div class="task-item__content">
-                      <h4 class="task-item__name subhead">
-                          Complete task 2 week
-                      </h4>
-                      <p class="task-item__descr">
-                          Visual Elements of User Interface Design
-                      </p>
-                  </div>
-              </div>
-          </div>
-        </li>
-      </ul>
-      </div>
+
     `;
     calendarGrid.innerHTML += dayElement;
 
@@ -189,7 +157,6 @@ export class CalendarTypeDayComponent implements AfterContentInit, AfterContentC
         dayOfWeek: dayjs(`${calendar.year}-${month}-${first_day_of_second_month+index}`).day(),
         isCurrentMonth: true
       };
-      console.log(secondMonthDays);
       return secondMonthDays;
     });
   }

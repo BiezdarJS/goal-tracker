@@ -1,4 +1,4 @@
-<gt-actions-nav-calendar></gt-actions-nav-calendar>
+<gt-actions-nav-tasks (taskEvent)="createNewTask()"></gt-actions-nav-tasks>
 
 
 <ng-container *ngIf="this.currentCalendarType === 'day'">
@@ -19,3 +19,5 @@
     <ol class="days-grid"></ol>
   </gt-calendar-type-month>
 </ng-container>
+
+<ng-template gtNewTaskHost></ng-template>

@@ -1,15 +1,19 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { CalendarService } from 'src/app/services/calendar.service';
+
 @Component({
-  selector: 'gt-actions-nav-calendar',
-  templateUrl: './actions-nav-calendar.component.html',
+  selector: 'gt-actions-nav-tasks',
+  templateUrl: './actions-nav-tasks.component.html',
   host: { 'class': 'actions-nav actions-nav--calendar'},
-  styleUrls: ['./actions-nav-calendar.component.scss']
+  styleUrls: ['./actions-nav-tasks.component.scss']
 })
+export class ActionsNavTasksComponent implements OnInit, AfterViewInit {
 
-export class ActionsNavCalendarComponent implements OnInit, AfterViewInit, AfterViewInit {
-
-  @Output() prevBtnEvent = new EventEmitter();
+  // Emit New Goal Event
+  @Output() taskEvent = new EventEmitter();
+  emitNewTaskEvent() {
+    this.taskEvent.emit();
+  }
 
   currentCalendarType:any;
 
@@ -32,11 +36,6 @@ export class ActionsNavCalendarComponent implements OnInit, AfterViewInit, After
   ngAfterViewInit(): void {
     this.setActiveIndicatior();
   }
-
-
-
-
-  // value = this.calendarService.observable.subscribe(isActive => this.test = isActive);
 
 
 
@@ -69,4 +68,4 @@ export class ActionsNavCalendarComponent implements OnInit, AfterViewInit, After
 
   }
 
-  }
+}

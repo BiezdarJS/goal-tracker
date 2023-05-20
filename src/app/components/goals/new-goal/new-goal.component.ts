@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { GoalsService } from 'src/app/services/goals.service';
-import { GoalsHostComponent } from '../goals-host/goals-host.component';
+import { GoalsMainComponent } from '../_goals-main/goals-main.component';
 // New Goal
 import { NewGoal } from 'src/app/models/new-goal.model';
+// Modal
 declare function Modal(): void;
 // Select
 declare function Select(): void;
@@ -31,7 +32,7 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
 
   constructor(
     private elRef: ElementRef,
-    private parentRef: GoalsHostComponent,
+    private parentRef: GoalsMainComponent,
     private goalsService: GoalsService
   ) {}
 

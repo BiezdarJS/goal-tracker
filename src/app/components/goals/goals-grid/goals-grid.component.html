@@ -11,18 +11,18 @@
       <p class="title txt-center">
         {{ this.monthNames[month.monthOfTheYear] }}
       </p>
-      <!-- ul powinien być wyświetlany tylko kiedy celów pasujących do miesiąca jest więcej niż 0 !-->
+      <!-- Wyświetl UL tylko kiedy celów pasujących do miesiąca jest więcej niż 0 !-->
       <ul class="goals-list list">
         <!--
-            Robię pętlę po wszyskich celach
+            Zrób pętlę po wszyskich celach
         -->
         <ng-container *ngFor="let item of objectValues(this.allGoals)">
           <!--
-          ... i porównuję miesiąc z danego celu -> do miesiąca z obecnie iterowanego month
+          ... Porównaj miesiąc z danego celu -> do miesiąca z obecnie iterowanego month
       -->
           <ng-container *ngIf="(item['creationDate'] | date: 'M') === (month.monthOfTheYear+1)+''">
               <!--
-              jeśli jest match to dodaję obecnie iterowany item do obecnie iterowanej kolumny miesiąca
+              Jeśli jest match to dodaj obecnie iterowany item do obecnie iterowanej kolumny miesiąca
           -->
             <li class="goals-grid__item">
                 <div class="goal-item">

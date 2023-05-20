@@ -17,9 +17,8 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid'},
   styleUrls: ['./calendar-type-month.component.scss']
 })
-export class CalendarTypeMonthComponent implements AfterContentInit {
 
-  // @ViewChild('calendarDaysElement') calendarDaysElement!: ElementRef<HTMLOListElement>;
+export class CalendarTypeMonthComponent implements AfterContentInit {
 
   calendar!: ICalendar;
   currentMonthDays: any;
@@ -165,6 +164,5 @@ export class CalendarTypeMonthComponent implements AfterContentInit {
   getNumberOfDaysInMonth(year:any, month:any) {
     return dayjs(`${year}-${month}-01`).daysInMonth();
   }
-
 
 }

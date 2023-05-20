@@ -1,0 +1,88 @@
+<section class="modal new-task">
+  <header class="modal__header">
+      <p class="modal__heading">Add new Task</p>
+      <div class="modal__action">
+          <button class="btn modal-close">
+              <i class="icon icon--close" (click)="closeModal()"></i>
+          </button>
+      </div>
+  </header>
+  <main class="modal__main">
+      <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+          <p class="modal__heading modal__heading--center">
+              Action plan
+          </p>
+          <p class="txt-center">
+              Make a to-do list. This will clarify the path to the goal and<br>
+              make it more interesting to achieve it by deleting cases.
+          </p>
+          <div class="modal__section">
+              <h3 class="modal__section-name headline">
+                  Task 1
+              </h3>
+              <input
+                type="text"
+                name="name"
+                placeholder="Formulate a task"
+                ngModel
+              />
+          </div>
+          <div class="modal__section">
+              <h3 class="modal__section-name headline">
+                  Task description
+              </h3>
+              <textarea
+                placeholder="Describe the task you are trying to complete."
+                name="description"
+                ngModel>
+              </textarea>
+          </div>
+          <div class="modal__section d-flex">
+              <div class="modal__half">
+                  <h3 class="modal__section-name headline">
+                      A priority
+                  </h3>
+                  <ul class="priority list" getTaskPriority #priority>
+                      <li class="priority__item">
+                          <button type="button" class="label label-priority label-priority--high label--105width">
+                              High priority
+                          </button>
+                      </li>
+                      <li class="priority__item">
+                          <button type="button" class="label label-priority label-priority--medium label--105width">
+                              Medium priority
+                          </button>
+                      </li>
+                      <li class="priority__item">
+                          <button type="button" class="label label-priority label-priority--nopriority label--105width">
+                              No priority
+                          </button>
+                      </li>
+                      <!-- przekaż wartość taskPriority do input type hidden -->
+                      <input
+                        class="visuallyhidden"
+                        type="hidden"
+                        name="priority"
+                      />
+                  </ul>
+              </div>
+              <div class="modal__half">
+                  <h3 class="modal__section-name headline">
+                      Task Date
+                  </h3>
+                  <input
+                    type="date"
+                    name="taskDate"
+                    ngModel
+                    >
+              </div>
+          </div>
+          <input class="visuallyhidden" type="submit" value="wyślij" #submitBtn>
+      </form>
+  </main>
+  <footer class="modal__footer d-flex justify-content-center">
+      <button class="btn btn__next btn--blue" (click)="triggerFormSubmit(submitBtn)">
+          Add
+      </button>
+  </footer>
+</section>

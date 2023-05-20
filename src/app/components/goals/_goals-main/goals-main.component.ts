@@ -6,12 +6,12 @@ import { GoalsGridComponent } from '../goals-grid/goals-grid.component';
 
 
 @Component({
-  selector: 'gt-goals-host',
-  templateUrl: './goals-host.component.html',
-  host: {'class': 'goals-host'},
-  styleUrls: ['./goals-host.component.scss']
+  selector: 'gt-goals-main',
+  templateUrl: './goals-main.component.html',
+  host: {'class': 'goals-main'},
+  styleUrls: ['./goals-main.component.scss']
 })
-export class GoalsHostComponent implements AfterViewInit, AfterViewChecked {
+export class GoalsMainComponent implements AfterViewInit, AfterViewChecked {
 
   @ViewChild(NewGoalDirective, {read: ViewContainerRef, static:true})
   gtNewGoalHost!: ViewContainerRef;

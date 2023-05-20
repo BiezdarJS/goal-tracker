@@ -10,7 +10,7 @@ import { IGoalsGrid, ICalendarMonths } from '../../../models/calendar.model';
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
-import { GoalsHostComponent } from '../goals-host/goals-host.component';
+import { GoalsMainComponent } from '../_goals-main/goals-main.component';
 import { map } from 'rxjs';
 
 dayjs.extend(weekday);
@@ -44,7 +44,7 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterViewCheck
   constructor(
     private globalVars: GlobalVariablesService,
     private elementRef: ElementRef,
-    private parentRef: GoalsHostComponent,
+    private parentRef: GoalsMainComponent,
     private goalsService: GoalsService
   ) {}
 

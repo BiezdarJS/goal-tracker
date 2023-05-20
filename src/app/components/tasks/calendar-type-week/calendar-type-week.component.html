@@ -1,0 +1,28 @@
+<!-- Przed pobraniem data -> spinner -->
+<aside class="html-spinner__wrap" *ngIf="this.loading$">
+  <span class="html-spinner"></span>
+</aside>
+
+<ng-container *ngIf="!loading$">
+  <ng-container *ngFor="let day of currentDaysArray">
+  <div class="calendar-grid__column calendar-grid__column--week">
+    <p class="calendar-grid__date title txt-center">
+        {{ this.WEEKDAYS[day.dayOfWeek] }} <span>{{day.dayOfMonth}} </span>
+    </p>
+    <ul class="task-list list">
+      <ng-container *ngFor="let task of objectValues(this.databaseContent)">
+        <!-- Jeśli dzień jest równy z currentDaysArray jest równy dniowi z databaseResult to wyświetl -->
+        <ng-container *ngIf="day.date === task['taskDate']">
+          <li class="task-list__item">
+            <div class="task-item task-item--styling task-item--health-and-sports">
+              <div class="task-item__content task-item__content--week">
+                <h4 class="task-item__name">{{ task.name }}</h4>
+              </div>
+            </div>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+    </div>
+  </ng-container>
+</ng-container>
