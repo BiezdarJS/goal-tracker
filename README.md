@@ -1,4 +1,4 @@
-# goal-tracker
+# goal-tracker (Angular)
 
 
 Currently in development.
