@@ -41,9 +41,9 @@ export class CalendarTypeDayComponent implements AfterContentInit, AfterContentC
   ) {}
 
   ngOnInit():void {
-    this.currentDaysArray = this.createCalendar(this.calendar);
-
+    this.loading$ = false;
   }
+
 
   ngAfterViewInit(): void {
     // console.log(this.loading$);

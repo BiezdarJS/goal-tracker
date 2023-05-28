@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { CalendarService } from 'src/app/services/calendar.service';
+import { TasksMainComponent } from '../_tasks-main/tasks-main.component';
 
 @Component({
   selector: 'gt-actions-nav-tasks',
@@ -19,6 +20,7 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit {
 
   constructor(
     private elRef: ElementRef,
+    private parentRef: TasksMainComponent,
     private calendarService: CalendarService
   ) { }
 
@@ -43,6 +45,7 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit {
     const calendarType = (event.target as HTMLButtonElement).getAttribute('data-calendar-type');
     this.calendarService.currentCalendarType = calendarType!;
     this.calendarService.switchCalendarType(calendarType!);
+    this.parentRef.refreshTasksGrid();
   }
 
 

@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 // import { Chart } from 'chart.js/auto';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { chartColors } from '../charts.config';
 import { textInCenterWithLineBreak } from '../utils';
+import { SetThemeService } from 'src/app/services/set-theme.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'gt-balance-of-goals-chart',
@@ -10,23 +12,51 @@ import { textInCenterWithLineBreak } from '../utils';
   host: {'class': 'chart-wrapper'},
   styleUrls: ['./balance-of-goals-chart.component.scss']
 })
-export class BalanceOfGoalsChartComponent {
+export class BalanceOfGoalsChartComponent implements OnInit, OnDestroy, AfterViewChecked, AfterContentChecked {
 
+  themeName!: string | null;
+  subscription!: Subscription;
+  balanceOfGoalsData!: ChartData<'doughnut'>;
+  currentThemeName!: string | null;
+  colors: any = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
 
-  public balanceOfGoalsData: ChartData<'doughnut'> = {
-    labels: ['16', 'GOALS'],
-    datasets: [
-      {
-        data: [300, 50, 100],
-        backgroundColor: [
-          chartColors.green,
-          chartColors.yellow,
-          chartColors.red
-        ],
-        hoverOffset: 4
-      }
-    ]
-  };
+  constructor(
+    private setThemeService: SetThemeService
+  ) {}
+
+  ngOnInit():void {
+    this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  ngAfterViewChecked():void {
+   this.currentThemeName = this.themeName;
+  }
+
+  ngAfterContentChecked():void {
+    this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+    if (this.currentThemeName !== this.themeName) {
+      this.balanceOfGoalsData = {
+        labels: ['16', 'GOALS'],
+        datasets: [
+          {
+            data: [300, 50, 100],
+            backgroundColor: [
+              this.colors.green,
+              this.colors.yellow,
+              this.colors.red
+            ],
+            hoverOffset: 4
+          }
+        ]
+      };
+    }
+
+  }
+
 
   public balanceOfGoalsOptions: ChartConfiguration<'doughnut'>['options'] = {
 

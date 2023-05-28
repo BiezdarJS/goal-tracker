@@ -15,7 +15,7 @@ declare function Modal(): void;
   host: {'class': 'modal__wrap'},
   styleUrls: ['./new-task.component.scss']
 })
-export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked, DoCheck {
+export class NewTaskComponent implements OnInit, AfterViewInit {
 
   @ViewChild('priority') priority!: ElementRef;
   @ViewChild('submitBtn') submitBtn!: ElementRef<HTMLInputElement>;
@@ -45,12 +45,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
     // this.priorityValue = this.priority.nativeElement.querySelector('.active').innerText;
 
   }
-  ngAfterViewChecked():void {
 
-  }
-  ngDoCheck():void {
-
-  }
 
 
   triggerFormSubmit(submitBtn: any) {
@@ -74,7 +69,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
 
     this.tasksService.postTask();
     this.parentRef.removeNewTask();
-    this.parentRef.removeTasksGrid();
+    this.parentRef.refreshTasksGrid();
   }
 
 

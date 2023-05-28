@@ -1,5 +1,10 @@
 .theme-dark {
-  header {
+  .goal-and-time-management {
+    @include mobile {
+      background-color: #252c3e;;
+    }
+  }
+  .header {
     background-color: #252c3e;
   }
   .btn--blue {
@@ -27,15 +32,26 @@
     }
   }
   .sidenav {
-    background-color: #343c4f;
+    @include desktop-sm {
+      background-color: #343c4f;
+    }
   }
   .sidenav-mobile-open {
     background-color: #252c3e;
   }
-  main {
+  .dashboard {
     background-color: #252c3e;
   }
-  footer {
+  .goals-main {
+    background-color: #252c3e;
+  }
+  .tasks-main {
+    background-color: #252c3e;
+  }
+  .calendar-grid {
+    background-color: #252c3e;
+  }
+  .footer {
     background-color: #252c3e;
   }
   .settings-content {
@@ -268,6 +284,9 @@
   .modal {
     background-color: #252c3e;
     border: 1px solid #ddd;
+  }
+  .modal__header {
+    background-color: #252c3e;
   }
   .modal__heading {
     color: #fbfbfd;

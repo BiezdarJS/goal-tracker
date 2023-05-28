@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { NgChartsModule } from 'ng2-charts';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
@@ -28,7 +28,6 @@ import { NewGoalDirective } from './directives/goals/new-goal.directive';
 import { OpenMobileMenuDirective } from './directives/sidenav/open-mobile-menu.directive';
 import { CloseMobileMenuDirective } from './directives/sidenav/close-mobile-menu.directive';
 import { NewTaskComponent } from './components/tasks/new-task/new-task.component';
-import { TasksGridComponent } from './components/tasks/tasks-grid/tasks-grid.component';
 import { NewTaskDirective } from './directives/tasks/new-task.directive';
 import { TasksMainComponent } from './components/tasks/_tasks-main/tasks-main.component';
 import { ActionsNavTasksComponent } from './components/tasks/actions-nav-tasks/actions-nav-tasks.component';
@@ -36,6 +35,8 @@ import { CalendarTypeDayComponent } from './components/tasks/calendar-type-day/c
 import { CalendarTypeMonthComponent } from './components/tasks/calendar-type-month/calendar-type-month.component';
 import { CalendarTypeWeekComponent } from './components/tasks/calendar-type-week/calendar-type-week.component';
 import { GetTaskPriorityDirective } from './directives/tasks/get-task-priority.directive';
+import { TasksHostDirective } from './directives/tasks/tasks-host.directive';
+import { SetThemeService } from './services/set-theme.service';
 
 @NgModule({
   declarations: [
@@ -61,14 +62,14 @@ import { GetTaskPriorityDirective } from './directives/tasks/get-task-priority.d
     OpenMobileMenuDirective,
     CloseMobileMenuDirective,
     NewTaskComponent,
-    TasksGridComponent,
     NewTaskDirective,
     TasksMainComponent,
     CalendarTypeDayComponent,
     CalendarTypeMonthComponent,
     CalendarTypeWeekComponent,
     ActionsNavTasksComponent,
-    GetTaskPriorityDirective
+    GetTaskPriorityDirective,
+    TasksHostDirective
   ],
   imports: [
     BrowserModule,
@@ -81,7 +82,9 @@ import { GetTaskPriorityDirective } from './directives/tasks/get-task-priority.d
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, SetThemeService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }

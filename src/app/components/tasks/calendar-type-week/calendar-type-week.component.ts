@@ -41,6 +41,9 @@ export class CalendarTypeWeekComponent implements AfterViewInit, AfterContentIni
     private tasksService: TasksService
   ) {}
 
+  ngOnInit():void {
+    this.loading$ = false;
+  }
 
 
   ngAfterViewInit(): void {

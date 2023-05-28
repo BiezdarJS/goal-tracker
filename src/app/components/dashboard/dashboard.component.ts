@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, AfterViewChecked, AfterContentChecked } from '@angular/core';
 // Select
 declare function Select(): void;
 // chartjs
 import { Chart, ChartData, ChartConfiguration } from "chart.js";
 import { chartColors } from '../charts/charts.config';
 import { textInCenter } from '../charts/utils';
+import { Subscription } from 'rxjs';
+import { SetThemeService } from 'src/app/services/set-theme.service';
 
 @Component({
   selector: 'gt-dashboard',
@@ -12,13 +14,25 @@ import { textInCenter } from '../charts/utils';
   host: {'class': 'dashboard'},
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentChecked {
 
   @ViewChild('select_my_activity') select_my_activity!: ElementRef;
   @ViewChild('select_health_and_sports') select_health_and_sports!: ElementRef;
+  themeName!: string | null;
+  subscription!: Subscription;
+  progressTowardsTheGoalData1!: ChartData<'doughnut'>;
+  progressTowardsTheGoalData2!: ChartData<'doughnut'>;
+  progressTowardsTheGoalData3!: ChartData<'doughnut'>;
+  progressTowardsTheGoalData4!: ChartData<'doughnut'>;
+  currentThemeName!: string | null;
+  colors: any = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+
+  constructor(
+    private setThemeService: SetThemeService
+  ) {}
 
   ngOnInit() {
-
+    this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
   }
 
   ngAfterViewInit():void {
@@ -32,20 +46,23 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
 
   public progressTowardsTheGoalOptions: ChartConfiguration<'doughnut'>['options'] = {
-    // plugins: {
-    //   drawCirclePlugin : {
-    //     backgroundColor: '#ddd',
-    //   }
-    // },
+    layout: {
+      padding: {
+          top: -20,
+      }
+  },
+    cutout: "95%",
+    radius: 45,
     responsive: true,
+    // clip: {left: 0, top: 0, right: 0, bottom: 50},
     elements: {
       arc: {
+        borderAlign: 'center',
         borderWidth: 0,
         borderJoinStyle: "round",
-        borderRadius: 25
       }
     },
-    cutout: "95%",
+
     animation: {
       animateRotate: true,
       onComplete: function() {
@@ -53,61 +70,51 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       },
     },
     events: []
-};
-
-
-  public progressTowardsTheGoalData1: ChartData<'doughnut'> = {
-    datasets: [{
-      label: '60%',
-      data: [60, 40],
-      backgroundColor: [chartColors.orange, chartColors.transparent]
-    }]
   };
 
+  ngAfterViewChecked():void {
+    this.currentThemeName = this.themeName;
+  }
 
-  public progressTowardsTheGoalData2: ChartData<'doughnut'> = {
-    datasets: [{
-      label: '30%',
-      data: [30, 70],
-      backgroundColor: [chartColors.green, chartColors.transparent]
-    }]
-  };
-
-  public progressTowardsTheGoalData3: ChartData<'doughnut'> = {
-    datasets: [{
-      label: '10%',
-      data: [10, 90],
-      backgroundColor: [chartColors.blue, chartColors.transparent]
-    }]
-  };
-
-  public progressTowardsTheGoalData4: ChartData<'doughnut'> = {
-    datasets: [{
-      label: '65%',
-      data: [65, 35],
-      backgroundColor: [chartColors.yellow, chartColors.transparent]
-    }]
-  };
+  ngAfterContentChecked():void {
+    this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+    if (this.currentThemeName !== this.themeName) {
+    this.progressTowardsTheGoalData1 = {
+      datasets: [{
+        label: '60%',
+        data: [60, 40],
+        backgroundColor: [this.colors.orange, this.colors.transparent]
+      }]
+    };
 
 
-  // public progressTowardsTheGoalData: ChartDataset<'doughnut'>[] = [
-  //   {
-  //     label: '60%',
-  //     data: [60, 40],
-  //     backgroundColor: [chartColors.orange, chartColors.transparent]
-  //   }, {
-  //     label: '30%',
-  //     data: [30, 70],
-  //     backgroundColor: [chartColors.green, chartColors.transparent]
-  //   }, {
-  //     label: '10%',
-  //     data: [10, 90],
-  //     backgroundColor: [chartColors.blue, chartColors.transparent]
-  //   }, {
-  //     label: '65%',
-  //     data: [65, 35],
-  //     backgroundColor: [chartColors.yellow, chartColors.transparent]
-  //   }
-  // ];
+    this.progressTowardsTheGoalData2 = {
+      datasets: [{
+        label: '30%',
+        data: [30, 70],
+        backgroundColor: [this.colors.green, this.colors.transparent]
+      }]
+    };
+
+    this.progressTowardsTheGoalData3 = {
+      datasets: [{
+        label: '10%',
+        data: [10, 90],
+        backgroundColor: [this.colors.blue, this.colors.transparent]
+      }]
+    };
+
+    this.progressTowardsTheGoalData4 = {
+      datasets: [{
+        label: '65%',
+        data: [65, 35],
+        backgroundColor: [this.colors.yellow, this.colors.transparent]
+      }]
+    };
+
+
+    }
+
+  }
 
 }

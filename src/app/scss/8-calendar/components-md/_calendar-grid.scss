@@ -1,7 +1,6 @@
 .calendar-grid {
   display: flex;
   flex-wrap: wrap;
-  grid-area: main;
   width: 100%;
   &--day {
     gap: 30px;
@@ -63,7 +62,7 @@
       border-radius: 14px;
       margin: 20px 0;
       padding: 45px;
-      
+
   }
   &__imgwrap {
       position: relative;

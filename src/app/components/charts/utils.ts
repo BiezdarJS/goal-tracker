@@ -13,6 +13,7 @@ export function textInCenter(chart:any, value:any) {
   ctx.font = '18px sans-serif';
   ctx.textBaseline = 'middle';
 
+  var lineHeight = 10;
 
   // Define text position
   var textPosition = {
@@ -20,7 +21,7 @@ export function textInCenter(chart:any, value:any) {
     y: chart.height / 2,
   };
 
-  ctx.fillText(value, textPosition.x, textPosition.y);
+  ctx.fillText(value, textPosition.x, textPosition.y );
   ctx.save();
 }
 

@@ -1,5 +1,8 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { TasksGridComponent } from '../tasks-grid/tasks-grid.component';
+import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
+// Components
+import { CalendarTypeDayComponent } from '../calendar-type-day/calendar-type-day.component';
+import { CalendarTypeWeekComponent } from '../calendar-type-week/calendar-type-week.component';
+import { CalendarTypeMonthComponent } from '../calendar-type-month/calendar-type-month.component';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
 // Directives
@@ -10,15 +13,19 @@ import { NewTaskComponent } from '../new-task/new-task.component';
 
 
 
+
 @Component({
   selector: 'gt-tasks-main',
   templateUrl: './tasks-main.component.html',
+  host: { 'class' : 'tasks-main'},
   styleUrls: ['./tasks-main.component.scss']
 })
 export class TasksMainComponent {
 
   @ViewChild(NewTaskDirective, {read: ViewContainerRef, static:true})
-  gtNewTaskHost!: ViewContainerRef;
+  tasksHost!: ViewContainerRef;
+  @ViewChild(NewTaskDirective, {read: ViewContainerRef, static:true})
+  newTaskHost!: ViewContainerRef;
 
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   value: boolean = false;
@@ -33,6 +40,15 @@ export class TasksMainComponent {
 
   ngOnInit() {
     this.currentCalendarType = this.calendarService.currentCalendarType;
+    if (this.currentCalendarType === 'day') {
+      this.tasksHost.createComponent(CalendarTypeDayComponent);
+    }
+    if (this.currentCalendarType === 'week') {
+      this.tasksHost.createComponent(CalendarTypeWeekComponent);
+    }
+    if (this.currentCalendarType === 'month') {
+      this.tasksHost.createComponent(CalendarTypeMonthComponent);
+    }
   }
 
   ngDoCheck() {
@@ -40,21 +56,32 @@ export class TasksMainComponent {
   }
 
 
+
   createNewTask() {
-    this.gtNewTaskHost.createComponent(NewTaskComponent);
+    this.newTaskHost.createComponent(NewTaskComponent);
   }
 
   removeNewTask() {
-    this.gtNewTaskHost.remove();
+    this.newTaskHost.remove();
     this.tasksService.components = [];
   }
 
-  removeTasksGrid() {
+
+  refreshTasksGrid() {
     // console.log(this.goalsGridHost);
     // pobierz wartoś z
-    this.gtNewTaskHost.remove();
+    this.tasksHost.remove();
     setTimeout(() => {
-      this.gtNewTaskHost.createComponent(TasksGridComponent);
+      if (this.currentCalendarType === 'day') {
+        this.tasksHost.createComponent(CalendarTypeDayComponent);
+      }
+      if (this.currentCalendarType === 'week') {
+        this.tasksHost.createComponent(CalendarTypeWeekComponent);
+      }
+      if (this.currentCalendarType === 'month') {
+        this.tasksHost.createComponent(CalendarTypeMonthComponent);
+      }
+
     },50);
   }
 

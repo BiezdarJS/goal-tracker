@@ -1,6 +1,9 @@
-<canvas baseChart class="circularChart"
-  [data]="progressTowardsTheGoalData"
-  [options]="progressTowardsTheGoalConfig"
-  [type]="'doughnut'"
-  >
+<canvas
+baseChart
+class="circularChart"
+[data]="progressTowardsTheGoalData"
+[options]="progressTowardsTheGoalConfig"
+[type]="'doughnut'"
+[plugins]="drawCirclePlugin"
+>
 </canvas>
