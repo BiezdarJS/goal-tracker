@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ICalendarDays } from '../../../models/calendar.model';
 // Day.js
 import * as dayjs from 'dayjs';

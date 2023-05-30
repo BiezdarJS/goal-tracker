@@ -82,7 +82,7 @@ export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewChe
     }
   };
     this.myActivityDataWeek = {
-    labels: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"],
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
           label: "Income",

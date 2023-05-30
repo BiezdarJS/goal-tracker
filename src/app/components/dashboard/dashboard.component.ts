@@ -1,12 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, AfterViewChecked, AfterContentChecked } from '@angular/core';
 // Select
 declare function Select(): void;
+// Services
+import { SetThemeService } from 'src/app/services/set-theme.service';
+import { GoalsService } from 'src/app/services/goals.service';
+import { TasksService } from 'src/app/services/tasks.service';
 // chartjs
 import { Chart, ChartData, ChartConfiguration } from "chart.js";
 import { chartColors } from '../charts/charts.config';
 import { textInCenter } from '../charts/utils';
-import { Subscription } from 'rxjs';
-import { SetThemeService } from 'src/app/services/set-theme.service';
+import { Subscription, map } from 'rxjs';
+import { Goal } from 'src/app/types/goal.type';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'gt-dashboard',
@@ -16,6 +22,15 @@ import { SetThemeService } from 'src/app/services/set-theme.service';
 })
 export class DashboardComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentChecked {
 
+  allGoals: Array<Goal> = [];
+  allTasks!:any;
+  // categories
+  familyAndCommunication:any;
+  money:any;
+  workCareer:any;
+  healthAndSports:any;
+  selfKnowledge:any;
+  travels:any;
   @ViewChild('select_my_activity') select_my_activity!: ElementRef;
   @ViewChild('select_health_and_sports') select_health_and_sports!: ElementRef;
   themeName!: string | null;
@@ -27,12 +42,57 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
   currentThemeName!: string | null;
   colors: any = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
 
+
   constructor(
-    private setThemeService: SetThemeService
-  ) {}
+    private goalsService: GoalsService,
+    private tasksService: TasksService,
+    private setThemeService: SetThemeService,
+    private router: ActivatedRoute
+  ) {
+    // console.log(this.router.snapshot.data['allGoals']);
+    this.allGoals = this.router.snapshot.data['allGaols'];
+  }
 
   ngOnInit() {
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
+    // Fetch Goals
+    this.goalsService.fetchGoals()
+    .pipe(
+      map(response => {
+        const goalsArray = [];
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            goalsArray.push({ ...response[key], id: key })
+          }
+        }
+        return goalsArray;
+      })
+    )
+    .subscribe(
+      goals => {
+        this.allGoals = goals;
+        console.log(goals);
+        // this.familyAndCommunication = this.allGoals.filter((item:any) => item.category === 'health and sports');
+      }
+    )
+    // Fetch Tasks
+    this.tasksService.fetchTasks()
+      .pipe(
+        map(response => {
+          const tasksArray = [];
+          for (const key in response) {
+            if (response.hasOwnProperty(key)) {
+              tasksArray.push( { ...response[key], id: key})
+            }
+          }
+          return tasksArray;
+        })
+      )
+      .subscribe(
+        responseData => {
+          this.allTasks = responseData;
+        }
+      )
   }
 
   ngAfterViewInit():void {
@@ -42,7 +102,52 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     new (Select as any)(this.select_health_and_sports.nativeElement, {
       placeholder: 'Week'
     });
+    // Fetch Goals
+    this.goalsService.fetchGoals()
+    .pipe(
+      map(response => {
+        const goalsArray = [];
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            goalsArray.push({ ...response[key], id: key })
+          }
+        }
+        return goalsArray;
+      })
+    )
+    .subscribe(
+      goals => {
+        this.allGoals = goals;
+        this.familyAndCommunication = this.allGoals.filter((item:any) => item.category === 'family and communication');
+        this.money = this.allGoals.filter((item:any) => item.category === 'money');
+        this.workCareer = this.allGoals.filter((item:any) => item.category === 'work/career');
+        this.healthAndSports = this.allGoals.filter((item:any) => item.category === 'health and sports');
+        this.selfKnowledge = this.allGoals.filter((item:any) => item.category === 'self knowledge');
+        this.travels = this.allGoals.filter((item:any) => item.category === 'travels');
+      }
+    )
+    // Fetch Tasks
+    this.tasksService.fetchTasks()
+      .pipe(
+        map(response => {
+          const tasksArray = [];
+          for (const key in response) {
+            if (response.hasOwnProperty(key)) {
+              tasksArray.push( { ...response[key], id: key})
+            }
+          }
+          return tasksArray;
+        })
+      )
+      .subscribe(
+        responseData => {
+          this.allTasks = responseData;
+        }
+      )
   }
+
+
+
 
 
   public progressTowardsTheGoalOptions: ChartConfiguration<'doughnut'>['options'] = {

@@ -17,7 +17,6 @@ export class SetThemeService {
     localStorage.setItem('theme', themeName);
     this.activeThemeSource.next(themeName);
     this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
-    console.log(this.colors.green);
 	}
 
   toggleTheme() {

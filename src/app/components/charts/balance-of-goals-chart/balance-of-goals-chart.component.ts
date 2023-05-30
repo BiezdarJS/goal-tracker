@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 // import { Chart } from 'chart.js/auto';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { chartColors } from '../charts.config';
@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class BalanceOfGoalsChartComponent implements OnInit, OnDestroy, AfterViewChecked, AfterContentChecked {
 
+  @Input() allGoals: any;
   themeName!: string | null;
   subscription!: Subscription;
   balanceOfGoalsData!: ChartData<'doughnut'>;
@@ -22,11 +23,29 @@ export class BalanceOfGoalsChartComponent implements OnInit, OnDestroy, AfterVie
 
   constructor(
     private setThemeService: SetThemeService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit():void {
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
+    // console.log(this.allGoals);
+    // this.balanceOfGoalsData = {
+    //   labels: [this.allGoals.length, 'GOALS'],
+    //   datasets: [
+    //     {
+    //       data: [300, 50, 100],
+    //       backgroundColor: [
+    //         this.colors.green,
+    //         this.colors.yellow,
+    //         this.colors.red
+    //       ],
+    //       hoverOffset: 4
+    //     }
+    //   ]
+    // };
   }
+
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -40,7 +59,7 @@ export class BalanceOfGoalsChartComponent implements OnInit, OnDestroy, AfterVie
     this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
     if (this.currentThemeName !== this.themeName) {
       this.balanceOfGoalsData = {
-        labels: ['16', 'GOALS'],
+        labels: [this.allGoals.length, 'GOALS'],
         datasets: [
           {
             data: [300, 50, 100],

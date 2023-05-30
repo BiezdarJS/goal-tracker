@@ -7,8 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class TasksService {
 
+
   newTask: any;
   components: any = [];
+  // flag indicating whether loading is complete
+  public loading$!: boolean;
 
   constructor(
     private http: HttpClient
@@ -18,6 +21,7 @@ export class TasksService {
   // TASKS
   onFetchTasks():void {
     this.fetchTasks();
+    this.loading$ = false;
   }
 
   fetchTasks(): Observable<any> {

@@ -1,5 +1,5 @@
 .theme-dark {
-  .goal-and-time-management {
+  &.goal-and-time-management {
     @include mobile {
       background-color: #252c3e;;
     }

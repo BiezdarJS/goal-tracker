@@ -11,14 +11,24 @@
       <ul class="summary list">
           <li class="summary__item">
               <i class="summary__icon summary__icon--goals"></i>
-              <p class="summary__number">
+              <p class="summary__number" *ngIf="this.allGoals; else emptyParagraph">
                   <span style="display: block;" class="subhead">
-                      16
+                      {{ this.allGoals.length }}
                   </span>
                   <span class="smaller">
                       Goals
                   </span>
               </p>
+              <ng-template #emptyParagraph>
+                <p class="summary__number">
+                  <span style="display: block;" class="subhead">
+                    ?
+                </span>
+                <span class="smaller">
+                    Goals
+                </span>
+                </p>
+              </ng-template>
               <div class="summary__right">
                   <p class="summary__txt font-additional">
                       3 completed
@@ -28,14 +38,24 @@
           </li>
           <li class="summary__item">
               <i class="summary__icon summary__icon--tasks"></i>
-              <p class="summary__number">
+              <p class="summary__number" *ngIf="this.allTasks; else emptyParagraph">
                   <span style="display: block;" class="subhead">
-                      8
+                      {{ this.allTasks.length }}
                   </span>
                   <span class="smaller">
                       Tasks
                   </span>
               </p>
+              <ng-template #emptyParagraph>
+                <p class="summary__number">
+                  <span style="display: block;" class="subhead">
+                    ?
+                </span>
+                <span class="smaller">
+                    Goals
+                </span>
+                </p>
+              </ng-template>
               <div class="summary__right">
                   <p class="summary__txt font-additional">
                       6 subtasks
@@ -47,7 +67,7 @@
               <i class="summary__icon summary__icon--loop"></i>
               <p class="summary__number">
                   <span style="display: block;" class="subhead">
-                      10
+                      ?
                   </span>
                   <span class="smaller">
                       Habits
@@ -67,42 +87,46 @@
           Balance of goals
       </h3>
       <div class="balance-of-goals">
-          <gt-balance-of-goals-chart balanceOfGoalsChart></gt-balance-of-goals-chart>
+        <ng-container *ngIf="this.allGoals">
+          <gt-balance-of-goals-chart  [allGoals]="this.allGoals"></gt-balance-of-goals-chart>
+        </ng-container>
+
+
           <ul class="balance-list list">
               <li class="balance-list__item">
                   <i class="balance-list__dot balance-list__dot--family"></i>
-                  <p class="balance-list__txt font-additional">
-                      Family/communication 1
+                  <p class="balance-list__txt font-additional" *ngIf="this.familyAndCommunication">
+                      Family/communication {{ this.familyAndCommunication.length }}
                   </p>
               </li>
               <li class="balance-list__item">
                   <i class="balance-list__dot balance-list__dot--money"></i>
-                  <p class="balance-list__txt font-additional">
-                      Money 2
+                  <p class="balance-list__txt font-additional" *ngIf="this.money">
+                      Money {{ this.money.length }}
                   </p>
               </li>
               <li class="balance-list__item">
                   <i class="balance-list__dot balance-list__dot--career"></i>
-                  <p class="balance-list__txt font-additional">
-                      Work/career 3
+                  <p class="balance-list__txt font-additional" *ngIf="this.workCareer">
+                      Work/career {{ this.workCareer.length }}
                   </p>
               </li>
               <li class="balance-list__item">
                   <i class="balance-list__dot balance-list__dot--health"></i>
-                  <p class="balance-list__txt font-additional">
-                      Health and sports 4
+                  <p class="balance-list__txt font-additional" *ngIf="this.healthAndSports">
+                      Health and sports {{ this.healthAndSports.length }}
                   </p>
               </li>
               <li class="balance-list__item">
                   <i class="balance-list__dot balance-list__dot--self"></i>
-                  <p class="balance-list__txt font-additional">
-                      Self-knowledge 4
+                  <p class="balance-list__txt font-additional" *ngIf="this.selfKnowledge">
+                      Self-knowledge {{ this.selfKnowledge.length }}
                   </p>
               </li>
               <li class="balance-list__item">
                   <i class="balance-list__dot balance-list__dot--inspirations"></i>
-                  <p class="balance-list__txt font-additional">
-                      Travels 2
+                  <p class="balance-list__txt font-additional" *ngIf="this.travels">
+                      Travels {{ this.travels.length }}
                   </p>
               </li>
           </ul>

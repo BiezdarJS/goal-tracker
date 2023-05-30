@@ -1,14 +1,15 @@
 import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
 // Components
-import { CalendarTypeDayComponent } from '../calendar-type-day/calendar-type-day.component';
-import { CalendarTypeWeekComponent } from '../calendar-type-week/calendar-type-week.component';
-import { CalendarTypeMonthComponent } from '../calendar-type-month/calendar-type-month.component';
+import { CalendarTypeDayComponent } from '../../calendars/calendar-type-day/calendar-type-day.component';
+import { CalendarTypeWeekComponent } from '../../calendars/calendar-type-week/calendar-type-week.component';
+import { CalendarTypeMonthComponent } from '../../calendars/calendar-type-month/calendar-type-month.component';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
 // Directives
 import { NewTaskDirective } from 'src/app/directives/tasks/new-task.directive';
 import { TasksService } from 'src/app/services/tasks.service';
 import { NewTaskComponent } from '../new-task/new-task.component';
+import { TasksTypeDayComponent } from '../tasks-type-day/tasks-type-day.component';
 
 
 
@@ -73,7 +74,7 @@ export class TasksMainComponent {
     this.tasksHost.remove();
     setTimeout(() => {
       if (this.currentCalendarType === 'day') {
-        this.tasksHost.createComponent(CalendarTypeDayComponent);
+        this.tasksHost.createComponent(TasksTypeDayComponent);
       }
       if (this.currentCalendarType === 'week') {
         this.tasksHost.createComponent(CalendarTypeWeekComponent);

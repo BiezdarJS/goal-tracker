@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, Component, ElementRef } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 // Interfaces
 import { ICalendarDaysExtended, ICalendarExtended } from '../../../models/calendar.model';
 // Services
@@ -20,9 +20,10 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid calendar-grid--day'},
   styleUrls: ['./calendar-type-day.component.scss']
 })
-export class CalendarTypeDayComponent implements AfterContentInit, AfterContentChecked {
+export class CalendarTypeDayComponent implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked {
 
-
+  @ViewChild('wrapper') wrapper!: ElementRef;
+  @Output() dateEmitter = new EventEmitter();
   public loading$!: boolean;
   firstMonthDays!: any;
   secondMonthDays!: any;
@@ -30,9 +31,8 @@ export class CalendarTypeDayComponent implements AfterContentInit, AfterContentC
   selectedMonth:any;
   calendar!: ICalendarExtended;
   checkSelectedDay:any;
-  databaseContent: Array<Task> = [];
+
   currentDaysArray: any;
-  objectValues = Object.values;
 
   constructor(
     private elementRef: ElementRef,
@@ -44,18 +44,14 @@ export class CalendarTypeDayComponent implements AfterContentInit, AfterContentC
     this.loading$ = false;
   }
 
-
-  ngAfterViewInit(): void {
-    // console.log(this.loading$);
-    setTimeout(() => {
-
-      this.tasksService.fetchTasks()
-        .subscribe((tasks:any) => {
-          this.databaseContent = tasks;
-          this.loading$ = false;
-        })
-    }, 550);
+  ngAfterViewInit():void {
+    this.emitData(this.currentDaysArray);
   }
+
+  emitData(date:any) {
+    this.dateEmitter.emit(date);
+  }
+
 
 
   ngAfterContentInit():void {

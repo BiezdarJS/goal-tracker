@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA,  NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,12 +31,13 @@ import { NewTaskComponent } from './components/tasks/new-task/new-task.component
 import { NewTaskDirective } from './directives/tasks/new-task.directive';
 import { TasksMainComponent } from './components/tasks/_tasks-main/tasks-main.component';
 import { ActionsNavTasksComponent } from './components/tasks/actions-nav-tasks/actions-nav-tasks.component';
-import { CalendarTypeDayComponent } from './components/tasks/calendar-type-day/calendar-type-day.component';
-import { CalendarTypeMonthComponent } from './components/tasks/calendar-type-month/calendar-type-month.component';
-import { CalendarTypeWeekComponent } from './components/tasks/calendar-type-week/calendar-type-week.component';
+import { CalendarTypeDayComponent } from './components/calendars/calendar-type-day/calendar-type-day.component';
+import { CalendarTypeMonthComponent } from './components/calendars/calendar-type-month/calendar-type-month.component';
+import { CalendarTypeWeekComponent } from './components/calendars/calendar-type-week/calendar-type-week.component';
 import { GetTaskPriorityDirective } from './directives/tasks/get-task-priority.directive';
 import { TasksHostDirective } from './directives/tasks/tasks-host.directive';
 import { SetThemeService } from './services/set-theme.service';
+import { TasksTypeDayComponent } from './components/tasks/tasks-type-day/tasks-type-day.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { SetThemeService } from './services/set-theme.service';
     CalendarTypeWeekComponent,
     ActionsNavTasksComponent,
     GetTaskPriorityDirective,
-    TasksHostDirective
+    TasksHostDirective,
+    TasksTypeDayComponent
   ],
   imports: [
     BrowserModule,
