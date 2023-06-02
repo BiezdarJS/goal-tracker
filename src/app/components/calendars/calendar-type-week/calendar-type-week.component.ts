@@ -1,11 +1,8 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, OnDestroy, TemplateRef } from '@angular/core';
 // Interfaces
 import { ICalendarDaysExtended, ICalendarExtended } from '../../../models/calendar.model';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
-import { TasksService } from 'src/app/services/tasks.service';
-// Types
-import { Task } from 'src/app/types/task.type';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
@@ -22,45 +19,36 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid calendar-grid--week'},
   styleUrls: ['./calendar-type-week.component.scss']
 })
-export class CalendarTypeWeekComponent implements AfterViewInit, AfterContentInit {
+export class CalendarTypeWeekComponent implements AfterViewInit, AfterContentInit, OnDestroy {
 
 
-  public loading$!: boolean;
+  @ContentChild(TemplateRef) templateRef!: TemplateRef<any>;
   firstMonthDays!: any;
   secondMonthDays!: any;
-  WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   selectedMonth:any;
   calendar!: ICalendarExtended;
-  databaseContent: Array<Task> = [];
   currentDaysArray: any;
-  objectValues = Object.values;
+
 
   constructor(
     private elementRef:ElementRef,
-    private calendarService: CalendarService,
-    private tasksService: TasksService
+    private calendarService: CalendarService
   ) {}
 
-  ngOnInit():void {
-    this.loading$ = false;
-  }
+
 
 
   ngAfterViewInit(): void {
-    // console.log(this.loading$);
-    setTimeout(() => {
-
-      this.tasksService.fetchTasks()
-        .subscribe((tasks:any) => {
-          this.databaseContent = tasks;
-          this.loading$ = false;
-        })
-    }, 550);
+    this.calendar = {
+      year: this.calendarService.selectedMonth.format("YYYY"),
+      month: this.calendarService.selectedMonth.format("M"),
+      first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
+    }
+    this.currentDaysArray = this.createCalendar(this.calendar);
   }
 
 
   ngAfterContentInit():void {
-    this.loading$ = true;
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M"),
@@ -135,38 +123,6 @@ export class CalendarTypeWeekComponent implements AfterViewInit, AfterContentIni
     });
   }
 
-  appendDay(day:any, calendarGrid:any) {
-
-    const dayOfTheWeek = day.dayOfWeek-1 !== -1 ? day.dayOfWeek-1 : 6;
-
-    const dayElement = `
-      <div class="calendar-grid__column calendar-grid__column--week">
-      <p class="calendar-grid__date title txt-center">
-          ${this.WEEKDAYS[dayOfTheWeek] + ' ' + '<span>' + day.dayOfMonth + '</span>' }
-      </p>
-      <ul class="task-list list">
-        <li class="task-list__item">
-          <div class="task-item task-item--styling task-item--health-and-sports">
-            <div class="task-item__content task-item__content--week">
-              <h4 class="task-item__name">Warm up and run</h4>
-            </div>
-          </div>
-        </li>
-        <li class="task-list__item">
-          <div class="task-item task-item--styling task-item--self-knowledge">
-            <div class="task-item__content task-item__content--week">
-              <h4 class="task-item__name">
-                Complete task 2 week
-              </h4>
-            </div>
-          </div>
-        </li>
-      </ul>
-      </div>
-    `;
-    this.elementRef.nativeElement.innerHTML += dayElement;
-
-  }
 
 
   getNumberOfDaysInMonth(year:any, month:any) {
@@ -180,6 +136,10 @@ export class CalendarTypeWeekComponent implements AfterViewInit, AfterContentIni
       first.remove();
       first = calendarGrid.firstElementChild;
     }
+  }
+
+  ngOnDestroy():void {
+    this.elementRef.nativeElement.remove();
   }
 
 }

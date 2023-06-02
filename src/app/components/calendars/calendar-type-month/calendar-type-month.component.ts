@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ElementRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, OnDestroy, TemplateRef } from '@angular/core';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
 // Interfaces
@@ -18,8 +18,9 @@ dayjs.extend(weekOfYear);
   styleUrls: ['./calendar-type-month.component.scss']
 })
 
-export class CalendarTypeMonthComponent implements AfterContentInit {
+export class CalendarTypeMonthComponent implements AfterContentInit, OnDestroy {
 
+  @ContentChild(TemplateRef) templateRef!: TemplateRef<any>;
   calendar!: ICalendar;
   currentMonthDays: any;
   previousMonthDays: any;
@@ -27,6 +28,7 @@ export class CalendarTypeMonthComponent implements AfterContentInit {
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   selectedMonth:any;
   calendarDaysElement = this.elementRef.nativeElement.querySelector('.days-grid');
+  currentDaysArray: any;
 
   constructor(
     private elementRef: ElementRef,
@@ -34,12 +36,21 @@ export class CalendarTypeMonthComponent implements AfterContentInit {
   ) {}
 
 
+  ngAfterViewInit(): void {
+    this.calendar = {
+      year: this.calendarService.selectedMonth.format("YYYY"),
+      month: this.calendarService.selectedMonth.format("M")
+    }
+    this.currentDaysArray = this.createCalendar(this.calendar);
+  }
+
+
   ngAfterContentInit():void {
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M")
     }
-    this.createCalendar(this.calendar);
+    this.currentDaysArray = this.createCalendar(this.calendar);
   }
 
 
@@ -54,9 +65,7 @@ export class CalendarTypeMonthComponent implements AfterContentInit {
     // Collect all Days
     const days = [...this.previousMonthDays, ...this.currentMonthDays, ...this.nextMonthDays];
     // Append All Days
-    days.forEach(day => {
-      this.appendDay(day, calendarDaysElement);
-    });
+    return days;
   }
 
   createDaysForCurrentMonth(calendar: ICalendar) {
@@ -163,6 +172,11 @@ export class CalendarTypeMonthComponent implements AfterContentInit {
 
   getNumberOfDaysInMonth(year:any, month:any) {
     return dayjs(`${year}-${month}-01`).daysInMonth();
+  }
+
+
+  ngOnDestroy():void {
+    this.elementRef.nativeElement.remove();
   }
 
 }

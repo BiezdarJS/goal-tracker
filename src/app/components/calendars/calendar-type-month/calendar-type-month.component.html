@@ -1,1 +1,12 @@
-<ng-content></ng-content>
+<ol class="calendar-grid__header">
+  <ng-container *ngFor="let day of WEEKDAYS">
+    <li>{{day}}</li>
+  </ng-container>
+</ol>
+<ol id="calendar-days" class="days-grid">
+  <ng-container *ngFor="let day of currentDaysArray">
+    <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{$implicit: day}">
+      <ng-content></ng-content>
+    </ng-template>
+  </ng-container>
+</ol>

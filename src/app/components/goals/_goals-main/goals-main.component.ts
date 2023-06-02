@@ -28,7 +28,6 @@ export class GoalsMainComponent implements AfterViewInit, AfterViewChecked {
     this.selectCategoryValue = this.actionsNav.select_category.nativeElement.value;
     this.selectDateValue = this.actionsNav.select_date.nativeElement.value;
     this.goalsGrid.selectCategoryValue = this.selectCategoryValue;
-    // console.log(this.goalsGrid.selectCategoryValue);
   }
 
   ngAfterViewChecked() {
@@ -47,8 +46,6 @@ export class GoalsMainComponent implements AfterViewInit, AfterViewChecked {
   }
 
   removeGoalsGrid() {
-    // console.log(this.goalsGridHost);
-    // pobierz wartoś z
     this.gtNewGoalHost.remove();
     setTimeout(() => {
       this.gtNewGoalHost.createComponent(GoalsGridComponent);

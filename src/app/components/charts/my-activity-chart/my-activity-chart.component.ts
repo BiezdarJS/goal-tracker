@@ -43,7 +43,6 @@ export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewChe
  ngAfterContentChecked():void {
   this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
   if (this.currentThemeName !== this.themeName) {
-    console.log(this.colors);
     this.myActicityOptions = {
       scales: {
         x: {

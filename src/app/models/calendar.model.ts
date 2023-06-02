@@ -23,6 +23,12 @@ export interface ICalendarDaysExtended extends ICalendarDays {
   dayOfWeek: number;
 }
 
+export interface ICalendarDay {
+  date: string;
+  dayOfMonth: number;
+  isCurrentMonth: boolean
+}
+
 // Goals Grid
 
 export interface IGoalsGrid {

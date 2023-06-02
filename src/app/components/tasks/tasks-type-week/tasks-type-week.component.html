@@ -1,0 +1,29 @@
+<!-- Przed pobraniem data -> spinner -->
+<aside class="html-spinner__wrap" *ngIf="this.loading$">
+  <span class="html-spinner"></span>
+</aside>
+
+
+<ng-container *ngIf="!loading$">
+  <gt-calendar-type-week>
+    <ng-template let-day>
+      <gt-single-day [day]="day" class="calendar-grid__column--week">
+        <ul class="task-list list">
+          <ng-container *ngFor="let task of objectValues(this.databaseContent)">
+            <!-- Jeśli dzień jest równy z currentDaysArray jest równy dniowi z databaseResult to wyświetl -->
+            <ng-container *ngIf="day.date === task['taskDate']">
+              <li class="task-list__item">
+                <div class="task-item task-item--styling task-item--health-and-sports">
+                  <div class="task-item__content task-item__content--week">
+                    <h4 class="task-item__name">{{ task.name }}</h4>
+                  </div>
+                </div>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </gt-single-day>
+    </ng-template>
+  </gt-calendar-type-week>
+
+</ng-container>

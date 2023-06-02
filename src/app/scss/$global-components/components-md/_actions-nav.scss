@@ -100,3 +100,9 @@
         }
     }
 }
+
+.actions-nav--calendar .modal-trigger {
+  @media (max-width: 1200px) {
+    margin-left: 0;
+  }
+}

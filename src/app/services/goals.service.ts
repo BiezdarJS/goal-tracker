@@ -52,7 +52,7 @@ export class GoalsService {
       'https://goal-mangement-system-default-rtdb.europe-west1.firebasedatabase.app/goals.json',
       this.newGoal
     ).subscribe(responseData => {
-      console.log(responseData);
+
     })
   }
 

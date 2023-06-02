@@ -29,21 +29,6 @@ export class BalanceOfGoalsChartComponent implements OnInit, OnDestroy, AfterVie
 
   ngOnInit():void {
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
-    // console.log(this.allGoals);
-    // this.balanceOfGoalsData = {
-    //   labels: [this.allGoals.length, 'GOALS'],
-    //   datasets: [
-    //     {
-    //       data: [300, 50, 100],
-    //       backgroundColor: [
-    //         this.colors.green,
-    //         this.colors.yellow,
-    //         this.colors.red
-    //       ],
-    //       hoverOffset: 4
-    //     }
-    //   ]
-    // };
   }
 
 

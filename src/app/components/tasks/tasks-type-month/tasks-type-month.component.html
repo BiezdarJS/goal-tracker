@@ -1,0 +1,14 @@
+<!-- Przed pobraniem data -> spinner -->
+<aside class="html-spinner__wrap" *ngIf="this.loading$">
+  <span class="html-spinner"></span>
+</aside>
+
+<ng-container *ngIf="!loading$">
+  <gt-calendar-type-month>
+    <ng-template let-day>
+      <li class="calendar-day" [ngClass]="!day.isCurrentMonth ? 'calendar-day--not-current' : ''">
+        {{ day.dayOfMonth }}
+      </li>
+    </ng-template>
+  </gt-calendar-type-month>
+</ng-container>

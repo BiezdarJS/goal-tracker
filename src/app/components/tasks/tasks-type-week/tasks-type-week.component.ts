@@ -1,14 +1,13 @@
-import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/types/task.type';
 
 @Component({
-  selector: 'gt-tasks-type-day',
-  templateUrl: './tasks-type-day.component.html',
-  styleUrls: ['./tasks-type-day.component.scss']
+  selector: 'gt-tasks-type-week',
+  templateUrl: './tasks-type-week.component.html',
+  styleUrls: ['./tasks-type-week.component.scss']
 })
-export class TasksTypeDayComponent implements OnInit, AfterViewInit, OnDestroy {
-
+export class TasksTypeWeekComponent {
 
   public loading$!: boolean;
   databaseContent: Array<Task> = [];
@@ -17,6 +16,7 @@ export class TasksTypeDayComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private tasksService: TasksService
   ) {}
+
 
   ngOnInit():void {
     this.loading$ = true;
@@ -34,9 +34,11 @@ export class TasksTypeDayComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 550);
   }
 
+
   ngOnDestroy():void {
     this.loading$ = true;
     this.databaseContent = [];
   }
+
 
 }

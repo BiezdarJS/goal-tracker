@@ -58,7 +58,6 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit {
     // currentMenuItemLeft - 260 zgadza się
     const parentLeft = calendarTypeList.getBoundingClientRect().left;
     // currentMenuItemLeft - 200 zgadza się
-    console.log(parentLeft);
     let indicatorLeft = currentMenuItemLeft - parentLeft;
     if (document.documentElement.clientWidth >= 1201) {
         indicator.style.transition = "0.35s";

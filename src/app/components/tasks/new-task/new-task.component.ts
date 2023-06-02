@@ -65,7 +65,6 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
       this.priorityValue,
       form.value.taskDate,
     );
-    console.log(this.tasksService.newTask);
 
     this.tasksService.postTask();
     this.parentRef.removeNewTask();

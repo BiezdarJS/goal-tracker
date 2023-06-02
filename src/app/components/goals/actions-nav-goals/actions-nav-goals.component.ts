@@ -16,7 +16,6 @@ export class ActionsNavGoalsComponent implements AfterViewInit {
   // Emit New Goal Event
   @Output() goalEvent = new EventEmitter();
   emitNewGoalEvent() {
-    console.log('test');
     this.goalEvent.emit();
   }
 

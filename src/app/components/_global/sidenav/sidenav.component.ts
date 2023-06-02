@@ -8,7 +8,7 @@ import { GlobalVariablesService } from 'src/app/services/global-variables.servic
   host: { 'class': 'sidenav'},
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent implements AfterViewInit {
+export class SidenavComponent {
 
   public imagesURL: string = '';
 
@@ -23,9 +23,6 @@ export class SidenavComponent implements AfterViewInit {
     this.imagesURL = this.globalVars.imagesURL;
   }
 
-  ngAfterViewInit() {
-    console.log();
-  }
 
   closeMobileMenu() {
 

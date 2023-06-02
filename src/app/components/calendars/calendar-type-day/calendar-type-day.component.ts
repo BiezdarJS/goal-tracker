@@ -1,11 +1,8 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 // Interfaces
 import { ICalendarDaysExtended, ICalendarExtended } from '../../../models/calendar.model';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
-import { TasksService } from 'src/app/services/tasks.service';
-// Types
-import { Task } from 'src/app/types/task.type';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
@@ -20,42 +17,23 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid calendar-grid--day'},
   styleUrls: ['./calendar-type-day.component.scss']
 })
-export class CalendarTypeDayComponent implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked {
+export class CalendarTypeDayComponent implements AfterContentInit, AfterContentChecked, OnDestroy {
 
   @ViewChild('wrapper') wrapper!: ElementRef;
-  @Output() dateEmitter = new EventEmitter();
-  public loading$!: boolean;
+  @ContentChild(TemplateRef) templateRef!: TemplateRef<any>;
   firstMonthDays!: any;
   secondMonthDays!: any;
-  WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   selectedMonth:any;
   calendar!: ICalendarExtended;
-  checkSelectedDay:any;
-
   currentDaysArray: any;
 
   constructor(
     private elementRef: ElementRef,
-    private calendarService: CalendarService,
-    private tasksService: TasksService
+    private calendarService: CalendarService
   ) {}
-
-  ngOnInit():void {
-    this.loading$ = false;
-  }
-
-  ngAfterViewInit():void {
-    this.emitData(this.currentDaysArray);
-  }
-
-  emitData(date:any) {
-    this.dateEmitter.emit(date);
-  }
-
 
 
   ngAfterContentInit():void {
-    this.loading$ = true;
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M"),
@@ -64,6 +42,7 @@ export class CalendarTypeDayComponent implements OnInit, AfterViewInit, AfterCon
     // this.createCalendar(this.calendar);
     this.currentDaysArray = this.createCalendar(this.calendar);
   }
+
 
   // do poprawy
   ngAfterContentChecked():void {
@@ -79,27 +58,14 @@ export class CalendarTypeDayComponent implements OnInit, AfterViewInit, AfterCon
 
   createCalendar(calendar: ICalendarExtended) {
 
-    this.removeAllDayElements(this.elementRef.nativeElement);
-
     this.firstMonthDays = this.createFirstMonthDays(this.calendar);
     this.secondMonthDays = this.createSecondMonthDays(this.calendar);
     const days = [...this.firstMonthDays, ...this.secondMonthDays];
 
     return days;
 
-    // days.forEach((day) => { this.appendDay(day, this.elementRef.nativeElement) });
   }
 
-  appendDay(day:any, calendarGrid:any) {
-
-    const dayOfTheWeek = day.dayOfWeek-1 !== -1 ? day.dayOfWeek-1 : 6;
-
-    const dayElement = `
-
-    `;
-    calendarGrid.innerHTML += dayElement;
-
-  }
 
   createFirstMonthDays(calendar:ICalendarExtended) {
 
@@ -136,13 +102,11 @@ export class CalendarTypeDayComponent implements OnInit, AfterViewInit, AfterCon
 
 
     let numberOfSecondMonthDays = 3 - visibleNumberOfDaysFromFirstMonth;
-    // console.log(numberOfSecondMonthDays);
 
     let first_day = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).add(visibleNumberOfDaysFromFirstMonth, "day");
     // first_day = ;
     let first_day_of_second_month = dayjs(first_day).date();
 
-    // console.log(first_day);
 
     let month = visibleNumberOfDaysFromFirstMonth > 0 ? parseInt(calendar.month,10) + 1 : calendar.month;
 
@@ -169,6 +133,12 @@ export class CalendarTypeDayComponent implements OnInit, AfterViewInit, AfterCon
       first.remove();
       first = calendarGrid.firstElementChild;
     }
+  }
+
+
+  ngOnDestroy():void {
+    this.elementRef.nativeElement.remove();
+    this.removeAllDayElements(this.elementRef.nativeElement);
   }
 
 }

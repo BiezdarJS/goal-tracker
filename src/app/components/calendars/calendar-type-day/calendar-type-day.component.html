@@ -1,17 +1,5 @@
-<!-- Przed pobraniem data -> spinner -->
-<!-- <aside class="html-spinner__wrap" *ngIf="this.loading$">
-  <span class="html-spinner"></span>
-</aside>
-
-<ng-container *ngIf="!loading$">
-
-</ng-container> -->
-
 <ng-container *ngFor="let day of currentDaysArray">
-  <div class="calendar-grid__column calendar-grid__column--day">
-    <p class="title txt-center">
-      {{ this.WEEKDAYS[day.dayOfWeek-1 !== -1 ? day.dayOfWeek-1 : 6] }} <span>{{day.dayOfMonth}} </span>
-    </p>
+  <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{$implicit: day}">
     <ng-content></ng-content>
-  </div>
+  </ng-template>
 </ng-container>

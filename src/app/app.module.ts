@@ -38,6 +38,9 @@ import { GetTaskPriorityDirective } from './directives/tasks/get-task-priority.d
 import { TasksHostDirective } from './directives/tasks/tasks-host.directive';
 import { SetThemeService } from './services/set-theme.service';
 import { TasksTypeDayComponent } from './components/tasks/tasks-type-day/tasks-type-day.component';
+import { SingleDayComponent } from './components/calendars/single-day/single-day.component';
+import { TasksTypeWeekComponent } from './components/tasks/tasks-type-week/tasks-type-week.component';
+import { TasksTypeMonthComponent } from './components/tasks/tasks-type-month/tasks-type-month.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,10 @@ import { TasksTypeDayComponent } from './components/tasks/tasks-type-day/tasks-t
     ActionsNavTasksComponent,
     GetTaskPriorityDirective,
     TasksHostDirective,
-    TasksTypeDayComponent
+    TasksTypeDayComponent,
+    SingleDayComponent,
+    TasksTypeWeekComponent,
+    TasksTypeMonthComponent
   ],
   imports: [
     BrowserModule,

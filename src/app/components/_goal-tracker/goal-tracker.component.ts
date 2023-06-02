@@ -22,7 +22,6 @@ export class GoalTrackerComponent implements OnInit, OnDestroy {
 
   ngOnInit():void {
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
-    console.log(this.themeName);
   }
 
 

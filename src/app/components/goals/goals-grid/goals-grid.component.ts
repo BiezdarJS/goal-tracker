@@ -22,7 +22,7 @@ dayjs.extend(weekOfYear);
   host: {'class': 'goals-grid goals-grid--box'},
   styleUrls: ['./goals-grid.component.scss']
 })
-export class GoalsGridComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, OnDestroy {
+export class GoalsGridComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
 
 
   public loading$!: boolean;
@@ -49,7 +49,6 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterViewCheck
   ) {}
 
   ngOnInit():void {
-    console.log('ng oninit')
     this.loading$ = false;
     this.imagesURL = this.globalVars.imagesURL;
   }
@@ -65,10 +64,6 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterViewCheck
   //   this.monthsCollection = this.collectMonths(this.calendar);
   // }
 
-  ngAfterViewChecked():void {
-    console.log('goals grid -> after view checked');
-
-  }
 
   ngAfterContentInit():void {
     this.loading$ = true;
@@ -91,9 +86,7 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterViewCheck
   // }
 
   ngAfterViewInit(): void {
-    console.log(this.loading$);
     setTimeout(() => {
-
       this.goalsService.fetchGoals()
         .pipe(
           map(response => {
@@ -237,14 +230,10 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterViewCheck
     visibleNumberOfMonthsFromFirstYear = visibleNumberOfMonthsFromFirstYear <= 3 ? visibleNumberOfMonthsFromFirstYear : 0;
 
     let numberOfSecondYearMonths = 3 - visibleNumberOfMonthsFromFirstYear;
-    // console.log(numberOfSecondMonthDays);
 
     let first_month = dayjs(`${calendar.year}-${calendar.month}-1`).add(visibleNumberOfMonthsFromFirstYear, "month");
-    // console.log(first_month);
     // first_month = ;
     let first_month_of_second_year = dayjs(first_month).month();
-    // console.log(first_month_of_second_year);
-    // console.log(first_month);
 
 
     let month = visibleNumberOfMonthsFromFirstYear > 0 ? parseInt(calendar.month,10) + 1 : calendar.month;

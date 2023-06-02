@@ -1,39 +1,48 @@
-<gt-calendar-type-day (dateEmitter)="receiveDate($event)">
+<!-- Przed pobraniem data -> spinner -->
+<aside class="html-spinner__wrap" *ngIf="this.loading$">
+  <span class="html-spinner"></span>
+</aside>
 
-  <ul class="task-list list">
-    <ng-container *ngFor="let task of objectValues(this.databaseContent)">
-    <!-- Jeśli dzień jest równy z currentDaysArray jest równy dniowi z databaseResult to wyświetl -->
-      <ng-container *ngIf="this.dateFromChild === task['taskDate']">
-        <li class="task-list__item task-list__item--styling">
-          <div class="task-item task-item--styling task-item--health-and-sports task-item-1" draggable="true">
-              <div class="task-item__additional-info">
-                  <span></span>
-                  <div class="hstack align-items-center">
-                      <i class="icon icon--xsm icon--clock"></i>
-                      <p class="ms-5">{{ task['priority'] }}</p>
-                      <button class="btn btn--sm btn--no-style">
-                          <i class="icon icon--medium-sm icon--edit"></i>
-                      </button>
-                  </div>
-              </div>
-              <div class="task-item__main">
-                  <label class="checkbox checkbox--green">
-                      <input class="checkbox__input" type="checkbox" name="">
-                      <span class="checkbox__checkmark"></span>
-                  </label>
-                  <div class="task-item__content">
-                      <h4 class="task-item__name subhead">
-                        {{ task['name'] }}
-                      </h4>
-                      <p class="task-item__descr">
-                        {{ task['description'] }}
-                      </p>
-                  </div>
-              </div>
-          </div>
-        </li>
-      </ng-container>
-    </ng-container>
-  </ul>
-</gt-calendar-type-day>
-{{ this.dateFromChild }}
+<ng-container *ngIf="!loading$">
+  <gt-calendar-type-day>
+    <ng-template let-day>
+      <gt-single-day [day]="day" class="calendar-grid__column--day">
+        <ul class="task-list list">
+          <ng-container *ngFor="let task of objectValues(this.databaseContent)">
+          <!-- Jeśli dzień jest równy z currentDaysArray jest równy dniowi z databaseResult to wyświetl -->
+            <ng-container *ngIf="day.date === task['taskDate']">
+              <li class="task-list__item task-list__item--styling">
+                <div class="task-item task-item--styling task-item--health-and-sports task-item-1" draggable="true">
+                    <div class="task-item__additional-info">
+                        <span></span>
+                        <div class="hstack align-items-center">
+                            <i class="icon icon--xsm icon--clock"></i>
+                            <p class="ms-5">{{ task['priority'] }}</p>
+                            <button class="btn btn--sm btn--no-style">
+                                <i class="icon icon--medium-sm icon--edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="task-item__main">
+                        <label class="checkbox checkbox--green">
+                            <input class="checkbox__input" type="checkbox" name="">
+                            <span class="checkbox__checkmark"></span>
+                        </label>
+                        <div class="task-item__content">
+                            <h4 class="task-item__name subhead">
+                              {{ task['name'] }}
+                            </h4>
+                            <p class="task-item__descr">
+                              {{ task['description'] }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </gt-single-day>
+    </ng-template>
+  </gt-calendar-type-day>
+</ng-container>

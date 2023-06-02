@@ -49,7 +49,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     private setThemeService: SetThemeService,
     private router: ActivatedRoute
   ) {
-    // console.log(this.router.snapshot.data['allGoals']);
     this.allGoals = this.router.snapshot.data['allGaols'];
   }
 
@@ -71,8 +70,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     .subscribe(
       goals => {
         this.allGoals = goals;
-        console.log(goals);
-        // this.familyAndCommunication = this.allGoals.filter((item:any) => item.category === 'health and sports');
       }
     )
     // Fetch Tasks

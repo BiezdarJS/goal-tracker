@@ -23,8 +23,6 @@ export class CalendarService {
   INITIAL_DAY = dayjs().format("D");
   selectedMonth = dayjs(`${this.INITIAL_YEAR}-${this.INITIAL_MONTH}-${this.INITIAL_DAY}`);
 
-  constructor() {}
-
 
 
   switchCalendarType(calendarType:string):string {

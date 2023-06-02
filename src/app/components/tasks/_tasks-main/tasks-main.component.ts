@@ -1,15 +1,17 @@
 import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
 // Components
-import { CalendarTypeDayComponent } from '../../calendars/calendar-type-day/calendar-type-day.component';
-import { CalendarTypeWeekComponent } from '../../calendars/calendar-type-week/calendar-type-week.component';
-import { CalendarTypeMonthComponent } from '../../calendars/calendar-type-month/calendar-type-month.component';
+import { TasksTypeDayComponent } from '../tasks-type-day/tasks-type-day.component';
+import { TasksTypeWeekComponent } from '../tasks-type-week/tasks-type-week.component';
+import { TasksTypeMonthComponent } from '../tasks-type-month/tasks-type-month.component';
+// Models
+import { CalendarType } from 'src/app/models/calendar.model';
 // Services
 import { CalendarService } from 'src/app/services/calendar.service';
 // Directives
 import { NewTaskDirective } from 'src/app/directives/tasks/new-task.directive';
+import { TasksHostDirective } from 'src/app/directives/tasks/tasks-host.directive';
 import { TasksService } from 'src/app/services/tasks.service';
 import { NewTaskComponent } from '../new-task/new-task.component';
-import { TasksTypeDayComponent } from '../tasks-type-day/tasks-type-day.component';
 
 
 
@@ -23,33 +25,42 @@ import { TasksTypeDayComponent } from '../tasks-type-day/tasks-type-day.componen
 })
 export class TasksMainComponent {
 
-  @ViewChild(NewTaskDirective, {read: ViewContainerRef, static:true})
-  tasksHost!: ViewContainerRef;
-  @ViewChild(NewTaskDirective, {read: ViewContainerRef, static:true})
-  newTaskHost!: ViewContainerRef;
+  @ViewChild(TasksHostDirective, {static:true}) tasksHost!: TasksHostDirective;
+  @ViewChild(NewTaskDirective, {static:true}) newTaskHost!: NewTaskDirective;
+
 
   WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   value: boolean = false;
   currentCalendarType!: string;
-
+  tasksContainerRef!: any;
+  newTaskContainerRef!: any;
 
   constructor(
     private calendarService: CalendarService,
-    private tasksService: TasksService
-  ) {}
+    private tasksService: TasksService,
+  ) {
+
+  }
+
+  createTasks() {
+    this.currentCalendarType = this.calendarService.currentCalendarType;
+    this.tasksContainerRef.clear();
+    if (this.currentCalendarType === CalendarType.Day) {
+      this.tasksContainerRef.createComponent(TasksTypeDayComponent);
+    }
+    if (this.currentCalendarType === CalendarType.Week) {
+      this.tasksContainerRef.createComponent(TasksTypeWeekComponent);
+    }
+    if (this.currentCalendarType === CalendarType.Month) {
+      this.tasksContainerRef.createComponent(TasksTypeMonthComponent);
+    }
+  }
 
 
   ngOnInit() {
-    this.currentCalendarType = this.calendarService.currentCalendarType;
-    if (this.currentCalendarType === 'day') {
-      this.tasksHost.createComponent(CalendarTypeDayComponent);
-    }
-    if (this.currentCalendarType === 'week') {
-      this.tasksHost.createComponent(CalendarTypeWeekComponent);
-    }
-    if (this.currentCalendarType === 'month') {
-      this.tasksHost.createComponent(CalendarTypeMonthComponent);
-    }
+    this.tasksContainerRef = this.tasksHost.viewContainerRef;
+    this.newTaskContainerRef = this.newTaskHost.viewContainerRef;
+    this.createTasks();
   }
 
   ngDoCheck() {
@@ -59,28 +70,27 @@ export class TasksMainComponent {
 
 
   createNewTask() {
-    this.newTaskHost.createComponent(NewTaskComponent);
+    this.newTaskContainerRef.createComponent(NewTaskComponent);
   }
 
   removeNewTask() {
-    this.newTaskHost.remove();
+    this.newTaskContainerRef.clear();
     this.tasksService.components = [];
   }
 
 
   refreshTasksGrid() {
-    // console.log(this.goalsGridHost);
     // pobierz wartoś z
-    this.tasksHost.remove();
+    this.tasksContainerRef.clear();
     setTimeout(() => {
-      if (this.currentCalendarType === 'day') {
-        this.tasksHost.createComponent(TasksTypeDayComponent);
+      if (this.currentCalendarType === CalendarType.Day) {
+        this.tasksContainerRef.createComponent(TasksTypeDayComponent);
       }
-      if (this.currentCalendarType === 'week') {
-        this.tasksHost.createComponent(CalendarTypeWeekComponent);
+      if (this.currentCalendarType === CalendarType.Week) {
+        this.tasksContainerRef.createComponent(TasksTypeWeekComponent);
       }
-      if (this.currentCalendarType === 'month') {
-        this.tasksHost.createComponent(CalendarTypeMonthComponent);
+      if (this.currentCalendarType === CalendarType.Month) {
+        this.tasksContainerRef.createComponent(TasksTypeMonthComponent);
       }
 
     },50);

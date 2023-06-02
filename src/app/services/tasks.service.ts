@@ -21,7 +21,7 @@ export class TasksService {
   // TASKS
   onFetchTasks():void {
     this.fetchTasks();
-    this.loading$ = false;
+
   }
 
   fetchTasks(): Observable<any> {
@@ -34,9 +34,10 @@ export class TasksService {
       'https://goal-mangement-system-default-rtdb.europe-west1.firebasedatabase.app/tasks.json',
       this.newTask
     ).subscribe(responseData => {
-      console.log(responseData);
+
     })
   }
+
 
 
 }

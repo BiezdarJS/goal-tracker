@@ -1,13 +1,13 @@
-import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/types/task.type';
 
 @Component({
-  selector: 'gt-tasks-type-day',
-  templateUrl: './tasks-type-day.component.html',
-  styleUrls: ['./tasks-type-day.component.scss']
+  selector: 'gt-tasks-type-month',
+  templateUrl: './tasks-type-month.component.html',
+  styleUrls: ['./tasks-type-month.component.scss']
 })
-export class TasksTypeDayComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TasksTypeMonthComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   public loading$!: boolean;
