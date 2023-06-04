@@ -120,7 +120,7 @@
         color: initial;
     }
     @media (min-width: 992px) {
-        height: 115px;
+        min-height: 115px;
     }
   }
 }

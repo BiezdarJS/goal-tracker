@@ -54,19 +54,14 @@
 // =============================================================================
 // $ GLOBAL COMPONENTS
 // =============================================================================
-
-//sm
 //md
 @import 'app/scss/$global-components/components-md/calendar-day';
-@import 'app/scss/$global-components/components-md/task-item';
-@import 'app/scss/$global-components/components-md/goal-item';
 @import 'app/scss/$global-components/components-md/actions-nav';
 @import 'app/scss/$global-components/components-md/box';
 @import 'app/scss/$global-components/components-md/chart-wrapper';
 @import 'app/scss/$global-components/components-md/modal';
 @import 'app/scss/$global-components/components-md/social-list';
 @import 'app/scss/$global-components/components-md/tab-list';
-@import 'app/scss/$global-components/components-md/task-list';
 @import 'app/scss/$global-components/components-md/calendar';
 @import 'app/scss/$global-components/components-md/floating-nav';
 
@@ -132,23 +127,31 @@
 // =============================================================================
 @import 'app/scss/7-goals-list/goals-grid';
 // components md
+@import 'app/scss/7-goals-list/components-md/goal-item';
 @import 'app/scss/7-goals-list/components-md/new-goal';
 @import 'app/scss/7-goals-list/components-md/progress-bar';
 @import 'app/scss/7-goals-list/components-md/priority-list';
 @import 'app/scss/7-goals-list/components-md/goal-details';
 
 
+// =============================================================================
+// 8 - TASKS
+// =============================================================================
+// components md
+@import 'app/scss/8-tasks/components-md/task-item';
+@import 'app/scss/8-tasks/components-md/task-list';
+
 
 // =============================================================================
-// 8 - CALENDAR
+// 9 - CALENDAR
 // =============================================================================
 
 // components md
-@import 'app/scss/8-calendar/components-md/calendar-type';
-@import 'app/scss/8-calendar/components-md/calendar-grid';
+@import 'app/scss/9-calendar/components-md/calendar-type';
+@import 'app/scss/9-calendar/components-md/calendar-grid';
 
 
 // =============================================================================
-// 9 - SETTINGS
+// 10 - SETTINGS
 // =============================================================================
-@import 'app/scss/9-settings-page/settings';
+@import 'app/scss/10-settings-page/settings';

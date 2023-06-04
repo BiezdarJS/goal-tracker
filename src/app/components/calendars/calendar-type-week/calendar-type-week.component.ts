@@ -1,12 +1,14 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, OnDestroy, TemplateRef } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 // Interfaces
 import { ICalendarDaysExtended, ICalendarExtended } from '../../../models/calendar.model';
 // Services
-import { CalendarService } from 'src/app/services/calendar.service';
+import { CalendarService } from 'src/app/services/calendar/calendar.service';
+import { CalendarNotificationService } from 'src/app/services/calendar/calendar-notification.service';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
+
 
 
 
@@ -19,7 +21,7 @@ dayjs.extend(weekOfYear);
   host: {'class': 'calendar-grid calendar-grid--week'},
   styleUrls: ['./calendar-type-week.component.scss']
 })
-export class CalendarTypeWeekComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class CalendarTypeWeekComponent implements OnInit, AfterContentInit, AfterContentChecked, OnDestroy {
 
 
   @ContentChild(TemplateRef) templateRef!: TemplateRef<any>;
@@ -28,17 +30,22 @@ export class CalendarTypeWeekComponent implements AfterViewInit, AfterContentIni
   selectedMonth:any;
   calendar!: ICalendarExtended;
   currentDaysArray: any;
-
+  switcherBtnHasBeenFired!:boolean;
 
   constructor(
     private elementRef:ElementRef,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private calendarNotificationS: CalendarNotificationService
   ) {}
 
 
+  ngOnInit():void {
+    this.calendarNotificationS.switcherBtnHasBeenFired.subscribe(d => {
+      this.switcherBtnHasBeenFired = d;
+    });
+  }
 
-
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     this.calendar = {
       year: this.calendarService.selectedMonth.format("YYYY"),
       month: this.calendarService.selectedMonth.format("M"),
@@ -48,13 +55,17 @@ export class CalendarTypeWeekComponent implements AfterViewInit, AfterContentIni
   }
 
 
-  ngAfterContentInit():void {
-    this.calendar = {
-      year: this.calendarService.selectedMonth.format("YYYY"),
-      month: this.calendarService.selectedMonth.format("M"),
-      first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
+  ngAfterContentChecked():void {
+    if (this.switcherBtnHasBeenFired === true) {
+      this.calendar = {
+        year: this.calendarService.selectedMonth.format("YYYY"),
+        month: this.calendarService.selectedMonth.format("M"),
+        first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
+      }
+      this.currentDaysArray = this.createCalendar(this.calendar);
+      // Send notification to Service to prevent refresh
+      this.calendarNotificationS.sendNotification(false);
     }
-    this.currentDaysArray = this.createCalendar(this.calendar);
   }
 
 

@@ -56,19 +56,15 @@
 // =============================================================================
 // $ GLOBAL COMPONENTS
 // =============================================================================
-
 //sm
 //md
 @import '$global-components/components-md/calendar-day';
-@import '$global-components/components-md/task-item';
-@import '$global-components/components-md/goal-item';
 @import '$global-components/components-md/actions-nav';
 @import '$global-components/components-md/box';
 @import '$global-components/components-md/chart-wrapper';
 @import '$global-components/components-md/modal';
 @import '$global-components/components-md/social-list';
 @import '$global-components/components-md/tab-list';
-@import '$global-components/components-md/task-list';
 @import '$global-components/components-md/calendar';
 @import '$global-components/components-md/floating-nav';
 
@@ -135,23 +131,30 @@
 // =============================================================================
 @import '7-goals-list/goals-grid';
 // components md
+@import '7-goals-list/components-md/goal-item';
 @import '7-goals-list/components-md/new-goal';
 @import '7-goals-list/components-md/progress-bar';
 @import '7-goals-list/components-md/priority-list';
 @import '7-goals-list/components-md/goal-details';
 
 
-
 // =============================================================================
-// 8 - CALENDAR
+// 8 - TASKS
 // =============================================================================
-
 // components md
-@import '8-calendar/components-md/calendar-type';
-@import '8-calendar/components-md/calendar-grid';
+@import '8-tasks/components-md/task-list';
+@import '8-tasks/components-md/task-item';
+
+
+// =============================================================================
+// 9 - CALENDAR
+// =============================================================================
+// components md
+@import '9-calendar/components-md/calendar-type';
+@import '9-calendar/components-md/calendar-grid';
 
 
 // =============================================================================
 // 9 - SETTINGS
 // =============================================================================
-@import '9-settings-page/settings';
+@import '10-settings-page/settings';

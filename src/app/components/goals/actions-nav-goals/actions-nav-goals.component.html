@@ -1,13 +1,21 @@
 <div class="actions-nav__buttons-left">
-  <button class="btn btn--grey btn--switcher">
+  <button
+    class="btn btn--grey btn--switcher goals-view-switcher"
+    (click)="switchGoalsView('list')"
+    [ngClass]="goalsViewType === 'list' ? 'active': ''"
+    gtSwitchGoalsView>
       <i class="icon icon--list2"></i>
   </button>
-  <button class="btn btn--grey btn--switcher ms-15 active">
+  <button
+    class="btn btn--grey btn--switcher ms-15 goals-view-switcher"
+    (click)="switchGoalsView('grid')"
+    [ngClass]="goalsViewType === 'grid' ? 'active': ''"
+    gtSwitchGoalsView>
       <i class="icon icon--grid2"></i>
   </button>
 </div>
 <div class="actions-nav__select">
-  <select class="select--nav1 w-260 ms-15" #select_category>
+  <select class="select--nav1 w-260 ms-15" #select_category gtFilterChange>
       <option value="all" selected> All </option>
       <option value="family/communication"> Family/communication </option>
       <option value="money"> Money </option>
@@ -16,7 +24,7 @@
       <option value="self knowledge"> Self-knowledge </option>
       <option value="travels"> Travels </option>
   </select>
-  <select class="select--nav2 w-260 ms-15" data-txt="Sort by: " #select_date>
+  <select class="select--nav2 w-260 ms-15" data-txt="Sort by: " #select_date gtFilterChange>
       <option value="creation date">Creation Date</option>
       <option value="deadline date">Deadline Date</option>
   </select>
@@ -34,14 +42,14 @@
       </li>
   </ul>
   <nav class="switcher__nav">
-      <button class="switcher-prev" (click)="triggerPrevBtn()">
+      <button class="switcher-prev" (click)="handlePrevBtn()">
       </button>
-      <button class="switcher-next" (click)="triggerNextBtn()">
+      <button class="switcher-next" (click)="handleNextBtn()">
       </button>
   </nav>
 </div>
 <div class="actions-nav__buttons-right">
-  <button class="btn btn--grey btn--switcher">
+  <button class="btn btn--grey btn--switcher" #filter (click)="triggerFilter()">
       <i class="icon icon--filter"></i>
   </button>
   <button class="btn btn--blue btn--scale modal-trigger" (click)="emitNewGoalEvent()">

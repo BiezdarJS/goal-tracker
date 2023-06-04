@@ -1,5 +1,11 @@
-import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { TasksService } from 'src/app/services/tasks.service';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+// RxJS
+import { map } from 'rxjs';
+// Services
+import { GoalsService } from 'src/app/services/goals/goals.service';
+import { TasksService } from 'src/app/services/tasks/tasks.service';
+// Types
+import { Goal } from 'src/app/types/goal.type';
 import { Task } from 'src/app/types/task.type';
 
 @Component({
@@ -9,12 +15,13 @@ import { Task } from 'src/app/types/task.type';
 })
 export class TasksTypeDayComponent implements OnInit, AfterViewInit, OnDestroy {
 
-
   public loading$!: boolean;
-  databaseContent: Array<Task> = [];
+  allGoals: Array<Goal> = [];
+  allTasks: Array<Task> = [];
   objectValues = Object.values;
 
   constructor(
+    public goalsService: GoalsService,
     private tasksService: TasksService
   ) {}
 
@@ -25,18 +32,24 @@ export class TasksTypeDayComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.loading$ = true;
     setTimeout(() => {
-
       this.tasksService.fetchTasks()
         .subscribe((tasks:any) => {
-          this.databaseContent = tasks;
+          this.allTasks = tasks;
           this.loading$ = false;
         })
     }, 550);
+    // Fetch Goals
+    this.goalsService.goalsCollection().subscribe(response => {
+      this.allGoals = response;
+    });
   }
+
+
+
 
   ngOnDestroy():void {
     this.loading$ = true;
-    this.databaseContent = [];
+    this.allTasks = [];
   }
 
 }

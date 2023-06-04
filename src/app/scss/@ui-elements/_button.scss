@@ -65,6 +65,13 @@
         color: $black;
         width: auto;
     }
+    &.highlight {
+      box-shadow: 0 0 2px #fdd751;
+      animation: shake 150ms 2 linear;
+		  -moz-animation: shake 150ms 2 linear;
+		  -webkit-animation: shake 150ms 2 linear;
+		  -o-animation: shake 150ms 2 linear;
+    }
 }
 
 #modal__main {

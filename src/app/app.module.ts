@@ -41,6 +41,10 @@ import { TasksTypeDayComponent } from './components/tasks/tasks-type-day/tasks-t
 import { SingleDayComponent } from './components/calendars/single-day/single-day.component';
 import { TasksTypeWeekComponent } from './components/tasks/tasks-type-week/tasks-type-week.component';
 import { TasksTypeMonthComponent } from './components/tasks/tasks-type-month/tasks-type-month.component';
+import { GoalsNotificationsService } from './services/goals/goals-notifications.service';
+import { SwitchGoalsViewDirective } from './directives/goals/switch-goals-view.directive';
+import { CalendarNotificationService } from './services/calendar/calendar-notification.service';
+import { FilterChangeDirective } from './directives/goals/filter-change.directive';
 
 @NgModule({
   declarations: [
@@ -77,7 +81,9 @@ import { TasksTypeMonthComponent } from './components/tasks/tasks-type-month/tas
     TasksTypeDayComponent,
     SingleDayComponent,
     TasksTypeWeekComponent,
-    TasksTypeMonthComponent
+    TasksTypeMonthComponent,
+    SwitchGoalsViewDirective,
+    FilterChangeDirective
   ],
   imports: [
     BrowserModule,
@@ -90,7 +96,12 @@ import { TasksTypeMonthComponent } from './components/tasks/tasks-type-month/tas
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [DatePipe, SetThemeService],
+  providers: [
+    DatePipe,
+    SetThemeService,
+    GoalsNotificationsService,
+    CalendarNotificationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

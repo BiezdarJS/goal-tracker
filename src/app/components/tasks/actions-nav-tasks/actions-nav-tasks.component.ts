@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
-import { CalendarService } from 'src/app/services/calendar.service';
+import { CalendarService } from 'src/app/services/calendar/calendar.service';
 import { TasksMainComponent } from '../_tasks-main/tasks-main.component';
+import { CalendarNotificationService } from 'src/app/services/calendar/calendar-notification.service';
 
 @Component({
   selector: 'gt-actions-nav-tasks',
@@ -15,21 +16,28 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit {
   emitNewTaskEvent() {
     this.taskEvent.emit();
   }
+  @Output() prevBtnEvent = new EventEmitter();
+  @Output() nextBtnEvent = new EventEmitter();
 
   currentCalendarType:any;
 
   constructor(
     private elRef: ElementRef,
     private parentRef: TasksMainComponent,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private calendarNotificationS: CalendarNotificationService
   ) { }
 
 
   triggerPrevBtn() {
+    this.prevBtnEvent.emit();
     this.calendarService.previousBtnHandler();
+    this.calendarNotificationS.sendNotification(true);
   }
   triggerNextBtn() {
+    this.nextBtnEvent.emit();
     this.calendarService.nextBtnHandler();
+    this.calendarNotificationS.sendNotification(true);
   }
 
   ngOnInit():void {

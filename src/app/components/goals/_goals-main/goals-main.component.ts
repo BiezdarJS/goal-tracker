@@ -1,8 +1,15 @@
 import { AfterViewChecked, AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { NewGoalDirective } from 'src/app/directives/goals/new-goal.directive';
+// Components
 import { NewGoalComponent } from '../new-goal/new-goal.component';
-import { GoalsService } from 'src/app/services/goals.service';
 import { GoalsGridComponent } from '../goals-grid/goals-grid.component';
+// Enums
+import { GoalsViewType } from 'src/app/enums/goals.view-type';
+// Directives
+import { NewGoalDirective } from 'src/app/directives/goals/new-goal.directive';
+// Services
+import { GoalsService } from 'src/app/services/goals/goals.service';
+import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifications.service';
+
 
 
 @Component({
@@ -16,13 +23,25 @@ export class GoalsMainComponent implements AfterViewInit, AfterViewChecked {
   @ViewChild(NewGoalDirective, {read: ViewContainerRef, static:true})
   gtNewGoalHost!: ViewContainerRef;
   @ViewChild('actionsNav') actionsNav: any;
+  @ViewChild('goalsGrid') goalsGrid: any;
   selectCategoryValue!: string;
   selectDateValue!: string;
-  @ViewChild('goalsGrid') goalsGrid: any;
+  goalsViewType!:string;
+  public get GoalsViewType() {
+    return GoalsViewType;
+  }
+
 
   constructor(
-    private goalsService: GoalsService
+    private goalsService: GoalsService,
+    private goalsNotificationsS: GoalsNotificationsService
   ) {}
+
+  ngOnInit():void {
+    this.goalsNotificationsS.activeGoalsViewType.subscribe(d => {
+      this.goalsViewType = d;
+    });
+  }
 
   ngAfterViewInit(): void {
     this.selectCategoryValue = this.actionsNav.select_category.nativeElement.value;

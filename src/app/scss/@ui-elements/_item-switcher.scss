@@ -39,6 +39,10 @@
         height: 30px;
         position: absolute;
         left: 0;
+        transition: all 0.35s ease-in-out;
+        @include mobile {
+          background-position: 5px center;
+        }
     }
     &-next {
         border: none;
@@ -47,5 +51,8 @@
         height: 30px;
         position: absolute;
         right: 0;
+        @include mobile {
+          background-position: -5px center;
+        }
     }
 }

@@ -3,8 +3,8 @@ import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, AfterViewCheck
 declare function Select(): void;
 // Services
 import { SetThemeService } from 'src/app/services/set-theme.service';
-import { GoalsService } from 'src/app/services/goals.service';
-import { TasksService } from 'src/app/services/tasks.service';
+import { GoalsService } from 'src/app/services/goals/goals.service';
+import { TasksService } from 'src/app/services/tasks/tasks.service';
 // chartjs
 import { Chart, ChartData, ChartConfiguration } from "chart.js";
 import { chartColors } from '../charts/charts.config';

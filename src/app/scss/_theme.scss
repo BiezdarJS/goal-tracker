@@ -1,3 +1,5 @@
+
+
 .theme-dark {
   &.goal-and-time-management {
     @include mobile {
@@ -41,6 +43,10 @@
   }
   .dashboard {
     background-color: #252c3e;
+    &__top,
+    &__bottom {
+      background-color: #252c3e;
+    }
   }
   .goals-main {
     background-color: #252c3e;
@@ -138,35 +144,35 @@
   }
   // summary
   .summary__icon--goals {
-    background-color: #42dea2;
+    background-color: $greenStrongDark;
   }
   .summary__icon--tasks {
-    background-color: #718fff;
+    background-color: $blueStrongDark;
   }
   .summary__icon--loop {
-    background-color: #ff8263;
+    background-color: $redStrongDark;
   }
   .summary__more {
     background-color: $white;
   }
   // balance of goals
   .balance-list__dot--family {
-    background-color: #718fff;
+    background-color: $blueStrongDark;
   }
   .balance-list__dot--money {
-    background-color: #a871c2;
+    background-color: $purpleStrongDark;
   }
   .balance-list__dot--career {
-    background-color: #42dea2;
+    background-color: $greenStrongDark;
   }
   .balance-list__dot--health {
-    background-color: #fcd650;
+    background-color: $yellowStrongDark;
   }
   .balance-list__dot--self {
-    background-color: #ff8263;
+    background-color: $redStrongDark;
   }
   .balance-list__dot--inspirations {
-    background-color: #fe94b4;
+    background-color: $pinkStrongDark;
   }
 
   // calendar
@@ -190,6 +196,12 @@
   }
   .calendar-grid .calendar-day {
     background: #343c4f;
+    &:hover {
+      color: $white;
+    }
+    &--not-current {
+      background-color: #252c3e;
+    }
   }
   .calendar-grid__header li {
     color: #ffffff;
@@ -212,6 +224,7 @@
   }
   .task-item {
     background-color: #343c4f;
+    border: 1px solid rgba(255,255,255,.2);
   }
   .task-list__item--styling {
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
@@ -219,23 +232,16 @@
   .task-item__name {
     color: #fbfbfd;
   }
+
+
   .task-item--self-knowledge {
-    @if $redStrong == #ffa38f {
-      $redStrong: #ff8263;
-      border-right: 8px solid $redStrong;
-    }
+      border-right: 8px solid $redStrongDark;
   }
   .task-item--health-and-sports {
-    @if $yellowStrong == #fde38a {
-      $yellowStrong: #fdd751;
-      border-right: 8px solid $yellowStrong;
-    }
+    border-right: 8px solid $yellowStrongDark;
   }
   .task-item--career {
-    @if $greenStrong == #8eefca {
-      $greenStrong: #42dea2;
-      border-right: 8px solid $greenStrong;
-    }
+    border-right: 8px solid $greenStrongDark;
   }
   .task-item__additional-info p {
     color: #afb6c8;
@@ -247,7 +253,11 @@
     background-color: #42dea2;
   }
   // goal list
-  .goals-grid--box .goal-item {
+  .goals-grid {
+    background-color: #252c3e;
+  }
+  .goals-grid--box .goal-item,
+  .goals-grid--list .goal-item {
     background-color: #343c4f;
     border: none;
   }
@@ -257,13 +267,53 @@
   .goals-grid--box .goal-item__headline {
     color: #fbfbfd;
   }
+  .goals-grid--list {
+    .goal-item {
+      &--family-and-communication {
+        border-left: 8px solid $blueStrongDark;
+      }
+      &--money {
+        border-left: 8px solid $purpleStrongDark;
+      }
+      &--career {
+        border-left: 8px solid $greenStrongDark;
+      }
+      &--health-and-sports {
+        border-left: 8px solid $yellowStrongDark;
+      }
+      &--self-knowledge {
+        border-left: 8px solid $redStrongDark;
+      }
+      &--travel {
+        border-left: 8px solid $pinkStrongDark;
+      }
+    }
+    .goal-item__name {
+      color: $white;
+    }
+    .goal-item__headline {
+      color: $white;
+    }
+    .goal-item__deadline {
+      color: $white;
+    }
+    .goal-item__hr {
+      background-color: $white;
+    }
+  }
+
   .btn--switcher {
     background-color: #343c4f;
     box-shadow: none;
   }
-  .label-title--red {
-    background-color: #f89075;
-    border: 1px solid #cb5d4b;
+  .label-title--blue {
+    background-color: #738ffd;
+    border: 1px solid #5a7afc;
+    color: #000;
+  }
+  .label-title--purple {
+    background-color: #a871c2;
+    border: 1px solid #a24fc9;
     color: #000;
   }
   .label-title--green {
@@ -272,8 +322,18 @@
     color: #000;
   }
   .label-title--yellow {
-    background-color: #f0cc5e;
+    background-color: #fdd650;
     border: 1px solid #bc9725;
+    color: #000;
+  }
+  .label-title--red {
+    background-color: #f89075;
+    border: 1px solid #cb5d4b;
+    color: #000;
+  }
+  .label-title--pink {
+    background-color: #fd97b3;
+    border: 1px solid #ff5a87;
     color: #000;
   }
   // calendar page
@@ -321,5 +381,8 @@
     &:before {
       background-color: #42cc98;
     }
+  }
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(1);
   }
 }

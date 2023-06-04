@@ -1,5 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { TasksService } from 'src/app/services/tasks.service';
+// Services
+import { GoalsService } from 'src/app/services/goals/goals.service';
+import { TasksService } from 'src/app/services/tasks/tasks.service';
+// Types
+import { Goal } from 'src/app/types/goal.type';
 import { Task } from 'src/app/types/task.type';
 
 @Component({
@@ -11,10 +15,12 @@ export class TasksTypeMonthComponent implements OnInit, AfterViewInit, OnDestroy
 
 
   public loading$!: boolean;
-  databaseContent: Array<Task> = [];
+  allGoals: Array<Goal> = [];
+  allTasks: Array<Task> = [];
   objectValues = Object.values;
 
   constructor(
+    public goalsService: GoalsService,
     private tasksService: TasksService
   ) {}
 
@@ -25,18 +31,21 @@ export class TasksTypeMonthComponent implements OnInit, AfterViewInit, OnDestroy
   ngAfterViewInit(): void {
     this.loading$ = true;
     setTimeout(() => {
-
       this.tasksService.fetchTasks()
         .subscribe((tasks:any) => {
-          this.databaseContent = tasks;
+          this.allTasks = tasks;
           this.loading$ = false;
         })
     }, 550);
+    // Fetch Goals
+    this.goalsService.goalsCollection().subscribe(response => {
+      this.allGoals = response;
+    });
   }
 
   ngOnDestroy():void {
     this.loading$ = true;
-    this.databaseContent = [];
+    this.allTasks = [];
   }
 
 }

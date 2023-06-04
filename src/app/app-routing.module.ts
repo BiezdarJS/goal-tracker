@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TasksMainComponent } from './components/tasks/_tasks-main/tasks-main.component';
 import { GoalsMainComponent } from './components/goals/_goals-main/goals-main.component';
-import { GoalsResolverService } from './services/goals-resolver.service';
+import { GoalsResolverService } from './services/goals/goals-resolver.service';
 
 
 const routes: Routes = [

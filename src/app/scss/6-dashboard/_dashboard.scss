@@ -10,7 +10,7 @@
     @include desktop-md {
         padding: 15px 45px 0;
     }
-    
+
     &__top {
         @include desktop-sm {
             display: flex;
@@ -23,7 +23,7 @@
         }
     }
     &__bottom {
-        margin: 22.5px 0 0;
+
         @include desktop-sm {
             display: grid;
             grid-template-columns: 2.8fr 4fr 3.2fr;
@@ -34,10 +34,11 @@
             "progressTowards healthAndSports todayTasks"
             "motivation healthAndSports todayTasks";
             width: auto;
+            margin: 22.5px 0 0;
         }
         @include mobile {
             display: block;
-            padding: 0 30px 150px!important;
+            padding: 22.5px 30px 150px!important;
         }
     }
 }

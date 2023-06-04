@@ -1,4 +1,8 @@
-<gt-actions-nav-tasks (taskEvent)="createNewTask()"></gt-actions-nav-tasks>
+<gt-actions-nav-tasks
+  (taskEvent)="createNewTask()"
+  (prevBtnEvent)="btnEventHasBeenFired()"
+  (nextBtnEvent)="btnEventHasBeenFired()">
+</gt-actions-nav-tasks>
 
 
 <ng-template tasksHost></ng-template>

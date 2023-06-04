@@ -1,11 +1,17 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
+// Types
+import { Goal } from 'src/app/types/goal.type';
 // Services
-import { TasksService } from 'src/app/services/tasks.service';
+import { TasksService } from 'src/app/services/tasks/tasks.service';
+// RxJS
+import { map } from 'rxjs';
 // New Task
 import { NewTask } from 'src/app/models/new-task.model';
 import { TasksMainComponent } from '../_tasks-main/tasks-main.component';
-
+import { GoalsService } from 'src/app/services/goals/goals.service';
+// Select
+declare function Select(): void;
 // Modal
 declare function Modal(): void;
 
@@ -15,16 +21,23 @@ declare function Modal(): void;
   host: {'class': 'modal__wrap'},
   styleUrls: ['./new-task.component.scss']
 })
-export class NewTaskComponent implements OnInit, AfterViewInit {
-
+export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+  // @Input()
+  // set ready(isReady: boolean) {
+  //   if (isReady) this.makeSomething();
+  // }
+  @ViewChildren('allTheseThings') things!: QueryList<any>;
+  @ViewChild('select_goal') select_goal!: ElementRef;
   @ViewChild('priority') priority!: ElementRef;
   @ViewChild('submitBtn') submitBtn!: ElementRef<HTMLInputElement>;
+  allGoals: Array<Goal> = [];
   newTask:any;
   priorityValue!: any;
 
   constructor(
     private elRef: ElementRef,
     private parentRef: TasksMainComponent,
+    private goalsService: GoalsService,
     private tasksService: TasksService
   ) {}
 
@@ -41,9 +54,35 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     this.newTask.hide();
   }
 
-  ngAfterViewInit():void {
-    // this.priorityValue = this.priority.nativeElement.querySelector('.active').innerText;
+  ngAfterViewChecked():void {
+    //Select
+    // this.things.changes.subscribe(() => {
+    //   console.log('tukoruzi');
+    // })
+  }
 
+  ngAfterViewInit():void {
+
+    // Fetch Goals
+    this.goalsService.fetchGoals()
+    .pipe(
+      map(response => {
+        const goalsArray = [];
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            goalsArray.push({ ...response[key], id: key })
+          }
+        }
+        return goalsArray;
+      }),
+    ).subscribe(response => {
+      this.allGoals = response;
+    });
+    this.things.changes.subscribe(() => {
+      new (Select as any)(this.select_goal.nativeElement, {
+        placeholder: 'Choose Goal...',
+      });
+    })
   }
 
 
@@ -60,6 +99,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     this.priorityValue = this.priority.nativeElement.querySelector('.active').innerText;
 
     this.tasksService.newTask = new NewTask(
+      form.value.goal_id,
       form.value.name,
       form.value.description,
       this.priorityValue,
@@ -70,6 +110,15 @@ export class NewTaskComponent implements OnInit, AfterViewInit {
     this.parentRef.removeNewTask();
     this.parentRef.refreshTasksGrid();
   }
+
+
+  ngOnDestroy():void {
+    console.log('usunięty');
+    this.parentRef.newTaskContainerRef.clear();
+    this.elRef.nativeElement.remove();
+  }
+
+
 
 
 }

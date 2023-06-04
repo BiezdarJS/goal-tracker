@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CalendarType } from '../models/calendar.model';
+import { CalendarType } from '../../models/calendar.model';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';

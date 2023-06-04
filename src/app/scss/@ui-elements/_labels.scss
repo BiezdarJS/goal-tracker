@@ -19,6 +19,7 @@
         padding: 10px 0;
     }
     &-title {
+        color: $secondText;
         line-height: 16px;
         text-transform: uppercase;
         @include mobile {
@@ -33,25 +34,25 @@
             font-size: 11px;
             line-height: 11px;
         }
-        &--red {
-            background-color: #fff5f3;
-            border: 1px solid $redStrong;
-            color: $secondText;
-        }
-        &--green {
-            background-color: #e2fffd;
-            border: 1px solid $greenStrong;
-            color: $secondText;
-        }
-        &--yellow {
-            background-color: #fff9e7;
-            border: 1px solid $yellowStrong;
-            color: $secondText;
+        &--blue {
+          background-color: $blue;
+          border: 1px solid $blueStrong;
         }
         &--purple {
           background-color: $purple;
           border: 1px solid $purpleStrong;
-          color: $secondText;
+        }
+        &--green {
+          background-color: #e2fffd;
+          border: 1px solid $greenStrong;
+        }
+        &--yellow {
+          background-color: #fff9e7;
+          border: 1px solid $yellowStrong;
+        }
+        &--red {
+            background-color: #fff5f3;
+            border: 1px solid $redStrong;
         }
     }
     &-priority {

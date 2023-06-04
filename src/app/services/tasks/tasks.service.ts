@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { Task } from '../../types/task.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
-
+  allTasks: Array<Task> = [];
   newTask: any;
   components: any = [];
   // flag indicating whether loading is complete
@@ -19,9 +20,19 @@ export class TasksService {
 
 
   // TASKS
-  onFetchTasks():void {
-    this.fetchTasks();
-
+  tasksCollection():Observable<any> {
+    return this.fetchTasks()
+      .pipe(
+        map(response => {
+          const tasksArray = [];
+          for (const key in response) {
+            if (response.hasOwnProperty(key)) {
+              tasksArray.push({ ...response[key], id: key });
+            }
+          }
+          return tasksArray;
+        })
+      );
   }
 
   fetchTasks(): Observable<any> {

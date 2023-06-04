@@ -39,32 +39,18 @@
           </div>
           <div class="modal__section d-flex">
               <div class="modal__half">
-                  <h3 class="modal__section-name headline">
-                      A priority
-                  </h3>
-                  <ul class="priority list" getTaskPriority #priority>
-                      <li class="priority__item">
-                          <button type="button" class="label label-priority label-priority--high label--105width">
-                              High priority
-                          </button>
-                      </li>
-                      <li class="priority__item">
-                          <button type="button" class="label label-priority label-priority--medium label--105width">
-                              Medium priority
-                          </button>
-                      </li>
-                      <li class="priority__item">
-                          <button type="button" class="label label-priority label-priority--nopriority label--105width">
-                              No priority
-                          </button>
-                      </li>
-                      <!-- przekaż wartość taskPriority do input type hidden -->
-                      <input
-                        class="visuallyhidden"
-                        type="hidden"
-                        name="priority"
-                      />
-                  </ul>
+                <h3 class="modal__section-name headline">
+                  Goal to which this task belongs
+                </h3>
+                <select class="select--modal list" name="goal_id" ngModel #select_goal>
+                  <option
+                    *ngFor="let goal of this.allGoals"
+                    value="{{goal.id}}"
+                    #allTheseThings
+                    >
+                    {{goal.name}}
+                  </option>
+                </select>
               </div>
               <div class="modal__half">
                   <h3 class="modal__section-name headline">
@@ -75,6 +61,34 @@
                     name="taskDate"
                     ngModel
                     >
+              </div>
+              <div>
+                <h3 class="modal__section-name headline">
+                    A priority
+                </h3>
+                <ul class="priority list" getTaskPriority #priority>
+                    <li class="priority__item">
+                        <button type="button" class="label label-priority label-priority--high label--105width">
+                            High priority
+                        </button>
+                    </li>
+                    <li class="priority__item">
+                        <button type="button" class="label label-priority label-priority--medium label--105width">
+                            Medium priority
+                        </button>
+                    </li>
+                    <li class="priority__item">
+                        <button type="button" class="label label-priority label-priority--nopriority label--105width">
+                            No priority
+                        </button>
+                    </li>
+                    <!-- przekaż wartość taskPriority do input type hidden -->
+                    <input
+                      class="visuallyhidden"
+                      type="hidden"
+                      name="priority"
+                    />
+                </ul>
               </div>
           </div>
           <input class="visuallyhidden" type="submit" value="wyślij" #submitBtn>

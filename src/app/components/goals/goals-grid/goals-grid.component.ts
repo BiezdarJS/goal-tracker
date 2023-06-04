@@ -1,9 +1,13 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
 // Types
 import { Goal } from 'src/app/types/goal.type';
+// Enums
+import { GoalsViewType } from 'src/app/enums/goals.view-type';
 // Services
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
-import { GoalsService } from 'src/app/services/goals.service';
+import { GoalsService } from 'src/app/services/goals/goals.service';
+import { CalendarNotificationService } from 'src/app/services/calendar/calendar-notification.service';
+import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifications.service';
 // Interfaces
 import { IGoalsGrid, ICalendarMonths } from '../../../models/calendar.model';
 // Day.js
@@ -13,16 +17,19 @@ import * as weekOfYear from 'dayjs/plugin/weekOfYear';
 import { GoalsMainComponent } from '../_goals-main/goals-main.component';
 import { map } from 'rxjs';
 
+
+
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
 @Component({
   selector: 'gt-goals-grid',
   templateUrl: './goals-grid.component.html',
-  host: {'class': 'goals-grid goals-grid--box'},
+  host: {'class': 'goals-grid'},
   styleUrls: ['./goals-grid.component.scss']
 })
-export class GoalsGridComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
+export class GoalsGridComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
 
 
   public loading$!: boolean;
@@ -39,93 +46,46 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterContentIn
   selectCategoryValue!: string;
   selectDateValue = 'all';
   objectValues = Object.values;
-
+  goalsViewType!:string;
+  public get GoalsViewType() {
+    return GoalsViewType;
+  }
+  switcherBtnHasBeenFired!:boolean;
 
   constructor(
     private globalVars: GlobalVariablesService,
     private elementRef: ElementRef,
-    private parentRef: GoalsMainComponent,
-    private goalsService: GoalsService
+    private goalsService: GoalsService,
+    private goalsNotificationsS: GoalsNotificationsService,
+    private calendarNotificationS: CalendarNotificationService
   ) {}
 
   ngOnInit():void {
+    // Subscribe to Change View Notification
+    this.goalsNotificationsS.activeGoalsViewType.subscribe(d => {
+      this.goalsViewType = d;
+    });
+    // Subscribe to Swticher Button Event
+    this.calendarNotificationS.switcherBtnHasBeenFired.subscribe(d => {
+      this.switcherBtnHasBeenFired = d;
+    });
+    // Settings
     this.loading$ = false;
     this.imagesURL = this.globalVars.imagesURL;
   }
 
 
-  // ngAfterContentInit():void {
-  //   // Goals Grid
-  //   this.calendar = {
-  //     year: this.goalsService.selectedMonth.format("YYYY"),
-  //     month: this.goalsService.selectedMonth.format("M"),
-  //     first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
-  //   }
-  //   this.monthsCollection = this.collectMonths(this.calendar);
-  // }
-
-
-  ngAfterContentInit():void {
+  ngAfterViewInit(): void {
     this.loading$ = true;
-    // Goals Grid
+    // Collect Goals Grid Data
     this.calendar = {
       year: this.goalsService.selectedMonth.format("YYYY"),
       month: this.goalsService.selectedMonth.format("M"),
       first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
     }
     this.monthsCollection = this.collectMonths(this.calendar);
-  }
-  //  ngAfterContentChecked():void {
-  //   // Goals Grid
-  //   this.calendar = {
-  //     year: this.goalsService.selectedMonth.format("YYYY"),
-  //     month: this.goalsService.selectedMonth.format("M"),
-  //     first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
-  //   }
-  //   this.monthsCollection = this.collectMonths(this.calendar);
-  // }
-
-  ngAfterViewInit(): void {
     setTimeout(() => {
-      this.goalsService.fetchGoals()
-        .pipe(
-          map(response => {
-            const goalsArray = [];
-            for (const key in response) {
-              if (response.hasOwnProperty(key)) {
-                goalsArray.push({ ...response[key], id: key })
-              }
-            }
-            return goalsArray;
-          }),
-          map(response => {
-            // Filtrowanie po Kategorii
-            if (this.selectCategoryValue !== 'all') {
-              response = response.filter(v => v.category === this.selectCategoryValue)
-            }
-            // Sortowanie po Dacie
-            if (this.selectDateValue === 'creation date') {
-              let creationDates = response.map(item => item.creationDate.split('-')).map(item => {
-                return {
-                  timepstamp: new Date(item[0], item[1]-1, item[2]).getTime()
-                }
-              }).map(item => item.timepstamp);
-              response = response.map((item, idx, array) => {
-                return {
-                  category: item.category,
-                  creationDate: creationDates[idx],
-                  details: item.details,
-                  id: item.id,
-                  isMainGoal: item.isMainGoal,
-                  name: item.name
-                }
-              })
-              // sortowanie
-              .sort((item1, item2) => item1.creationDate - item2.creationDate);
-            }
-            return response;
-            })
-        )
+        this.goalsService.filter(this.selectCategoryValue,this.selectDateValue)
         .subscribe((goals:any) => {
           this.allGoals = goals;
           this.loading$ = false;
@@ -134,21 +94,32 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterContentIn
   }
 
 
+   ngAfterViewChecked():void {
+    if (this.switcherBtnHasBeenFired === true) {
+      // Collect Goals Grid Data
+      this.calendar = {
+        year: this.goalsService.selectedMonth.format("YYYY"),
+        month: this.goalsService.selectedMonth.format("M"),
+        first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
+      }
+      this.monthsCollection = this.collectMonths(this.calendar);
+      // Send notification to Service to prevent further execution of this code
+      this.calendarNotificationS.sendNotification(false);
+    }
+  }
+
+
+
+
 
   ngOnDestroy():void {
     // this.loading$ = false;
   }
 
-  // ngAfterContentChecked():void {
-  //   // Goals Grid
-  //   this.calendar = {
-  //     year: this.goalsService.selectedMonth.format("YYYY"),
-  //     month: this.goalsService.selectedMonth.format("M"),
-  //     first_month: parseInt(this.goalsService.selectedMonth.format("M"), 10)
-  //   }
-  //   this.monthsCollection = this.collectMonths(this.calendar);
-  // }
 
+
+
+  // Methods beneath are responsible for generating the Calendar
 
 
   collectMonths(calendar: IGoalsGrid) {
@@ -160,49 +131,6 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterContentIn
     const months = [...this.firstYearMonths, ...this.secondYearMonths];
 
     return months;
-
-    // months.forEach((month) => { this.appendMonth(month, this.elementRef.nativeElement) });
-  }
-
-  appendMonth(month:any, goalsGrid:any) {
-
-    const monthOfTheYear = month.monthOfTheYear-1 !== -1 ? month.monthOfTheYear : 0;
-
-    const monthElement = `
-      <div class="calendar-grid__column calendar-grid__column--day">
-      <p class="title txt-center">
-
-      </p>
-      <ul class="goals-list list">
-        <li class="goals-grid__item">
-            <div class="goal-item">
-                <div class="goal-item__img-wrap">
-                    <div class="label label-title label-title--red">
-                        self-knowledge
-                    </div>
-                    <img class="goal-item__img" src="http://localhost:4200/assets/images/self-knowledge.jpg" alt="">
-                </div>
-                <ul class="goal-item-misc list">
-                    <li class="goal-item-misc__item">
-                        <i class="icon icon--sm icon--edit"></i>
-                    </li>
-                    <li class="goal-item-misc__item">
-                        <i class="icon icon--sm icon--chart"></i>
-                    </li>
-                </ul>
-                <h3 class="headline txt-center">
-                    Prepare & pass the TOEFL exam
-                </h3>
-                <p class="font-body">
-                    TOEFL - international exam in English as a foreign language. Goal - Prepare and pass the TOEFL iBT
-                    exam with 80-100 points 2022 May 10.
-                </p>
-            </div>
-        </li>
-      </ul>
-      </div>
-    `;
-    goalsGrid.innerHTML += monthElement;
 
   }
 
@@ -260,4 +188,7 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, AfterContentIn
       first = goalsGrid.firstElementChild;
     }
   }
+
+
+
 }

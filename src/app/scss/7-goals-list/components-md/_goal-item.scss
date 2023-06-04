@@ -89,15 +89,24 @@
 			border-radius: 14px;
 			margin: 20px 0;
 			padding: 45px;
-			&--career {
-				border-left: 8px solid #8eefca;
-			}
-			&--health-and-sports {
-				border-left: 8px solid #fde38a;
-			}
-			&--knowledge {
-				border-left: 8px solid #ffa38f;
-			}
+      &--family-and-communication {
+        border-left: 8px solid $blueStrong;
+      }
+      &--money {
+        border-left: 8px solid $violetStong;
+      }
+      &--career {
+        border-left: 8px solid $greenStrong;
+      }
+      &--health-and-sports {
+        border-left: 8px solid $yellowStrong;
+      }
+      &--self-knowledge {
+        border-left: 8px solid $redStrong;
+      }
+      &--travel {
+        border-left: 8px solid $pinkStrong;
+      }
 			&__img-wrap {
 					display: none;
 			}

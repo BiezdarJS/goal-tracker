@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { Observable, map } from "rxjs";
-import { GoalsService } from "src/app/services/goals.service";
+import { GoalsService } from "src/app/services/goals/goals.service";
 
 @Injectable({ providedIn: 'root' })
 export class GoalsResolverService implements Resolve<any> {

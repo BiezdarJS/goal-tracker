@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { GoalsService } from 'src/app/services/goals.service';
+import { GoalsService } from 'src/app/services/goals/goals.service';
 import { GoalsMainComponent } from '../_goals-main/goals-main.component';
 // New Goal
 import { NewGoal } from 'src/app/models/new-goal.model';
+
 // Modal
 declare function Modal(): void;
 // Select
@@ -24,6 +25,7 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
   @ViewChild('select_category') select_category!: ElementRef;
 
   @Output('create') create = new EventEmitter();
+
 
   newGoal:any;
   btnBackIsActive: boolean = false;

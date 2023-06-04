@@ -1,9 +1,11 @@
-import { Directive, ViewContainerRef } from '@angular/core';
+import { Directive, Input, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[tasksHost]'
 })
 export class TasksHostDirective {
+
+
 
   constructor(public viewContainerRef: ViewContainerRef) { }
 
