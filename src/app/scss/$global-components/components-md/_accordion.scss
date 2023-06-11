@@ -1,0 +1,111 @@
+@import '../../assets-path';
+
+.accordion {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+  padding: 60px 0;
+  position: relative;
+  z-index: 0;
+  &__item {
+      border: 1px solid #D6D6D6;
+      display: block;
+      position: relative;
+      &:not(:first-child) {
+          border-top: none;
+      }
+      &:last-child {
+          border-bottom: 1px solid #D6D6D6;
+      }
+      &.active {
+          .accordion__title {
+              color: #000000;
+          }
+          .open-btn {
+              transform: rotateX(180deg);
+          }
+      }
+  }
+  .open-btn {
+      position: relative;
+      width: 25px;
+      height: 25px;
+      background-color: $black;
+      mask-image: url(#{$assetPath}/icons/chevron-down.svg);
+      mask-size: contain;
+      mask-position: center;
+      mask-repeat: no-repeat;
+      transform-origin: center;
+      @media (max-width: 550px) {
+          left: 15px;
+      }
+  }
+  &__content {
+      color: #000000;
+      padding: 10px 0;
+      font-size: 12px;
+      line-height: 21px;
+      padding: 0 100px 0 70px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      @media (max-width: 550px) {
+          padding: 0 70px 0 50px;
+      }
+      &-wrap {
+          overflow: hidden;
+          max-height: 0;
+          transition: max-height 0.2s ease-out;
+      }
+  }
+  &-item-trigger {
+      display: grid;
+      grid-template-columns: 1fr 40px;
+      align-items: center;
+      @include mobile {
+          grid-template-columns: 1fr 45px;
+      }
+      @media (max-width: 550px) {
+          grid-template-columns: 1fr 70px;
+      }
+  }
+  &-title {
+      color: #464646;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      align-items: baseline;
+      padding: 15px 0px 15px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      margin: 0;
+      position: relative;
+      z-index: 2;
+      -webkit-tap-highlight-color: transparent;
+      @media (max-width: 550px) {
+          grid-template-columns: 30px 1fr;
+      }
+      &:hover {
+          color: #000000;
+      }
+      &__number {
+        color: $black;
+      }
+      &__txt {
+          margin: 0;
+          line-height: 20px;
+          text-transform: uppercase;
+      }
+  }
+  &__txt {
+      color: $black;
+      display: flex;
+      align-items: center;
+  }
+
+  &__img {
+      display: inline-block;
+      margin: 20px 0;
+  }
+}
+

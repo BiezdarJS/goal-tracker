@@ -1,13 +1,12 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[newGoalHost]'
+  selector: '[newTaskHost]'
 })
-export class NewGoalDirective {
+export class NewTaskDirective {
 
   constructor(
     public viewContainerRef: ViewContainerRef
   ) { }
-
 
 }

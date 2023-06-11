@@ -11,7 +11,7 @@ export class CalendarNotificationService {
 
   constructor() { }
 
-  sendNotification(data:any) {
+  sendSwitcherBtnNotification(data:any) {
     this.notificationSubject.next(data);
   }
 }

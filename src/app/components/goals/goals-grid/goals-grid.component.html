@@ -6,96 +6,107 @@
 </aside>
 
 <ng-container *ngIf="!loading$">
-  <ng-container *ngFor="let month of this.monthsCollection">
+  <gt-calendar-type-year [ngClass]="
+  this.goalsViewType === GoalsViewType.List ? 'goals-grid--list'
+  : this.goalsViewType === GoalsViewType.Grid ? 'goals-grid--box'
+  : ''">
+    <ng-template let-month>
+      <gt-single-month [month]="month" class="calendar-grid__column--day">
+        <!-- Wyświetl UL tylko kiedy celów pasujących do miesiąca jest więcej niż 0 !-->
+        <ul class="goals-list list">
+          <!--
+              Zrób pętlę po wszyskich celach
+          -->
+          <ng-container *ngFor="let item of objectValues(this.allGoals)">
+            <!--
+            ... Porównaj miesiąc z danego celu -> do miesiąca z obecnie iterowanego month
+        -->
+            <ng-container *ngIf="(item['creationDate'] | date: 'M') === (month.monthOfTheYear+1)+''">
+                <!--
+                Jeśli jest match to dodaj obecnie iterowany item do obecnie iterowanej kolumny miesiąca
+            -->
+              <li class="goals-grid__item">
+                  <div
+                    *ngIf="this.goalsViewType === GoalsViewType.List"
+                    class="goal-item"
+                    [ngClass]="
+                    item['category'] === 'family/communication' ? 'goal-item--family-and-communication'
+                    : item['category'] === 'money' ? 'goal-item--money'
+                    : item['category'] === 'work/career' ? 'goal-item--career'
+                    : item['category'] === 'health and sports' ? 'goal-item--health-and-sports'
+                    : item['category'] === 'self knowledge' ? 'goal-item--self-knowledge'
+                    : item['category'] === 'travels' ? 'goal-item--travels' : ''"
+                    >
+                    <div class="hstack justify-content-between">
+                      <h3 class="goal-item__name">
+                          {{item['name']}}
+                      </h3>
+                      <button class="btn btn--no-style btn--sm btn-more-js">
+                        <i class="icon icon--more-vertical"></i>
+                      </button>
+                    </div>
+                    <p class="font-body">
+                      {{ item['details'] }}
+                    </p>
+                    <div class="hstack align-items-center">
+                        <span class="goal-item__hr"></span>
+                        <p class="goal-item__deadline">
+                        DEADLINE 10/01/2021
+                        </p>
+                    </div>
+                </div>
+                <div
+                  *ngIf="this.goalsViewType === GoalsViewType.Grid"
+                  class="goal-item">
+                  <div class="goal-item__img-wrap">
+                      <div class="label label-title"
+                      [ngClass]="
+                      item['category'] === 'family/communication' ? 'label-title--blue'
+                      : item['category'] === 'money' ? 'label-title--purple'
+                      : item['category'] === 'work/career' ? 'label-title--green'
+                      : item['category'] === 'health and sports' ? 'label-title--yellow'
+                      : item['category'] === 'self knowledge' ? 'label-title--red'
+                      : item['category'] === 'travels' ? 'label-title--pink' : ''"
+                      >
+                          {{item['category']}}
+                      </div>
+                      <ng-container [ngSwitch]="item['category']">
+                        <img *ngSwitchCase="'self knowledge'" alt="" class="goal-item__img" src="{{ imagesURL }}/self-knowledge.jpg">
+                        <img *ngSwitchCase="'health and sports'" alt="" class="goal-item__img" src="{{ imagesURL }}/sport.jpg">
+                        <img *ngSwitchCase="'work/career'" alt="" class="goal-item__img" src="{{ imagesURL }}/work.jpg">
+                        <img *ngSwitchCase="'money'" alt="" class="goal-item__img" src="{{ imagesURL }}/money2.jpg">
+                        <img *ngSwitchCase="'travels'" alt="" class="goal-item__img" src="{{ imagesURL }}/travels3.jpg">
+                      </ng-container>
+                  </div>
+                  <ul class="goal-item-misc list">
+                      <li class="goal-item-misc__item">
+                          <i class="icon icon--sm icon--edit"></i>
+                      </li>
+                      <li class="goal-item-misc__item">
+                          <i class="icon icon--sm icon--chart"></i>
+                      </li>
+                  </ul>
+                  <h3 class="headline txt-center">
+                      {{item['name']}}
+                  </h3>
+                  <p class="font-body">
+                    {{ item['details'] }}
+                  </p>
+              </div>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </gt-single-month>
+    </ng-template>
+  </gt-calendar-type-year>
+  <!-- <ng-container *ngFor="let month of this.monthsCollection">
     <div class="calendar-grid__column calendar-grid__column--day">
       <p class="title txt-center">
         {{ this.monthNames[month.monthOfTheYear] }}
       </p>
-      <!-- Wyświetl UL tylko kiedy celów pasujących do miesiąca jest więcej niż 0 !-->
-      <ul class="goals-list list">
-        <!--
-            Zrób pętlę po wszyskich celach
-        -->
-        <ng-container *ngFor="let item of objectValues(this.allGoals)">
-          <!--
-          ... Porównaj miesiąc z danego celu -> do miesiąca z obecnie iterowanego month
-      -->
-          <ng-container *ngIf="(item['creationDate'] | date: 'M') === (month.monthOfTheYear+1)+''">
-              <!--
-              Jeśli jest match to dodaj obecnie iterowany item do obecnie iterowanej kolumny miesiąca
-          -->
-            <li class="goals-grid__item">
-                <div
-                  *ngIf="this.goalsViewType === GoalsViewType.List"
-                  class="goal-item"
-                  [ngClass]="
-                  item['category'] === 'family/communication' ? 'goal-item--family-and-communication'
-                  : item['category'] === 'money' ? 'goal-item--money'
-                  : item['category'] === 'work/career' ? 'goal-item--career'
-                  : item['category'] === 'health and sports' ? 'goal-item--health-and-sports'
-                  : item['category'] === 'self knowledge' ? 'goal-item--self-knowledge'
-                  : item['category'] === 'travels' ? 'goal-item--travels' : ''"
-                  >
-                  <div class="hstack justify-content-between">
-                    <h3 class="goal-item__name">
-                        {{item['name']}}
-                    </h3>
-                    <button class="btn btn--no-style btn--sm btn-more-js">
-                      <i class="icon icon--more-vertical"></i>
-                    </button>
-                  </div>
-                  <p class="font-body">
-                    {{ item['details'] }}
-                  </p>
-                  <div class="hstack align-items-center">
-                      <span class="goal-item__hr"></span>
-                      <p class="goal-item__deadline">
-                      DEADLINE 10/01/2021
-                      </p>
-                  </div>
-              </div>
-              <div
-                *ngIf="this.goalsViewType === GoalsViewType.Grid"
-                class="goal-item">
-                <div class="goal-item__img-wrap">
-                    <div class="label label-title"
-                     [ngClass]="
-                     item['category'] === 'family/communication' ? 'label-title--blue'
-                     : item['category'] === 'money' ? 'label-title--purple'
-                     : item['category'] === 'work/career' ? 'label-title--green'
-                     : item['category'] === 'health and sports' ? 'label-title--yellow'
-                     : item['category'] === 'self knowledge' ? 'label-title--red'
-                     : item['category'] === 'travels' ? 'label-title--pink' : ''"
-                     >
-                        {{item['category']}}
-                    </div>
-                    <ng-container [ngSwitch]="item['category']">
-                      <img *ngSwitchCase="'self knowledge'" alt="" class="goal-item__img" src="{{ imagesURL }}/self-knowledge.jpg">
-                      <img *ngSwitchCase="'health and sports'" alt="" class="goal-item__img" src="{{ imagesURL }}/sport.jpg">
-                      <img *ngSwitchCase="'work/career'" alt="" class="goal-item__img" src="{{ imagesURL }}/work.jpg">
-                      <img *ngSwitchCase="'money'" alt="" class="goal-item__img" src="{{ imagesURL }}/money2.jpg">
-                    </ng-container>
-                </div>
-                <ul class="goal-item-misc list">
-                    <li class="goal-item-misc__item">
-                        <i class="icon icon--sm icon--edit"></i>
-                    </li>
-                    <li class="goal-item-misc__item">
-                        <i class="icon icon--sm icon--chart"></i>
-                    </li>
-                </ul>
-                <h3 class="headline txt-center">
-                    {{item['name']}}
-                </h3>
-                <p class="font-body">
-                  {{ item['details'] }}
-                </p>
-            </div>
-            </li>
-          </ng-container>
-        </ng-container>
-      </ul>
+
       </div>
-  </ng-container>
+  </ng-container> -->
 
 </ng-container>

@@ -3,8 +3,8 @@ export class NewTask {
   constructor(
       public goal_id: string,
       public name: string,
-      public description: boolean,
+      public description: string,
       public priority: string,
-      public taskDate: Date,
+      public taskDate: string,
   ) {}
 }

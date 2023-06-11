@@ -2,7 +2,9 @@ import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, O
 // Services
 import { CalendarNotificationService } from 'src/app/services/calendar/calendar-notification.service';
 import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifications.service';
-import { GoalsService } from 'src/app/services/goals/goals.service';
+import { CalendarGoalsService } from 'src/app/services/calendar/calendar-goals.service';
+import { GoalsMainComponent } from '../_goals-main/goals-main.component';
+
 // Select
 declare function Select(): void;
 
@@ -16,20 +18,22 @@ export class ActionsNavGoalsComponent implements AfterViewInit, AfterViewChecked
 
   @ViewChild('select_category') select_category!: ElementRef;
   @ViewChild('select_date') select_date!: ElementRef;
-  @ViewChild('filter') filter123!:ElementRef;
+  @ViewChild('filter') filterBtn!:ElementRef;
   // Emit New Goal Event
   @Output() goalEvent = new EventEmitter();
   emitNewGoalEvent() {
     this.goalEvent.emit();
   }
-  public loading$!: boolean;
   goalsViewType!:string;
-  filterChanged!:boolean;
+  goalsSelectChanged!:boolean;
+  // current Year
+  currentYear!:any;
 
   constructor(
-    private goalsService: GoalsService,
+    private calendarGoalsService: CalendarGoalsService,
     private goalsNotificationsS: GoalsNotificationsService,
-    private calendarNotificationS: CalendarNotificationService
+    private calendarNotificationS: CalendarNotificationService,
+    private parentRef: GoalsMainComponent
   ) {}
 
   ngOnInit():void {
@@ -38,12 +42,17 @@ export class ActionsNavGoalsComponent implements AfterViewInit, AfterViewChecked
       this.goalsViewType = d;
     });
     // Change View Notification
-    this.goalsNotificationsS.filterChanged.subscribe(d => {
-      this.filterChanged = d;
+    this.goalsNotificationsS.goalsSelectChanged.subscribe(d => {
+      this.goalsSelectChanged = d;
     });
   }
 
+
+
   ngAfterViewInit():void {
+    // Get Current Year
+    this.currentYear = this.calendarGoalsService.selectedMonth.format("YYYY");
+    // Initialize Select
     new (Select as any)(this.select_category.nativeElement, {
       placeholder: 'All',
       textBefore: "Show: "
@@ -55,25 +64,29 @@ export class ActionsNavGoalsComponent implements AfterViewInit, AfterViewChecked
   }
 
   ngAfterViewChecked():void {
-    if (this.filterChanged) {
-      this.filter123.nativeElement.classList.add('highlight');
+    // Get Current Year
+    this.currentYear = this.calendarGoalsService.selectedMonth.format("YYYY");
+    // Check if select has been changed and perform action
+    if (this.goalsSelectChanged) {
+      this.filterBtn.nativeElement.classList.add('highlight');
       setTimeout(() => {
-        this.filter123.nativeElement.classList.remove('highlight');
-        this.goalsNotificationsS.sendFilterNotification(false);
+        this.filterBtn.nativeElement.classList.remove('highlight');
+        this.goalsNotificationsS.sendGoalsSelectNotification(false);
       },300);
-
+      this.goalsNotificationsS.sendCategoryNotification(this.select_category.nativeElement.value);
+      this.goalsNotificationsS.sendDateNotification(this.select_date.nativeElement.value);
     }
   }
 
 
   handlePrevBtn() {
-    this.goalsService.previousBtnHandler();
-    this.calendarNotificationS.sendNotification(true);
+    this.calendarGoalsService.previousBtnHandler();
+    this.calendarNotificationS.sendSwitcherBtnNotification(true);
   }
 
   handleNextBtn() {
-    this.goalsService.nextBtnHandler();
-    this.calendarNotificationS.sendNotification(true);
+    this.calendarGoalsService.nextBtnHandler();
+    this.calendarNotificationS.sendSwitcherBtnNotification(true);
   }
 
   switchGoalsView(data:any) {
@@ -81,15 +94,8 @@ export class ActionsNavGoalsComponent implements AfterViewInit, AfterViewChecked
   }
 
   triggerFilter() {
-    this.loading$ = false;
-    setTimeout(() => {
-    this.goalsService.filter(this.select_category.nativeElement.value,this.select_date.nativeElement.value)
-      .subscribe((goals:any) => {
-        this.goalsService.allGoals = goals;
-
-      });
-      this.loading$ = false;
-    }, 550);
+    this.goalsNotificationsS.sendFilterNotification(true);
+    this.parentRef.refreshGoalsGrid();
   }
 
 }

@@ -6,7 +6,7 @@ import { TasksTypeMonthComponent } from '../tasks-type-month/tasks-type-month.co
 // Models
 import { CalendarType } from 'src/app/models/calendar.model';
 // Services
-import { CalendarService } from 'src/app/services/calendar/calendar.service';
+import { CalendarTasksService } from 'src/app/services/calendar/calendar-tasks.service';
 // Directives
 import { NewTaskDirective } from 'src/app/directives/tasks/new-task.directive';
 import { TasksHostDirective } from 'src/app/directives/tasks/tasks-host.directive';
@@ -39,14 +39,14 @@ export class TasksMainComponent implements OnInit, OnDestroy  {
   switcherBtnHasBeenFired!:boolean;
 
   constructor(
-    private calendarService: CalendarService,
+    private calendarTasksService: CalendarTasksService,
     private tasksService: TasksService,
   ) {
 
   }
 
   createTasks() {
-    this.currentCalendarType = this.calendarService.currentCalendarType;
+    this.currentCalendarType = this.calendarTasksService.currentCalendarType;
     this.tasksContainerRef.clear();
     if (this.currentCalendarType === CalendarType.Day) {
       this.tasksContainerRef.createComponent(TasksTypeDayComponent);
@@ -74,7 +74,7 @@ export class TasksMainComponent implements OnInit, OnDestroy  {
 
 
   ngDoCheck() {
-    this.currentCalendarType = this.calendarService.currentCalendarType;
+    this.currentCalendarType = this.calendarTasksService.currentCalendarType;
   }
 
 
@@ -107,7 +107,6 @@ export class TasksMainComponent implements OnInit, OnDestroy  {
   }
 
   ngOnDestroy():void {
-    console.log('usunięty');
     this.newTaskContainerRef.clear();
 
   }

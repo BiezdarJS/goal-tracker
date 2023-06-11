@@ -1,11 +1,11 @@
 <gt-actions-nav-goals (goalEvent)="createNewGoal()" #actionsNav></gt-actions-nav-goals>
 
-<gt-goals-grid
-  #goalsGrid
-  [ngClass]="
-  this.goalsViewType === GoalsViewType.List ? 'goals-grid--list'
-  : this.goalsViewType === GoalsViewType.Grid ? 'goals-grid--box'
-  : ''">
-</gt-goals-grid>
 
-<ng-template gtNewGoalHost></ng-template>
+<ng-template
+  goalsHost
+  #goalsGrid
+  >
+</ng-template>
+
+
+<ng-template newGoalHost></ng-template>

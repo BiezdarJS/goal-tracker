@@ -1,8 +1,12 @@
 export type Goal = {
-  category?: string;
-  creationDate?: string;
-  details?: string;
-  id?: string;
-  isMainGoal?: string;
-  name?: string;
+  name: string;
+  isMainGoal: boolean;
+  details: string;
+  category: string;
+  lifeArea: string;
+  creationDate: string;
+  priority:string,
+  endDate: Date;
 };
+
+

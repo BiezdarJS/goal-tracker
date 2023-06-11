@@ -1,6 +1,6 @@
 import { AfterContentChecked, AfterContentInit, Component, ContentChild, ElementRef, OnDestroy, TemplateRef } from '@angular/core';
 // Services
-import { CalendarService } from 'src/app/services/calendar/calendar.service';
+import { CalendarTasksService } from 'src/app/services/calendar/calendar-tasks.service';
 import { CalendarNotificationService } from 'src/app/services/calendar/calendar-notification.service'
 // Interfaces
 import { ICalendar, ICalendarDays } from '../../../models/calendar.model';
@@ -36,7 +36,7 @@ export class CalendarTypeMonthComponent implements AfterContentInit, AfterConten
 
   constructor(
     private elementRef: ElementRef,
-    private calendarService: CalendarService,
+    private calendarTasksService: CalendarTasksService,
     private calendarNotificationS: CalendarNotificationService
   ) {}
 
@@ -49,8 +49,8 @@ export class CalendarTypeMonthComponent implements AfterContentInit, AfterConten
 
   ngAfterContentInit(): void {
     this.calendar = {
-      year: this.calendarService.selectedMonth.format("YYYY"),
-      month: this.calendarService.selectedMonth.format("M")
+      year: this.calendarTasksService.selectedMonth.format("YYYY"),
+      month: this.calendarTasksService.selectedMonth.format("M")
     }
     this.currentDaysArray = this.createCalendar(this.calendar);
   }
@@ -59,12 +59,12 @@ export class CalendarTypeMonthComponent implements AfterContentInit, AfterConten
   ngAfterContentChecked():void {
     if (this.switcherBtnHasBeenFired === true) {
       this.calendar = {
-        year: this.calendarService.selectedMonth.format("YYYY"),
-        month: this.calendarService.selectedMonth.format("M")
+        year: this.calendarTasksService.selectedMonth.format("YYYY"),
+        month: this.calendarTasksService.selectedMonth.format("M")
       }
       this.currentDaysArray = this.createCalendar(this.calendar);
       // Send notification to Service to prevent refresh
-      this.calendarNotificationS.sendNotification(false);
+      this.calendarNotificationS.sendSwitcherBtnNotification(false);
     }
   }
 
@@ -143,34 +143,6 @@ export class CalendarTypeMonthComponent implements AfterContentInit, AfterConten
     });
   }
 
-  appendDay(day:ICalendarDays, calendarDaysElement:any) {
-    const tasks = `
-    <li class="task-item-sm task-item-sm--self-knowledge">
-    </li>
-    <li class="task-item-sm task-item-sm--career">
-    </li>
-    `;
-    const dayElement = document.createElement("li");
-    const dayElementClassList = dayElement.classList;
-    dayElementClassList.add("calendar-day");
-    const dayOfMonthElement = document.createElement("span");
-    dayOfMonthElement.innerText = '' + day.dayOfMonth;
-    dayElement.appendChild(dayOfMonthElement);
-    const tasksListElement = document.createElement("ul");
-    tasksListElement.classList.add('tasks-list', 'list', 'hstack', 'justify-content-center');
-    tasksListElement.innerHTML = tasks;
-    calendarDaysElement.appendChild(dayElement);
-    if (day.dayOfMonth === 12) {
-      dayElement.appendChild(tasksListElement);
-    }
-    if (!day.isCurrentMonth) {
-      dayElementClassList.add("calendar-day--not-current");
-    }
-
-    if (day.date === this.calendarService.TODAY) {
-      dayElementClassList.add("calendar-day--today");
-    }
-  }
 
   removeAllDayElements(calendarDaysElement:HTMLOListElement) {
     let first = calendarDaysElement.firstElementChild;

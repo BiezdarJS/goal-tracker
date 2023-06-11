@@ -45,6 +45,14 @@ import { GoalsNotificationsService } from './services/goals/goals-notifications.
 import { SwitchGoalsViewDirective } from './directives/goals/switch-goals-view.directive';
 import { CalendarNotificationService } from './services/calendar/calendar-notification.service';
 import { FilterChangeDirective } from './directives/goals/filter-change.directive';
+import { CalendarTypeYearComponent } from './components/calendars/calendar-type-year/calendar-type-year.component';
+import { SingleMonthComponent } from './components/calendars/single-month/single-month.component';
+import { GoalsHostDirective } from './directives/goals/goals-host.directive';
+import { NewTaskNestedComponent } from './components/tasks/new-task-nested/new-task-nested.component';
+import { AddNewTaskDirective } from './directives/goals/add-new-task.directive';
+import { TaskNestedService } from './services/tasks/task-nested.service';
+import { HideShowTargetDirective } from './directives/tasks/hide-show-target.directive';
+import { HideNotCurrentTargetDirective } from './directives/tasks/hide-not-current-target.directive';
 
 @NgModule({
   declarations: [
@@ -83,7 +91,14 @@ import { FilterChangeDirective } from './directives/goals/filter-change.directiv
     TasksTypeWeekComponent,
     TasksTypeMonthComponent,
     SwitchGoalsViewDirective,
-    FilterChangeDirective
+    FilterChangeDirective,
+    CalendarTypeYearComponent,
+    SingleMonthComponent,
+    GoalsHostDirective,
+    NewTaskNestedComponent,
+    AddNewTaskDirective,
+    HideShowTargetDirective,
+    HideNotCurrentTargetDirective
   ],
   imports: [
     BrowserModule,
@@ -100,7 +115,8 @@ import { FilterChangeDirective } from './directives/goals/filter-change.directiv
     DatePipe,
     SetThemeService,
     GoalsNotificationsService,
-    CalendarNotificationService
+    CalendarNotificationService,
+    TaskNestedService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,5 @@
 
+
 export class NewGoal {
   constructor(
       public name: string,
@@ -6,10 +7,11 @@ export class NewGoal {
       public details: string,
       public category: string,
       public lifeArea: string,
-      public creationDate: Date,
-      public attachments: File,
+      public creationDate: string,
       public priority: string,
       public endDate: Date,
 
   ) {}
 }
+
+

@@ -30,17 +30,9 @@
   </select>
 </div>
 <div class="switcher__wrap">
-  <ul class="switcher list">
-      <li class="switcher__item">
-          2020
-      </li>
-      <li class="switcher__item active">
-          2021
-      </li>
-      <li class="switcher__item">
-          2022
-      </li>
-  </ul>
+  <div class="switcher">
+    {{ this.currentYear }}
+  </div>
   <nav class="switcher__nav">
       <button class="switcher-prev" (click)="handlePrevBtn()">
       </button>

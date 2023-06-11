@@ -123,4 +123,24 @@
             opacity: 1;
         }
     }
+
+  &-task {
+    border: 1px solid $white;
+    padding: 0 20px 20px;
+    &-btn {
+      color: $black;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      border: 3px dashed #f3f3f3;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+
+    }
+  }
 }

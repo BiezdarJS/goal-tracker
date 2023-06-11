@@ -30,7 +30,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
   @ViewChild('select_goal') select_goal!: ElementRef;
   @ViewChild('priority') priority!: ElementRef;
   @ViewChild('submitBtn') submitBtn!: ElementRef<HTMLInputElement>;
-  allGoals: Array<Goal> = [];
+  allGoals: Array<any> = [];
   newTask:any;
   priorityValue!: any;
 
@@ -57,7 +57,6 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
   ngAfterViewChecked():void {
     //Select
     // this.things.changes.subscribe(() => {
-    //   console.log('tukoruzi');
     // })
   }
 
@@ -98,7 +97,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
     }
     this.priorityValue = this.priority.nativeElement.querySelector('.active').innerText;
 
-    this.tasksService.newTask = new NewTask(
+    this.newTask = new NewTask(
       form.value.goal_id,
       form.value.name,
       form.value.description,
@@ -106,14 +105,13 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
       form.value.taskDate,
     );
 
-    this.tasksService.postTask();
+    this.tasksService.postTask(this.newTask);
     this.parentRef.removeNewTask();
     this.parentRef.refreshTasksGrid();
   }
 
 
   ngOnDestroy():void {
-    console.log('usunięty');
     this.parentRef.newTaskContainerRef.clear();
     this.elRef.nativeElement.remove();
   }

@@ -14,7 +14,7 @@ export class FilterChangeDirective {
 
   @HostListener('change')
   onChange() {
-    this.goalsNotificationsS.sendFilterNotification(true);
+    this.goalsNotificationsS.sendGoalsSelectNotification(true);
   }
 
 }

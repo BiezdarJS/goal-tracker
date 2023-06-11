@@ -11,13 +11,14 @@ export class GoalsNotificationsService {
     return GoalsViewType;
   }
 
-  // Change Filter Notification
-  public filterChangeSubject:BehaviorSubject<boolean> = new BehaviorSubject(false);
-  filterChanged = this.filterChangeSubject.asObservable();
+  // Change Goals Select Notification
+  public goalsSelectChangeSubject:BehaviorSubject<boolean> = new BehaviorSubject(false);
+  goalsSelectChanged = this.goalsSelectChangeSubject.asObservable();
 
-  sendFilterNotification(data:boolean) {
-    this.filterChangeSubject.next(data);
+  sendGoalsSelectNotification(data:boolean) {
+    this.goalsSelectChangeSubject.next(data);
   }
+
 
 
   // Change View Notification
@@ -26,6 +27,34 @@ export class GoalsNotificationsService {
 
   sendViewNotification(data:string) {
     this.viewChangeSubject.next(data);
+  }
+
+
+
+  // Change Filter Notification
+  public filterChangeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  filterBtnHasBeenFired = this.filterChangeSubject.asObservable();
+
+  sendFilterNotification(data:any) {
+    this.filterChangeSubject.next(data);
+  }
+
+
+  // Change Category Value Notification
+  public categoryValueSubject: BehaviorSubject<string> = new BehaviorSubject('all');
+  categoryValue = this.categoryValueSubject.asObservable();
+
+  sendCategoryNotification(data:any) {
+    this.categoryValueSubject.next(data);
+  }
+
+
+  // Change Date Value Notification
+  public dateValueSubject: BehaviorSubject<string> = new BehaviorSubject('creation date');
+  dateValue = this.dateValueSubject.asObservable();
+
+  sendDateNotification(data:any) {
+    this.dateValueSubject.next(data);
   }
 
 }

@@ -1,8 +1,8 @@
 import { AfterContentChecked, AfterContentInit, Component, ContentChild, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 // Interfaces
-import { ICalendarDaysExtended, ICalendarExtended } from '../../../models/calendar.model';
+import { ICalendarDaysExtended, ICalendarExtendedWithDay } from '../../../models/calendar.model';
 // Services
-import { CalendarService } from 'src/app/services/calendar/calendar.service';
+import { CalendarTasksService } from 'src/app/services/calendar/calendar-tasks.service';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
@@ -27,13 +27,13 @@ export class CalendarTypeDayComponent implements OnInit, AfterContentInit, After
   firstMonthDays!: any;
   secondMonthDays!: any;
   selectedMonth:any;
-  calendar!: ICalendarExtended;
+  calendar!: ICalendarExtendedWithDay;
   currentDaysArray: any;
   switcherBtnHasBeenFired!:boolean;
 
   constructor(
     private elementRef: ElementRef,
-    private calendarService: CalendarService,
+    private calendarTasksService: CalendarTasksService,
     private calendarNotificationS: CalendarNotificationService
 
   ) {}
@@ -45,11 +45,10 @@ export class CalendarTypeDayComponent implements OnInit, AfterContentInit, After
   }
 
   ngAfterContentInit():void {
-    console.log('after-content-init');
     this.calendar = {
-      year: this.calendarService.selectedMonth.format("YYYY"),
-      month: this.calendarService.selectedMonth.format("M"),
-      first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
+      year: this.calendarTasksService.selectedMonth.format("YYYY"),
+      month: this.calendarTasksService.selectedMonth.format("M"),
+      first_day: parseInt(this.calendarTasksService.selectedMonth.format("D"), 10)
     }
     // this.createCalendar(this.calendar);
     this.currentDaysArray = this.createCalendar(this.calendar);
@@ -59,21 +58,20 @@ export class CalendarTypeDayComponent implements OnInit, AfterContentInit, After
   // do poprawy
   ngAfterContentChecked():void {
     if (this.switcherBtnHasBeenFired === true) {
-      console.log('Fire!');
       this.calendar = {
-        year: this.calendarService.selectedMonth.format("YYYY"),
-        month: this.calendarService.selectedMonth.format("M"),
-        first_day: parseInt(this.calendarService.selectedMonth.format("D"), 10)
+        year: this.calendarTasksService.selectedMonth.format("YYYY"),
+        month: this.calendarTasksService.selectedMonth.format("M"),
+        first_day: parseInt(this.calendarTasksService.selectedMonth.format("D"), 10)
       }
       this.currentDaysArray = this.createCalendar(this.calendar);
       // Send notification to Service to prevent refresh
-      this.calendarNotificationS.sendNotification(false);
+      this.calendarNotificationS.sendSwitcherBtnNotification(false);
     }
   }
 
 
 
-  createCalendar(calendar: ICalendarExtended) {
+  createCalendar(calendar: ICalendarExtendedWithDay) {
 
     this.firstMonthDays = this.createFirstMonthDays(this.calendar);
     this.secondMonthDays = this.createSecondMonthDays(this.calendar);
@@ -84,7 +82,7 @@ export class CalendarTypeDayComponent implements OnInit, AfterContentInit, After
   }
 
 
-  createFirstMonthDays(calendar:ICalendarExtended) {
+  createFirstMonthDays(calendar:ICalendarExtendedWithDay) {
 
     const monthOfTheFirstDay = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).month() + 1;
 
@@ -108,7 +106,7 @@ export class CalendarTypeDayComponent implements OnInit, AfterContentInit, After
   }
 
 
-  createSecondMonthDays(calendar:ICalendarExtended) {
+  createSecondMonthDays(calendar:ICalendarExtendedWithDay) {
 
     const monthOfTheFirstDay = dayjs(`${calendar.year}-${calendar.month}-${calendar.first_day}`).month() + 1;
 

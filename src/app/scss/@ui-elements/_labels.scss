@@ -54,6 +54,10 @@
             background-color: #fff5f3;
             border: 1px solid $redStrong;
         }
+        &--pink {
+          background-color: $pink;
+          border: 1px solid $redStrong;
+      }
     }
     &-priority {
         &--high {
@@ -89,5 +93,8 @@
     }
     &--105width {
         min-width: 105px;
+    }
+    &--nested {
+      padding: 5px 10px;
     }
 }

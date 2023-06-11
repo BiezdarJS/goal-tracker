@@ -13,7 +13,7 @@ dayjs.extend(weekOfYear);
 @Injectable({
   providedIn: 'root'
 })
-export class CalendarService {
+export class CalendarTasksService {
 
 
   currentCalendarType: string = CalendarType.Day;
@@ -37,6 +37,9 @@ export class CalendarService {
     }
     if (this.currentCalendarType === CalendarType.Week) {
       this.selectedMonth = dayjs(this.selectedMonth).subtract(7, "day");
+    }
+    if (this.currentCalendarType === CalendarType.Month) {
+      this.selectedMonth = dayjs(this.selectedMonth).subtract(1, "month");
     }
     if (this.currentCalendarType === CalendarType.Month) {
       this.selectedMonth = dayjs(this.selectedMonth).subtract(1, "month");

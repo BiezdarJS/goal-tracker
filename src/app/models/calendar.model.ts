@@ -9,7 +9,7 @@ export interface ICalendar {
   year: string;
   month: string;
 }
-export interface ICalendarExtended extends ICalendar {
+export interface ICalendarExtendedWithDay extends ICalendar {
   first_day: number;
 }
 

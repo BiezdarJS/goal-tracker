@@ -9,7 +9,6 @@ import { Task } from '../../types/task.type';
 export class TasksService {
 
   allTasks: Array<Task> = [];
-  newTask: any;
   components: any = [];
   // flag indicating whether loading is complete
   public loading$!: boolean;
@@ -40,10 +39,10 @@ export class TasksService {
       .get('https://goal-mangement-system-default-rtdb.europe-west1.firebasedatabase.app/tasks.json');
   }
 
-  postTask():void {
+  postTask(newTask:any):void {
     this.http.post(
       'https://goal-mangement-system-default-rtdb.europe-west1.firebasedatabase.app/tasks.json',
-      this.newTask
+      newTask
     ).subscribe(responseData => {
 
     })

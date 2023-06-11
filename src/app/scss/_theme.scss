@@ -23,6 +23,7 @@
   .actions-nav {
     background-color: #252c3e;
     .switcher {
+      color: $white;
       padding: 10px;
     }
     .switcher__wrap {
@@ -284,7 +285,7 @@
       &--self-knowledge {
         border-left: 8px solid $redStrongDark;
       }
-      &--travel {
+      &--travels {
         border-left: 8px solid $pinkStrongDark;
       }
     }
@@ -384,5 +385,21 @@
   }
   ::-webkit-calendar-picker-indicator {
     filter: invert(1);
+  }
+  // Accordion
+  .accordion-title {
+    color: $white;
+    &__number {
+      color: $white;
+    }
+  }
+  .accordion-title__txt {
+    color: $white;
+  }
+  .accordion .open-btn {
+    background-color: $white;
+  }
+  .modal-task-btn {
+    color: $white;
   }
 }

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
-import { CalendarService } from 'src/app/services/calendar/calendar.service';
+import { CalendarTasksService } from 'src/app/services/calendar/calendar-tasks.service';
 import { TasksMainComponent } from '../_tasks-main/tasks-main.component';
 import { CalendarNotificationService } from 'src/app/services/calendar/calendar-notification.service';
 
@@ -24,24 +24,24 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit {
   constructor(
     private elRef: ElementRef,
     private parentRef: TasksMainComponent,
-    private calendarService: CalendarService,
+    private calendarTasksService: CalendarTasksService,
     private calendarNotificationS: CalendarNotificationService
   ) { }
 
 
   triggerPrevBtn() {
     this.prevBtnEvent.emit();
-    this.calendarService.previousBtnHandler();
-    this.calendarNotificationS.sendNotification(true);
+    this.calendarTasksService.previousBtnHandler();
+    this.calendarNotificationS.sendSwitcherBtnNotification(true);
   }
   triggerNextBtn() {
     this.nextBtnEvent.emit();
-    this.calendarService.nextBtnHandler();
-    this.calendarNotificationS.sendNotification(true);
+    this.calendarTasksService.nextBtnHandler();
+    this.calendarNotificationS.sendSwitcherBtnNotification(true);
   }
 
   ngOnInit():void {
-    this.currentCalendarType = this.calendarService.currentCalendarType;
+    this.currentCalendarType = this.calendarTasksService.currentCalendarType;
   }
   ngAfterViewInit(): void {
     this.setActiveIndicatior();
@@ -51,8 +51,8 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit {
 
   switchCalendarType(event:Event) {
     const calendarType = (event.target as HTMLButtonElement).getAttribute('data-calendar-type');
-    this.calendarService.currentCalendarType = calendarType!;
-    this.calendarService.switchCalendarType(calendarType!);
+    this.calendarTasksService.currentCalendarType = calendarType!;
+    this.calendarTasksService.switchCalendarType(calendarType!);
     this.parentRef.refreshTasksGrid();
   }
 

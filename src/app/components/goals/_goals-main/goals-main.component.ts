@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 // Components
 import { NewGoalComponent } from '../new-goal/new-goal.component';
 import { GoalsGridComponent } from '../goals-grid/goals-grid.component';
@@ -9,6 +9,7 @@ import { NewGoalDirective } from 'src/app/directives/goals/new-goal.directive';
 // Services
 import { GoalsService } from 'src/app/services/goals/goals.service';
 import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifications.service';
+import { GoalsHostDirective } from 'src/app/directives/goals/goals-host.directive';
 
 
 
@@ -18,18 +19,24 @@ import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifica
   host: {'class': 'goals-main'},
   styleUrls: ['./goals-main.component.scss']
 })
-export class GoalsMainComponent implements AfterViewInit, AfterViewChecked {
+export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
-  @ViewChild(NewGoalDirective, {read: ViewContainerRef, static:true})
-  gtNewGoalHost!: ViewContainerRef;
+  // Dynamic components
+  @ViewChild(GoalsHostDirective, {static: true}) goalsHost!: GoalsHostDirective;
+  @ViewChild(NewGoalDirective, {static:true}) newGoalHost!: NewGoalDirective;
+  goalsContainerRef!:any;
+  newGoalContainerRef!:any;
+  // Reference
   @ViewChild('actionsNav') actionsNav: any;
   @ViewChild('goalsGrid') goalsGrid: any;
+  // Values for goal filter
   selectCategoryValue!: string;
   selectDateValue!: string;
-  goalsViewType!:string;
+  // Other
   public get GoalsViewType() {
     return GoalsViewType;
   }
+  filterBtnHasBeenFired!:boolean;
 
 
   constructor(
@@ -38,15 +45,22 @@ export class GoalsMainComponent implements AfterViewInit, AfterViewChecked {
   ) {}
 
   ngOnInit():void {
-    this.goalsNotificationsS.activeGoalsViewType.subscribe(d => {
-      this.goalsViewType = d;
+    this.goalsContainerRef = this.goalsHost.viewContainerRef;
+    this.newGoalContainerRef = this.newGoalHost.viewContainerRef;
+
+    // Subscribe to Filter Button Event
+    this.goalsNotificationsS.filterBtnHasBeenFired.subscribe(d => {
+      this.filterBtnHasBeenFired = d;
     });
+    // Create Initial Grid
+    this.createGoalsGrid();
   }
+
 
   ngAfterViewInit(): void {
     this.selectCategoryValue = this.actionsNav.select_category.nativeElement.value;
     this.selectDateValue = this.actionsNav.select_date.nativeElement.value;
-    this.goalsGrid.selectCategoryValue = this.selectCategoryValue;
+    // this.goalsGrid.selectCategoryValue = this.selectCategoryValue;
   }
 
   ngAfterViewChecked() {
@@ -54,21 +68,24 @@ export class GoalsMainComponent implements AfterViewInit, AfterViewChecked {
     this.selectDateValue = this.actionsNav.select_date.nativeElement.value;
   }
 
-  createNewGoal() {
-    this.gtNewGoalHost.createComponent(NewGoalComponent);
+  // Goals Grid methods
+  createGoalsGrid() {
+    this.goalsContainerRef.createComponent(GoalsGridComponent);
+  }
+  refreshGoalsGrid() {
+    this.goalsContainerRef.clear();
+    this.goalsContainerRef.createComponent(GoalsGridComponent);
   }
 
 
+  // New Goal methods
+  createNewGoal() {
+    this.newGoalContainerRef.createComponent(NewGoalComponent);
+  }
   removeNewGoal() {
-    this.gtNewGoalHost.remove();
+    this.newGoalContainerRef.clear();
     this.goalsService.components = [];
   }
 
-  removeGoalsGrid() {
-    this.gtNewGoalHost.remove();
-    setTimeout(() => {
-      this.gtNewGoalHost.createComponent(GoalsGridComponent);
-    },50);
-  }
 
 }
