@@ -51,7 +51,7 @@
                     <div class="hstack align-items-center">
                         <span class="goal-item__hr"></span>
                         <p class="goal-item__deadline">
-                        DEADLINE 10/01/2021
+                        DEADLINE {{ item['creationDate'] | date: 'd/M/Y' }}
                         </p>
                     </div>
                 </div>

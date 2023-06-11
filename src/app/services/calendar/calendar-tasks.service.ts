@@ -22,7 +22,7 @@ export class CalendarTasksService {
   INITIAL_MONTH = dayjs().format("M");
   INITIAL_DAY = dayjs().format("D");
   selectedMonth = dayjs(`${this.INITIAL_YEAR}-${this.INITIAL_MONTH}-${this.INITIAL_DAY}`);
-
+  monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
   switchCalendarType(calendarType:string):string {
@@ -37,9 +37,6 @@ export class CalendarTasksService {
     }
     if (this.currentCalendarType === CalendarType.Week) {
       this.selectedMonth = dayjs(this.selectedMonth).subtract(7, "day");
-    }
-    if (this.currentCalendarType === CalendarType.Month) {
-      this.selectedMonth = dayjs(this.selectedMonth).subtract(1, "month");
     }
     if (this.currentCalendarType === CalendarType.Month) {
       this.selectedMonth = dayjs(this.selectedMonth).subtract(1, "month");

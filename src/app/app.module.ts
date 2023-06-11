@@ -53,6 +53,8 @@ import { AddNewTaskDirective } from './directives/goals/add-new-task.directive';
 import { TaskNestedService } from './services/tasks/task-nested.service';
 import { HideShowTargetDirective } from './directives/tasks/hide-show-target.directive';
 import { HideNotCurrentTargetDirective } from './directives/tasks/hide-not-current-target.directive';
+import { SettingsMainComponent } from './components/settings/_settings-main/settings-main.component';
+import { EditUserComponent } from './components/settings/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +100,9 @@ import { HideNotCurrentTargetDirective } from './directives/tasks/hide-not-curre
     NewTaskNestedComponent,
     AddNewTaskDirective,
     HideShowTargetDirective,
-    HideNotCurrentTargetDirective
+    HideNotCurrentTargetDirective,
+    SettingsMainComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

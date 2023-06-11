@@ -1,0 +1,82 @@
+<form class="d-flex gap-60" (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <div class="flex-2equal__item">
+    <h3 class="settings__heading headline mt-30">
+        Account Settings
+    </h3>
+    <div class="form-field__wrap mt-50">
+      <label for="name" class="form-field__label">
+        Your name
+      </label>
+      <div class="form-field form-field--user">
+        <input
+          type="text"
+          class="form-field__input form-field__input--border form-field__input--edit"
+          name="username"
+          ngModel
+        >
+        <i class="icon-toggle icon-toggle--edit"></i>
+      </div>
+    </div>
+    <div class="form-field__wrap">
+      <label for="name" class="form-field__label">
+        Your E-mail
+      </label>
+      <div class="form-field form-field--email">
+        <input
+          class="form-field__input form-field__input--border form-field__input--edit"
+          type="email"
+          name="email"
+          ngModel
+        >
+        <i class="icon-toggle icon-toggle--edit"></i>
+      </div>
+    </div>
+    <div class="form-field__wrap">
+      <label for="name" class="form-field__label">
+        Contact number
+      </label>
+      <div class="form-field form-field--phone">
+        <input
+        class="form-field__input form-field__input--border form-field__input--edit"
+        type="text"
+        name="phone"
+        ngModel
+        >
+        <i class="icon-toggle icon-toggle--edit"></i>
+      </div>
+    </div>
+  </div>
+  <div class="flex-2equal__item">
+    <h3 class="settings__heading headline mt-30">
+        Password
+    </h3>
+    <div class="form-field__wrap mt-50">
+      <label for="name" class="form-field__label">
+        Password
+      </label>
+      <div class="form-field form-field--password">
+        <input
+          class="form-field__input form-field__input--border form-field__input--password"
+          type="password"
+          name="password"
+          ngModel>
+        <i class="icon-toggle icon-toggle--password"></i>
+      </div>
+    </div>
+    <ul class="settings-action settings-action--bottom hstack list justify-content-end mt-50">
+      <li class="settings-action__item">
+        <button class="btn btn--scale">
+            Cancel
+        </button>
+      </li>
+      <li class="settings-action__item">
+        <button
+          type="submit"
+          class="btn btn--blue btn--scale ml-15"
+          >
+          Save
+        </button>
+      </li>
+    </ul>
+  </div>
+</form>

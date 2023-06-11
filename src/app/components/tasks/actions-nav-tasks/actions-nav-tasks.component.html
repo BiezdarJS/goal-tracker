@@ -27,20 +27,13 @@
     <li class="calendar-type-indicator" #calendarTypeIndicator></li>
   </ul>
 </div>
-<div class="empty">
+<div class="month-name d-flex justify-content-end">
+ {{ this.selectedMonth }}
 </div>
 <div class="switcher__wrap">
-  <ul class="switcher list">
-      <li class="switcher__item">
-          2020
-      </li>
-      <li class="switcher__item active">
-          2021
-      </li>
-      <li class="switcher__item">
-          2022
-      </li>
-  </ul>
+  <div class="switcher">
+    2023
+  </div>
   <nav class="switcher__nav">
       <button class="switcher-prev" (click)="triggerPrevBtn()">
       </button>
