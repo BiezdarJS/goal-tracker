@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+// Services
+import { AuthService } from 'src/app/services/login/auth.service';
 import { SetThemeService } from 'src/app/services/set-theme.service';
 
 @Component({
@@ -12,9 +14,9 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('checkbox') checkbox!: ElementRef;
   themeName!: string | null;
-  subscription!: Subscription;
 
   constructor(
+    private authService: AuthService,
     private setThemeService: SetThemeService,
     private elRef: ElementRef
   ) {}
@@ -25,13 +27,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 	// function to toggle between light and dark theme
 
   ngOnInit():void {
-    this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
+    this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
   }
 
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+
 
   ngAfterViewInit():void {
     if (localStorage.getItem('theme') === 'theme-dark') {
@@ -45,5 +45,12 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setThemeService.toggleTheme();
   }
 
+  logout() {
+    this.authService.logout();
+  }
+
+
+  ngOnDestroy() {
+  }
 
 }

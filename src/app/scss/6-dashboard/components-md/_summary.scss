@@ -50,7 +50,7 @@
         &--goals {
             // background-color: #e2fffd;
             background-color: #51e2ae;
-            mask-image: url(#{$assetPath}/icons/target-2.svg);
+            mask-image: url(#{$assetsPath}/icons/target-2.svg);
             mask-repeat: no-repeat;
             mask-position: center;
             mask-size: 60% auto;
@@ -58,7 +58,7 @@
         &--tasks {
             // background-color: #f0f2fe;
             background-color: #a7b8ff;
-            mask-image: url(#{$assetPath}/icons/tasks-list.svg);
+            mask-image: url(#{$assetsPath}/icons/tasks-list.svg);
             mask-repeat: no-repeat;
             mask-position: center;
             mask-size: 60% auto;
@@ -66,7 +66,7 @@
         &--loop {
             // background-color: #fef3f1;
             background-color: #ffa38f;
-            mask-image: url(#{$assetPath}/icons/loop.svg);
+            mask-image: url(#{$assetsPath}/icons/loop.svg);
             mask-repeat: no-repeat;
             mask-position: center;
             mask-size: 60% auto;
@@ -108,7 +108,7 @@
     &__more {
         display: inline-block;
         background-color: #1A1926;
-        mask-image: url(#{$assetPath}/icons/arrow-right.svg);
+        mask-image: url(#{$assetsPath}/icons/arrow-right.svg);
         mask-repeat: no-repeat;
         mask-position: center;
         mask-size: 60% auto;

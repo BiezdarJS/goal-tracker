@@ -26,5 +26,21 @@
   </div>
   <div class="d-flex flex--center user--desktop">
       <button class="user"></button>
+      <div class="header-dropdown">
+        <ul class="header-dropdown-list list">
+          <li class="header-dropdown__item">
+            <a class="header-dropdown__link">
+              <i class="icon icon--settings"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+          <li class="header-dropdown__item">
+            <a class="header-dropdown__link" routerLink="/sign-in" (click)="logout()">
+              <i class="icon icon--logout"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
   </div>
 </div>

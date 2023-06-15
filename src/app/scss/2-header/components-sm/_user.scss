@@ -1,7 +1,7 @@
 @import '../../assets-path';
 
 .user {
-    background: url(#{$assetPath}/avatar.png) center no-repeat;
+    background: url(#{$assetsPath}/avatar.png) center no-repeat;
     background-size: 32px 32px;
     border: 0;
     box-shadow: $box-shadow;
@@ -21,6 +21,7 @@
         height: 80px;
     }
     &--desktop {
+      position: relative;
         @include mobile {
             border: 0;
             clip: rect(0 0 0 0);
@@ -32,6 +33,11 @@
             width: 1px;
             white-space: nowrap;
         }
+      &:hover .header-dropdown {
+        opacity: 1;
+        visibility: visible;
+        top: 60px;
+      }
     }
     &--mobile {
         @include mobile {

@@ -26,6 +26,7 @@
 // COMMON STYLES TO ALL PROJECTS
 // =============================================================================
 @import 'app/scss/utils';
+@import 'app/scss/animate';
 
 // =============================================================================
 // THEME
@@ -77,6 +78,8 @@
 // 2 - HEADER
 // =============================================================================
 @import 'app/scss/2-header/header';
+// components md
+@import 'app/scss/2-header/components-md/header-dropdown';
 // components-sm
 @import 'app/scss/2-header/components-sm/user';
 

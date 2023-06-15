@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, Component, Input, OnDestroy, OnInit } from '@angular/core';
 // import { Chart } from 'chart.js/auto';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { chartColors } from '../charts.config';

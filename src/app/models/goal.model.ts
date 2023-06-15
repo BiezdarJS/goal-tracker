@@ -1,6 +1,6 @@
 
 
-export class NewGoal {
+export class Goal {
   constructor(
       public name: string,
       public isMainGoal: boolean,

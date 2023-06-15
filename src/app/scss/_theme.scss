@@ -1,6 +1,7 @@
 
 
 .theme-dark {
+  background-color: #252c3e;;
   &.goal-and-time-management {
     @include mobile {
       background-color: #252c3e;;
@@ -20,6 +21,12 @@
   .user {
     background-color: #ddd;
   }
+  // Login
+  .login-box {
+    background-color: #252c3e;
+    box-shadow: 0 0 10px #111;
+  }
+  // actions nav
   .actions-nav {
     background-color: #252c3e;
     .switcher {
@@ -142,6 +149,14 @@
     background-color: #343c4f;
     &__diamond {
       background-color: #343c4f;
+    }
+  }
+  // header-dropdown
+  .header-dropdown {
+    background-color: #343c4f;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+    &__link {
+      color: $white;
     }
   }
 

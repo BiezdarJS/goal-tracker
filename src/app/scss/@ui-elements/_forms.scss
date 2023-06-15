@@ -64,7 +64,7 @@
   &--search {
       margin: 0;
       &:after {
-          background: url(#{$assetPath}/icons/search.svg) center/cover no-repeat;
+          background: url(#{$assetsPath}/icons/search.svg) center/cover no-repeat;
           content: "";
           display: inline-block;
           width: 24px;
@@ -108,7 +108,7 @@
   &--user {
       &:before {
         background-color: #a0b7fd;
-        mask: url(#{$assetPath}/icons/user.svg);
+        mask: url(#{$assetsPath}/icons/user.svg);
         mask-size: 70% auto;
         mask-position: center;
         mask-repeat: no-repeat;
@@ -117,7 +117,7 @@
   &--email {
       &:before {
         background-color: #a0b7fd;
-        mask-image: url(#{$assetPath}/icons/letter.svg);
+        mask-image: url(#{$assetsPath}/icons/letter.svg);
         mask-size: 70% auto;
         mask-position: center;
         mask-repeat: no-repeat;
@@ -126,7 +126,7 @@
   &--phone {
     &:before {
       background-color: #a0b7fd;
-      mask-image: url(#{$assetPath}/icons/phone.svg);
+      mask-image: url(#{$assetsPath}/icons/phone.svg);
       mask-size: 70% auto;
       mask-position: center;
       mask-repeat: no-repeat;
@@ -136,21 +136,21 @@
   &--password {
       &:before {
         background-color: #a0b7fd;
-        mask-image: url(#{$assetPath}/icons/lock.svg);
+        mask-image: url(#{$assetsPath}/icons/lock.svg);
         mask-size: 70% auto;
         mask-position: center;
         mask-repeat: no-repeat;
       }
       .icon-toggle {
               &:after {
-                mask-image: url(#{$assetPath}/icons/eye.svg);
+                mask-image: url(#{$assetsPath}/icons/eye.svg);
               }
           }
 
       &.swap-on {
           .icon-toggle {
               &:after {
-                mask-image: url(#{$assetPath}/icons/eye-off.svg);
+                mask-image: url(#{$assetsPath}/icons/eye-off.svg);
               }
           }
       }
@@ -169,7 +169,7 @@
 
 //     &:after {
 //         content: "";
-//         background: url(#{$assetPath}/eye.svg) center/cover no-repeat;
+//         background: url(#{$assetsPath}/eye.svg) center/cover no-repeat;
 //         width: 100%;
 //         height: 100%;
 //         position: absolute;
@@ -200,14 +200,14 @@
     width: 14px;
     height: 14px;
     &:after {
-      mask-image: url(#{$assetPath}/icons/edit.svg);
+      mask-image: url(#{$assetsPath}/icons/edit.svg);
     }
   }
   &--password {
     width: 24px;
     height: 24px;
     &:after {
-      mask-image: url(#{$assetPath}/icons/eye.svg);
+      mask-image: url(#{$assetsPath}/icons/eye.svg);
     }
   }
 }

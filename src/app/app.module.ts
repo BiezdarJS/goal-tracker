@@ -55,6 +55,10 @@ import { HideShowTargetDirective } from './directives/tasks/hide-show-target.dir
 import { HideNotCurrentTargetDirective } from './directives/tasks/hide-not-current-target.directive';
 import { SettingsMainComponent } from './components/settings/_settings-main/settings-main.component';
 import { EditUserComponent } from './components/settings/edit-user/edit-user.component';
+import { SignInComponent } from './components/login/sign-in/sign-in.component';
+import { LoginComponent } from './components/login/login/login.component';
+import { LoginNavComponent } from './components/login/login-nav/login-nav.component';
+import { AuthGuard } from 'src/auth.guard';
 
 @NgModule({
   declarations: [
@@ -102,7 +106,10 @@ import { EditUserComponent } from './components/settings/edit-user/edit-user.com
     HideShowTargetDirective,
     HideNotCurrentTargetDirective,
     SettingsMainComponent,
-    EditUserComponent
+    EditUserComponent,
+    SignInComponent,
+    LoginComponent,
+    LoginNavComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +127,9 @@ import { EditUserComponent } from './components/settings/edit-user/edit-user.com
     SetThemeService,
     GoalsNotificationsService,
     CalendarNotificationService,
-    TaskNestedService
+    TaskNestedService,
+    AuthGuard,
+    Permissions
   ],
   bootstrap: [AppComponent]
 })

@@ -34,60 +34,63 @@
     }
     &--more {
         cursor: pointer;
-        mask-image: url(#{$assetPath}/icons/more.svg);
+        mask-image: url(#{$assetsPath}/icons/more.svg);
     }
     &--more-vertical {
         cursor: pointer;
-        mask-image: url(#{$assetPath}/icons/more-vertical.svg);
+        mask-image: url(#{$assetsPath}/icons/more-vertical.svg);
     }
     &--clock {
-        mask-image: url(#{$assetPath}/icons/clock.svg);
+        mask-image: url(#{$assetsPath}/icons/clock.svg);
     }
     &--bell {
         border: none;
-        mask-image: url(#{$assetPath}/icons/bell.svg);
+        mask-image: url(#{$assetsPath}/icons/bell.svg);
     }
     &--grid {
-        mask-image: url(#{$assetPath}/icons/grid.svg);
+        mask-image: url(#{$assetsPath}/icons/grid.svg);
     }
     &--grid2 {
-        mask-image: url(#{$assetPath}/icons/grid2.svg);
+        mask-image: url(#{$assetsPath}/icons/grid2.svg);
     }
     &--target {
-        mask-image: url(#{$assetPath}/icons/target.svg);
+        mask-image: url(#{$assetsPath}/icons/target.svg);
     }
     &--calendar {
-        mask-image: url(#{$assetPath}/icons/calendar.svg);
+        mask-image: url(#{$assetsPath}/icons/calendar.svg);
     }
     &--list {
-        mask-image: url(#{$assetPath}/icons/list.svg);
+        mask-image: url(#{$assetsPath}/icons/list.svg);
     }
     &--list2 {
-        mask-image: url(#{$assetPath}/icons/list-2.svg);
+        mask-image: url(#{$assetsPath}/icons/list-2.svg);
     }
     &--settings {
-        mask-image: url(#{$assetPath}/icons/settings.svg);
+        mask-image: url(#{$assetsPath}/icons/settings.svg);
     }
     &--hamburger {
-        mask-image: url(#{$assetPath}/icons/grid.svg);
+        mask-image: url(#{$assetsPath}/icons/grid.svg);
     }
     &--plus {
         background-color: $white;
-        mask-image: url(#{$assetPath}/icons/plus.svg);
+        mask-image: url(#{$assetsPath}/icons/plus.svg);
         width: 17px!important;
         height: 17px!important;
     }
     &--filter {
-        mask-image: url(#{$assetPath}/icons/filter.svg);
+        mask-image: url(#{$assetsPath}/icons/filter.svg);
     }
     &--edit {
-        mask-image: url(#{$assetPath}/icons/edit.svg);
+        mask-image: url(#{$assetsPath}/icons/edit.svg);
     }
     &--chart {
-        mask-image: url(#{$assetPath}/icons/chart.svg);
+        mask-image: url(#{$assetsPath}/icons/chart.svg);
     }
     &--attachment {
-        mask-image: url(#{$assetPath}/icons/attachment.svg);
+        mask-image: url(#{$assetsPath}/icons/attachment.svg);
+    }
+    &--logout {
+      mask-image: url(#{$assetsPath}/icons/logout.svg);
     }
     &--close {
         background-color: transparent;
@@ -115,12 +118,12 @@
         }
     }
     &--tasks {
-        mask-image: url(#{$assetPath}/icons/tasks.svg);
+        mask-image: url(#{$assetsPath}/icons/tasks.svg);
     }
     &--info {
         align-items: center;
         display: flex;
-        mask-image: url(#{$assetPath}/icons/info-icon.svg);
+        mask-image: url(#{$assetsPath}/icons/info-icon.svg);
         width: 20px;
         height: 20px;
     }

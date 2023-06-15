@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 // Models
-import { NewUser } from 'src/app/models/new-user.model';
+import { User } from 'src/app/models/user.model';
 // Services
 import { UserService } from 'src/app/services/settings/user.service';
 
@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/settings/user.service';
 })
 export class EditUserComponent {
 
-  newUser!: NewUser;
+  newUser!: User;
 
   constructor(
     private userService: UserService
@@ -26,7 +26,7 @@ export class EditUserComponent {
       return;
     }
 
-    this.newUser = new NewUser(
+    this.newUser = new User(
       form.value.username,
       form.value.password,
       form.value.email,

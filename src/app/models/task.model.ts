@@ -1,5 +1,5 @@
 
-export class NewTask {
+export class Task {
   constructor(
       public goal_id: string,
       public name: string,

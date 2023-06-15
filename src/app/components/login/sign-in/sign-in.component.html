@@ -1,0 +1,25 @@
+<section class="login-box">
+
+  <h2 class="title title--login txt-center">
+      Sign in
+  </h2>
+
+  <form class="form" [formGroup]="signinForm" (ngSubmit)="signIn()">
+      <div class="form-field__wrap">
+          <label class="form-field__label" for="email">Enter your username</label>
+          <div class="form-field form-field--user">
+              <input id="email" class="form-field__input form-field__input--border form-field__input--email"
+                  type="text" value="" placeholder="username" formControlName="username">
+          </div>
+      </div>
+      <div class="form-field__wrap">
+          <label class="form-field__label" for="password">Enter your password</label>
+          <div class="form-field form-field--password">
+              <input class="form-field__input form-field__input--border form-field__input--password" type="password"
+                  value="" placeholder="Password" formControlName="password">
+              <i class="password-toggle" passwordToggle></i>
+          </div>
+      </div>
+      <input type="submit" class="form-submit" value="Sign in">
+  </form>
+</section>

@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { SetThemeService } from './services/set-theme.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from './services/login/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'gt-root',
@@ -16,20 +18,27 @@ export class AppComponent implements OnInit {
 
   constructor(
     private elRef: ElementRef,
-    private setThemeService: SetThemeService
-  ) {}
+    private setThemeService: SetThemeService,
+    private authService: AuthService,
+    router: Router
+  ) {
+    if (!authService.isLoggedIn()) {
+      router.navigate(['sign-in']);
+    }
+  }
 
 
   ngOnInit():void {
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName)
-    // this.themeName = localStorage.getItem('theme');
-    // if (this.themeName) {
-    //   this.elRef.nativeElement.classList.add(this.themeName);
-    // }
+    // window.onbeforeunload = function() {
+    //   localStorage.removeItem('ACCESS_TOKEN');
+    //   return '';
+    // };
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+
   }
 
 

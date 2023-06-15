@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 // Components
 import { GoalsMainComponent } from '../_goals-main/goals-main.component';
 import { NewTaskNestedComponent } from '../../tasks/new-task-nested/new-task-nested.component';
@@ -10,11 +11,10 @@ import { GoalsService } from 'src/app/services/goals/goals.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { TaskNestedService } from 'src/app/services/tasks/task-nested.service';
 // Models
-import { NewGoal } from 'src/app/models/new-goal.model';
-import { NewTask } from 'src/app/models/new-task.model';
+import { Goal } from 'src/app/models/goal.model';
+import { Task } from 'src/app/models/task.model';
 // Types
 import { switchAll } from 'rxjs';
-
 import { TaskNested } from 'src/app/types/task-nested.type';
 
 
@@ -33,6 +33,8 @@ declare function Select(): void;
   styleUrls: ['./new-goal.component.scss']
 })
 export class NewGoalComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('modal') modal!: ElementRef<HTMLDivElement>;
 
   @ViewChild('submitBtn') submitBtn!: ElementRef<HTMLInputElement>;
   @ViewChildren('newGoalStep') newGoalSteps!: QueryList<ElementRef>;
@@ -76,7 +78,13 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
       el: this.elRef.nativeElement,
       backdrop: 'static'
     });
+    this.newGoalForm.on('show', function(myModal:any, event:Event) {
+      // Do something before we start showing modal.
+      // myModal.setAttribute('class', 'test');
+      myModal.el.childNodes[0].classList = 'modal new-goal animate__animated animate__bounceIn';
+    });
     this.newGoalForm.show();
+
     // Dynamic New Task Component
     this.taskContainerRef = this.newTaskHost.viewContainerRef;
   }
@@ -178,7 +186,7 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
       return;
     }
     // Post New Goal
-    this.newGoal = new NewGoal(
+    this.newGoal = new Goal(
       form.value.name,
       form.value.isMainGoal,
       form.value.details,
@@ -199,7 +207,7 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
       // this.accordion_items.toArray().forEach(item => {
       //   // form.value.taskPriority = this.priority.nativeElement.querySelector('.active').innerText;
 
-      //   // this.newTask = new NewTask(
+      //   // this.newTask = new Task(
       //   //   newGoalId.name,
       //   //   form.value.taskName,
       //   //   form.value.taskDescription,
@@ -218,6 +226,9 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
   }
 
 
+  // modalToggle(x:string) {
+  //   this.modal.nativeElement.setAttribute('class', 'modal new-goal ' + x + '  animated');
+  // };
 
 
 }

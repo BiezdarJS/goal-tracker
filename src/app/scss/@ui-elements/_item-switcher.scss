@@ -35,7 +35,7 @@
     }
     &-prev {
         border: none;
-        background: url(#{$assetPath}/icons/chevron-left.svg) center/cover no-repeat;
+        background: url(#{$assetsPath}/icons/chevron-left.svg) center/cover no-repeat;
         width: 30px;
         height: 30px;
         position: absolute;
@@ -47,7 +47,7 @@
     }
     &-next {
         border: none;
-        background: url(#{$assetPath}/icons/chevron-right.svg) center/cover no-repeat;
+        background: url(#{$assetsPath}/icons/chevron-right.svg) center/cover no-repeat;
         width: 30px;
         height: 30px;
         position: absolute;

@@ -7,7 +7,7 @@ import { TasksService } from 'src/app/services/tasks/tasks.service';
 // RxJS
 import { map } from 'rxjs';
 // New Task
-import { NewTask } from 'src/app/models/new-task.model';
+import { Task } from 'src/app/models/task.model';
 import { TasksMainComponent } from '../_tasks-main/tasks-main.component';
 import { GoalsService } from 'src/app/services/goals/goals.service';
 // Select
@@ -97,7 +97,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
     }
     this.priorityValue = this.priority.nativeElement.querySelector('.active').innerText;
 
-    this.newTask = new NewTask(
+    this.newTask = new Task(
       form.value.goal_id,
       form.value.name,
       form.value.description,
