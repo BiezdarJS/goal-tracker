@@ -1,7 +1,13 @@
-import { AfterContentChecked, AfterViewChecked, Component, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+// Components
+import { InfoPopupComponent } from '../_info-popup/info-popup.component';
+// Directives
+import { InfoPopupHostDirective } from 'src/app/directives/info/info-popup-host.directive';
+// Services
 import { SetThemeService } from 'src/app/services/set-theme.service';
+
 
 
 @Component({
@@ -10,10 +16,16 @@ import { SetThemeService } from 'src/app/services/set-theme.service';
   host: {'class': 'goal-and-time-management'},
   styleUrls: ['./goal-tracker.component.scss']
 })
-export class GoalTrackerComponent implements OnInit, OnDestroy, AfterViewChecked, AfterContentChecked {
+export class GoalTrackerComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
 
   themeName!: string | null;
   subscription!: Subscription;
+  // Info Pupup
+  @ViewChild(InfoPopupHostDirective, {static:true}) infoPopupHost!: InfoPopupHostDirective;
+  infoContainerRef!:any;
+  // Session Storage
+  welcomeMessage!:any;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -23,23 +35,37 @@ export class GoalTrackerComponent implements OnInit, OnDestroy, AfterViewChecked
 
 
   ngOnInit():void {
+    // Session Storage
+    this.welcomeMessage = sessionStorage.getItem('welcome-message');
+    // Set Active Theme
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
     if (this.themeName === null) {
       this.setThemeService.setTheme('theme-dark');
     }
-    // console.log(this.themeName);
-    // document.body.classList.add('test');
     document.body.classList.add(''+this.themeName+'');
+  }
+
+  ngAfterViewInit():void {
+    // Info Pupup
+    this.infoContainerRef = this.infoPopupHost.viewContainerRef;
+    // Initialize
+    if (this.welcomeMessage !== 'accepted') {
+      setTimeout(() => {
+        this.openInfoPopup();
+      }, 5000);
+    }
   }
 
   ngAfterViewChecked():void {
+    // Update Active Theme
     document.body.classList.remove('theme-light', 'theme-dark');
     document.body.classList.add(''+this.themeName+'');
   }
-  ngAfterContentChecked():void {
-    // this.elRef.nativeElement.classList.add(this.themeName);
-  }
 
+
+  openInfoPopup() {
+    this.infoContainerRef.createComponent(InfoPopupComponent);
+  }
 
 
   ngOnDestroy() {

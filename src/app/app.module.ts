@@ -59,6 +59,8 @@ import { SignInComponent } from './components/login/sign-in/sign-in.component';
 import { LoginComponent } from './components/login/login/login.component';
 import { LoginNavComponent } from './components/login/login-nav/login-nav.component';
 import { AuthGuard } from 'src/auth.guard';
+import { InfoPopupComponent } from './components/_info-popup/info-popup.component';
+import { InfoPopupHostDirective } from './directives/info/info-popup-host.directive';
 
 @NgModule({
   declarations: [
@@ -109,7 +111,9 @@ import { AuthGuard } from 'src/auth.guard';
     EditUserComponent,
     SignInComponent,
     LoginComponent,
-    LoginNavComponent
+    LoginNavComponent,
+    InfoPopupComponent,
+    InfoPopupHostDirective
   ],
   imports: [
     BrowserModule,

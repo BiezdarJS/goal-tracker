@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
-import { Goal } from '../../types/goal.type';
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 

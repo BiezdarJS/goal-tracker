@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 // Models
 import { User } from 'src/app/models/user.model';
 // Services
 import { UserService } from '../settings/user.service';
+import { NameNotificationService } from './name-notification.service';
 // Router
 import { Router } from '@angular/router';
 // RxJS
 import { map } from 'rxjs';
+
 
 
 @Injectable({
@@ -14,10 +16,20 @@ import { map } from 'rxjs';
 })
 export class AuthService {
 
+  // Welcome Name
+  welcomeName!:any;
+
   constructor(
+    private nameNotificationS: NameNotificationService,
     private router: Router,
     private userService: UserService
-  ) { }
+  ) {
+    // Welcome Name
+    this.nameNotificationS.nameSubject.subscribe(d => {
+      this.welcomeName = d;
+    });
+  }
+
 
 
   public signIn(userData:User) {
@@ -27,10 +39,11 @@ export class AuthService {
         return users;
       })
     ).subscribe(users => {
-      console.log(users);
       if (users.length > 0) {
         this.router.navigateByUrl('');
-        localStorage.setItem('ACCESS_TOKEN', "logged-in");
+        sessionStorage.setItem('theme', "theme-dark");
+        sessionStorage.setItem('access-token', "logged-in");
+        sessionStorage.setItem('welcome-name', this.welcomeName);
       }
       if (users.length === 0) {
         console.log('Nie znaleziono użytkownika');
@@ -39,11 +52,14 @@ export class AuthService {
   }
 
   public isLoggedIn() {
-    return localStorage.getItem('ACCESS_TOKEN') === 'logged-in';
+    return sessionStorage.getItem('access-token') === 'logged-in';
   }
 
   public logout() {
-    localStorage.removeItem('ACCESS_TOKEN');
+    sessionStorage.removeItem('theme');
+    sessionStorage.removeItem('access-token');
+    sessionStorage.removeItem('welcome-name');
+    sessionStorage.removeItem('welcome-message');
   }
 
 }

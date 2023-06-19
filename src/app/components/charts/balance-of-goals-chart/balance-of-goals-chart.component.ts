@@ -19,7 +19,7 @@ export class BalanceOfGoalsChartComponent implements OnInit, OnDestroy, AfterVie
   subscription!: Subscription;
   balanceOfGoalsData!: ChartData<'doughnut'>;
   currentThemeName!: string | null;
-  colors: any = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+  colors: any = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
 
   constructor(
     private setThemeService: SetThemeService
@@ -41,7 +41,7 @@ export class BalanceOfGoalsChartComponent implements OnInit, OnDestroy, AfterVie
   }
 
   ngAfterContentChecked():void {
-    this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+    this.colors = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
     if (this.currentThemeName !== this.themeName) {
       this.balanceOfGoalsData = {
         labels: [this.allGoals.length, 'GOALS'],

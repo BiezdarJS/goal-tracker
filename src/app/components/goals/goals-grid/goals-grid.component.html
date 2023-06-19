@@ -21,7 +21,8 @@
             <!--
             ... Porównaj miesiąc z danego celu -> do miesiąca z obecnie iterowanego month
         -->
-            <ng-container *ngIf="(item['creationDate'] | date: 'M') === (month.monthOfTheYear+1)+''">
+
+            <ng-container *ngIf="(item['endDate'] | date: 'M') === (month.monthOfTheYear+1)+''">
                 <!--
                 Jeśli jest match to dodaj obecnie iterowany item do obecnie iterowanej kolumny miesiąca
             -->
@@ -51,7 +52,7 @@
                     <div class="hstack align-items-center">
                         <span class="goal-item__hr"></span>
                         <p class="goal-item__deadline">
-                        DEADLINE {{ item['creationDate'] | date: 'd/M/Y' }}
+                        DEADLINE {{ item['endDate'] | date: 'd/M/Y' }}
                         </p>
                     </div>
                 </div>

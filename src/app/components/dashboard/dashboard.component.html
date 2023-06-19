@@ -266,13 +266,24 @@
 
       </div>
       <ul class="task-list list">
-          <li class="task-list__item task-list__item--styling">
-              <div class="task-item task-item--styling task-item--health-and-sports task-item-1" draggable="true">
+        <ng-template [ngIf]="this.allTasks.length > 0">
+          <ng-container *ngFor="let task of this.allTasks">
+            <li class="task-list__item task-list__item--styling">
+              <div
+                class="task-item task-item--styling task-item-1"
+                [ngClass]="
+                this.task.goalCategory === 'family/communication' ? 'task-item--family-and-communication'
+                : this.task.goalCategory === 'money' ? 'task-item--money'
+                : this.task.goalCategory === 'work/career' ? 'task-item--career'
+                : this.task.goalCategory === 'health and sports' ? 'task-item--health-and-sports'
+                : this.task.goalCategory === 'self knowledge' ? 'task-item--self-knowledge'
+                : this.task.goalCategory === 'travels' ? 'task-item--travels' : ''"
+                >
                   <div class="task-item__additional-info">
                       <span></span>
                       <div class="hstack align-items-center">
                           <i class="icon icon--xsm icon--clock"></i>
-                          <p class="ms-5">4 times a week</p>
+                          <p class="ms-5">{{ task.priority }}</p>
                           <button class="btn btn--sm btn--no-style">
                               <i class="icon icon--medium-sm icon--edit"></i>
                           </button>
@@ -285,155 +296,31 @@
                       </label>
                       <div class="task-item__content">
                           <h4 class="task-item__name subhead">
-                              Warm up and run
+                              {{ task.name }}
                           </h4>
                           <p class="task-item__descr">
-                              Distance 5km time 20min
+                              {{ task.description }}
                           </p>
                       </div>
                   </div>
               </div>
-          </li>
+            </li>
+          </ng-container>
+        </ng-template>
+        <ng-template [ngIf]="this.allTasks.length === 0">
           <li class="task-list__item task-list__item--styling">
-              <div class="task-item task-item--styling task-item--self-knowledge task-item-2" draggable="true">
-                  <div class="task-item__additional-info">
-                      <span></span>
-                      <div class="hstack align-items-center">
-                          <i class="icon icon--xsm icon--clock"></i>
-                          <p class="ms-5">Deadline until July 30</p>
-                          <button class="btn btn--sm btn--no-style">
-                              <i class="icon icon--medium-sm icon--edit"></i>
-                          </button>
-                      </div>
-                  </div>
-                  <div class="task-item__main">
-                      <label class="checkbox checkbox--green">
-                          <input class="checkbox__input" type="checkbox" name="">
-                          <span class="checkbox__checkmark"></span>
-                      </label>
-                      <div class="task-item__content">
-                          <h4 class="task-item__name subhead">
-                              Complete task 2 week
-                          </h4>
-                          <p class="task-item__descr">
-                              Visual Elements of User Interface Design
-                          </p>
-                      </div>
-                  </div>
+            <div class="task-item task-item--styling task-item-1">
+            <div class="txt-center">
+              <div class="task-item__content">
+                  <h4 class="task-item__name subhead">
+                    Brak stworzonych zadań na dziś.
+                  </h4>
+                </div>
               </div>
+            </div>
           </li>
-          <li class="task-list__item task-list__item--styling">
-              <div class="task-item task-item--styling task-item--career" draggable="true">
-                  <div class="task-item__additional-info">
-                      <span></span>
-                      <div class="hstack align-items-center">
-                          <i class="icon icon--xsm icon--clock"></i>
-                          <p class="ms-5">Everyday</p>
-                          <button class="btn btn--sm btn--no-style">
-                              <i class="icon icon--medium-sm icon--edit"></i>
-                          </button>
-                      </div>
-                  </div>
-                  <div class="task-item__main">
-                      <label class="checkbox checkbox--green">
-                          <input class="checkbox__input" type="checkbox" name="">
-                          <span class="checkbox__checkmark"></span>
-                      </label>
-                      <div class="task-item__content">
-                          <h4 class="task-item__name subhead">
-                              Marathon day 8 listening
-                          </h4>
-                          <p class="task-item__descr">
-                              Listen to a podcaset BBC 6 Minute Learning
-                          </p>
-                      </div>
-                  </div>
-              </div>
-          </li>
-          <li class="task-list__item task-list__item--styling">
-              <div class="task-item task-item--styling task-item--health-and-sports" draggable="true">
-                  <div class="task-item__additional-info">
-                      <span></span>
-                      <div class="hstack align-items-center">
-                          <i class="icon icon--xsm icon--clock"></i>
-                          <p class="ms-5">High priority</p>
-                          <button class="btn btn--sm btn--no-style">
-                              <i class="icon icon--medium-sm icon--edit"></i>
-                          </button>
-                      </div>
-                  </div>
-                  <div class="task-item__main">
-                      <label class="checkbox checkbox--green">
-                          <input class="checkbox__input" type="checkbox" name="">
-                          <span class="checkbox__checkmark"></span>
-                      </label>
-                      <div class="task-item__content">
-                          <h4 class="task-item__name subhead">
-                              Make a case for module 8
-                          </h4>
-                          <p class="task-item__descr">
-                              UI / UX design workshop
-                          </p>
-                      </div>
-                  </div>
-              </div>
-          </li>
-          <li class="task-list__item task-list__item--styling">
-              <div class="task-item task-item--styling task-item--health-and-sports" draggable="true">
-                  <div class="task-item__additional-info">
-                      <span></span>
-                      <div class="hstack align-items-center">
-                          <i class="icon icon--xsm icon--clock"></i>
-                          <p class="ms-5">High priority</p>
-                          <button class="btn btn--sm btn--no-style">
-                              <i class="icon icon--medium-sm icon--edit"></i>
-                          </button>
-                      </div>
-                  </div>
-                  <div class="task-item__main">
-                      <label class="checkbox checkbox--green">
-                          <input class="checkbox__input" type="checkbox" name="">
-                          <span class="checkbox__checkmark"></span>
-                      </label>
-                      <div class="task-item__content">
-                          <h4 class="task-item__name subhead">
-                              Make a case for module 8
-                          </h4>
-                          <p class="task-item__descr">
-                              UI / UX design workshop
-                          </p>
-                      </div>
-                  </div>
-              </div>
-          </li>
-          <li class="task-list__item task-list__item--styling">
-              <div class="task-item task-item--styling task-item--health-and-sports" draggable="true">
-                  <div class="task-item__additional-info">
-                      <span></span>
-                      <div class="hstack align-items-center">
-                          <i class="icon icon--xsm icon--clock"></i>
-                          <p class="ms-5">High priority</p>
-                          <button class="btn btn--sm btn--no-style">
-                              <i class="icon icon--medium-sm icon--edit"></i>
-                          </button>
-                      </div>
-                  </div>
-                  <div class="task-item__main">
-                      <label class="checkbox checkbox--green">
-                          <input class="checkbox__input" type="checkbox" name="">
-                          <span class="checkbox__checkmark"></span>
-                      </label>
-                      <div class="task-item__content">
-                          <h4 class="task-item__name subhead">
-                              Make a case for module 8
-                          </h4>
-                          <p class="task-item__descr">
-                              UI / UX design workshop
-                          </p>
-                      </div>
-                  </div>
-              </div>
-          </li>
+
+        </ng-template>
       </ul>
   </div>
 </section>

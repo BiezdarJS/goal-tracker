@@ -2,7 +2,7 @@
   box-shadow: 0 0 10px #ddd;
   background: rgba(255, 255, 255, .8);
   border-radius: 30px;
-  width: 100%;
+  width: 90%;
   max-width: 500px;
   max-height: 600px;
   margin: auto;
@@ -12,7 +12,7 @@
   top: 0;
   bottom:0;
   padding: 50px;
-  overflow-y: scroll;
+  // overflow-y: scroll;
 
   &::-webkit-scrollbar {
       background-color: #F5F5F5;
@@ -30,7 +30,10 @@
   scrollbar-width: none;
   &__img {
     display: block;
-    width: 100px;
+    width: 200px;
     margin: 0 auto;
+    position: absolute;
+    left: -100px;
+    top: -100px;
   }
 }

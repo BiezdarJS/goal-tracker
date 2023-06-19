@@ -6,12 +6,19 @@ import { SetThemeService } from 'src/app/services/set-theme.service';
 import { GoalsService } from 'src/app/services/goals/goals.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 // chartjs
-import { Chart, ChartData, ChartConfiguration } from "chart.js";
+import { ChartData, ChartConfiguration } from "chart.js";
 import { chartColors } from '../charts/charts.config';
 import { textInCenter } from '../charts/utils';
-import { Subscription, map } from 'rxjs';
+import { Subscription, filter, map } from 'rxjs';
 import { Goal } from 'src/app/types/goal.type';
 import { ActivatedRoute } from '@angular/router';
+import { Task } from 'src/app/models/task.model';
+// Day.js
+import * as dayjs from 'dayjs';
+import * as weekday from 'dayjs/plugin/weekday';
+import * as weekOfYear from 'dayjs/plugin/weekOfYear';
+dayjs.extend(weekday);
+dayjs.extend(weekOfYear);
 
 
 @Component({
@@ -23,7 +30,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentChecked {
 
   allGoals: Array<Goal> = [];
-  allTasks!:any;
+  allTasks:any = [];
   // categories
   familyAndCommunication:any;
   money:any;
@@ -40,8 +47,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
   progressTowardsTheGoalData3!: ChartData<'doughnut'>;
   progressTowardsTheGoalData4!: ChartData<'doughnut'>;
   currentThemeName!: string | null;
-  colors: any = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
-
+  colors: any = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+  // Today Tasks
+  goalCategory!: any;
 
   constructor(
     private goalsService: GoalsService,
@@ -55,42 +63,40 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
   ngOnInit() {
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
     // Fetch Goals
-    this.goalsService.fetchGoals()
-    .pipe(
-      map(response => {
-        const goalsArray = [];
-        for (const key in response) {
-          if (response.hasOwnProperty(key)) {
-            goalsArray.push({ ...response[key], id: key })
-          }
-        }
-        return goalsArray;
-      })
-    )
+    this.goalsService.goalsCollection()
     .subscribe(
       goals => {
         this.allGoals = goals;
       }
     )
     // Fetch Tasks
-    this.tasksService.fetchTasks()
+    this.tasksService.tasksCollection()
       .pipe(
-        map(response => {
-          const tasksArray = [];
-          for (const key in response) {
-            if (response.hasOwnProperty(key)) {
-              tasksArray.push( { ...response[key], id: key})
-            }
-          }
+        // filter(item => item.taskDate === '2023-06-10'),
+        map(tasksArray => {
+          tasksArray = tasksArray.filter((item:any) => item.taskDate === dayjs().format('YYYY-MM-DD'));
           return tasksArray;
+        }),
+        map(tasksArray => {
+            return tasksArray.map(async (item:any) => {
+                return {
+                    ...item,
+                    goalCategory: await this.getGoalCategory(item)
+                }
+            })
         })
       )
-      .subscribe(
-        responseData => {
-          this.allTasks = responseData;
+      .subscribe(async (tasks: Promise<Task>[]) => {
+        const completedTasks = await Promise.all(tasks);
+        this.allTasks = completedTasks;
         }
       )
+
   }
+
+
+
+
 
   ngAfterViewInit():void {
     new (Select as any)(this.select_my_activity.nativeElement, {
@@ -103,7 +109,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     this.goalsService.fetchGoals()
     .pipe(
       map(response => {
-        const goalsArray = [];
+        const goalsArray = [] as any;
         for (const key in response) {
           if (response.hasOwnProperty(key)) {
             goalsArray.push({ ...response[key], id: key })
@@ -124,25 +130,52 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
       }
     )
     // Fetch Tasks
-    this.tasksService.fetchTasks()
-      .pipe(
-        map(response => {
-          const tasksArray = [];
-          for (const key in response) {
-            if (response.hasOwnProperty(key)) {
-              tasksArray.push( { ...response[key], id: key})
-            }
+    this.tasksService.tasksCollection()
+        .pipe(
+          // filter(item => item.taskDate === '2023-06-10'),
+          map(tasksArray => {
+            tasksArray = tasksArray.filter((item:any) => item.taskDate === dayjs().format('YYYY-MM-DD'));
+            return tasksArray;
+          }),
+          map(tasksArray => {
+              return tasksArray.map(async (item:any) => {
+                  return {
+                      ...item,
+                      goalCategory: await this.getGoalCategory(item)
+                  }
+              })
+          })
+        )
+        .subscribe(async (tasks: Promise<Task>[]) => {
+          const completedTasks = await Promise.all(tasks);
+          this.allTasks = completedTasks;
           }
-          return tasksArray;
-        })
-      )
-      .subscribe(
-        responseData => {
-          this.allTasks = responseData;
-        }
-      )
+        )
   }
 
+
+
+  // public getGoalCategory() {
+  //  return this.goalsService.getGoalById('-NXRb_fNBUUvKxPoSL5W').subscribe(d => {
+  //   this.goalCategory = d;
+  //   console.log(this.goalCategory);
+  //  });
+  // }
+
+  // getGoalCategory(item:any) {
+	// 	this.goalsService.getGoalById(item.goal_id).subscribe(d => {
+  //     this.goalCategory = d[0].category;
+  //   })
+  //  }
+
+  getGoalCategory(item:any) {
+    return new Promise((res) => {
+        this.goalsService.getGoalById(item.goal_id)
+            .subscribe(d => {
+                res(d[0].category);
+            })
+    })
+  }
 
 
 
@@ -179,7 +212,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
   }
 
   ngAfterContentChecked():void {
-    this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+    this.colors = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
     if (this.currentThemeName !== this.themeName) {
     this.progressTowardsTheGoalData1 = {
       datasets: [{

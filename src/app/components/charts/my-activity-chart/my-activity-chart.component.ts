@@ -1,8 +1,14 @@
 import { Component, OnInit, OnDestroy, AfterViewChecked, AfterContentChecked } from '@angular/core';
+// Chart
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { chartColors } from '../charts.config';
+// RxJS
 import { Subscription } from 'rxjs';
+// Services
 import { SetThemeService } from 'src/app/services/set-theme.service';
+import { ChartHelpersService } from 'src/app/services/tasks/chart-helpers.service';
+
+
 
 @Component({
   selector: 'gt-my-activity-chart',
@@ -18,15 +24,24 @@ export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewChe
   myActivityDataWeek!: ChartData<'line'>;
   myActivityDataMonth!: ChartData<'line'>;
   currentThemeName!: string | null;
-  colors: any = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+  colors: any = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+  // Days from this week
+  daysFromThisWeek!: any;
+  familyAndCommunicationData!: any;
+  moneyData!:any;
+  workCareerData!:any;
+  healthAndSportsData!:any;
+  selfKnowledgeData!:any;
+  travelsData!:any;
+
 
   constructor(
+    private chartHelpersS: ChartHelpersService,
     private setThemeService: SetThemeService
   ) {}
 
-  ngOnInit():void {
+   async ngOnInit() {
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
-
 
   }
 
@@ -36,12 +51,13 @@ export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewChe
 
 
 
+
   ngAfterViewChecked():void {
     this.currentThemeName = this.themeName;
   }
 
- ngAfterContentChecked():void {
-  this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+ async ngAfterContentChecked() {
+  this.colors = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
   if (this.currentThemeName !== this.themeName) {
     this.myActicityOptions = {
       scales: {
@@ -84,17 +100,17 @@ export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewChe
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
-          label: "Income",
+          label: "Work/Career",
           backgroundColor: this.colors.green,
           borderColor: this.colors.green,
-          data: [4,6,5,8,7,3,2,4],
+          data: [3,1,2,3,2,5,8],
           pointHitRadius: 16,
         },
         {
-          label: "More data",
+          label: "Self Knowledge",
           backgroundColor: this.colors.red,
           borderColor: this.colors.red,
-          data: [2,5,4,7,5,4,5, 5]
+          data: [4,5,1,5,7,5,2]
         }
       ]
     }

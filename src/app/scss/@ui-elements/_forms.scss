@@ -59,6 +59,13 @@
               box-shadow: none;
           }
       }
+      &--diamond {
+        padding: 15px 15px 15px 50px;
+        &:focus {
+            border-color: #a0b7fd;
+            box-shadow: none;
+        }
+      }
   }
 
   &--search {
@@ -155,27 +162,29 @@
           }
       }
   }
+  &--diamond {
+    &:before {
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      border-radius: 50%;
+      content: "";
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      left: 11px;
+    }
+    &:before {
+      background-image: url(#{$assetsPath}/icons/diamond-ico.png);
+      background-size: 70% auto;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+}
 }
 
 
-// .password-toggle {
-//     cursor: pointer;
-//     display: inline-block;
-//     width: 24px;
-//     height: 24px;
-//     position: absolute;
-//     top: 13px;
-//     right: 15px;
-
-//     &:after {
-//         content: "";
-//         background: url(#{$assetsPath}/eye.svg) center/cover no-repeat;
-//         width: 100%;
-//         height: 100%;
-//         position: absolute;
-//         z-index: 1;
-//     }
-// }
 
 .icon-toggle {
   cursor: pointer;

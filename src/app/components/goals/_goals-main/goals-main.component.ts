@@ -45,9 +45,9 @@ export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewCheck
   ) {}
 
   ngOnInit():void {
+    // Initialize Host Containers
     this.goalsContainerRef = this.goalsHost.viewContainerRef;
     this.newGoalContainerRef = this.newGoalHost.viewContainerRef;
-
     // Subscribe to Filter Button Event
     this.goalsNotificationsS.filterBtnHasBeenFired.subscribe(d => {
       this.filterBtnHasBeenFired = d;
@@ -58,9 +58,10 @@ export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewCheck
 
 
   ngAfterViewInit(): void {
+
+    // Collect initial Select Data
     this.selectCategoryValue = this.actionsNav.select_category.nativeElement.value;
     this.selectDateValue = this.actionsNav.select_date.nativeElement.value;
-    // this.goalsGrid.selectCategoryValue = this.selectCategoryValue;
   }
 
   ngAfterViewChecked() {

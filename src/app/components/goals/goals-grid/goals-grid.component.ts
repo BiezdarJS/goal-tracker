@@ -18,10 +18,6 @@ import * as weekOfYear from 'dayjs/plugin/weekOfYear';
 
 
 
-
-
-
-
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
@@ -96,84 +92,11 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-
-
-
   ngOnDestroy():void {
     // this.loading$ = false;
   }
 
 
-
-
-  // Methods beneath are responsible for generating the Calendar
-
-
-  // collectMonths(calendar: IGoalsGrid) {
-
-  //   this.removeAllMonthElements(this.elementRef.nativeElement);
-
-  //   this.firstYearMonths = this.createFirstYearMonths(calendar);
-  //   this.secondYearMonths = this.createSecondYearMonths(calendar);
-  //   const months = [...this.firstYearMonths, ...this.secondYearMonths];
-  //   return months;
-
-  // }
-
-  // createFirstYearMonths(calendar:IGoalsGrid) {
-
-  //   let visibleNumberOfMonthsFromFirstYear = 11 - calendar.first_month;
-  //   visibleNumberOfMonthsFromFirstYear = visibleNumberOfMonthsFromFirstYear <= 3 ? visibleNumberOfMonthsFromFirstYear : 0;
-
-
-  //   return [...Array(visibleNumberOfMonthsFromFirstYear)].map((month, index) => {
-  //       const firstYearMonths: ICalendarMonths = {
-  //       date: dayjs(
-  //         `${calendar.year}-${calendar.month}-${calendar.first_month+index}`
-  //       ).format("YYYY-MM-DD"),
-  //       monthOfTheYear: dayjs(`${calendar.year}-${parseInt(calendar.month,10)+index}-1`).month(),
-  //     };
-  //     return firstYearMonths;
-  //   });
-  // }
-
-
-  // createSecondYearMonths(calendar:IGoalsGrid) {
-
-  //   let visibleNumberOfMonthsFromFirstYear = 11 - calendar.first_month;
-  //   visibleNumberOfMonthsFromFirstYear = visibleNumberOfMonthsFromFirstYear <= 3 ? visibleNumberOfMonthsFromFirstYear : 0;
-
-  //   let numberOfSecondYearMonths = 3 - visibleNumberOfMonthsFromFirstYear;
-
-  //   let first_month = dayjs(`${calendar.year}-${calendar.month}-1`).add(visibleNumberOfMonthsFromFirstYear, "month");
-  //   // first_month = ;
-  //   let first_month_of_second_year = dayjs(first_month).month();
-
-
-  //   let month = visibleNumberOfMonthsFromFirstYear > 0 ? parseInt(calendar.month,10) + 1 : calendar.month;
-
-  //   return [...Array(numberOfSecondYearMonths)].map((day, index) => {
-  //     const secondYearMonths: ICalendarMonths = {
-  //       date: dayjs(`${calendar.year}-${parseInt(calendar.month,10)+index}-1`).format("YYYY-MM-DD"),
-  //       monthOfTheYear: dayjs(`${calendar.year}-${parseInt(calendar.month,10)+index}-1`).month(),
-  //     };
-  //     return secondYearMonths;
-  //   });
-  // }
-
-
-  // getNumberOfDaysInMonth(year:any, month:any) {
-  //   return dayjs(`${year}-${month}-01`).daysInMonth();
-  // }
-
-
-  // removeAllMonthElements(goalsGrid:any) {
-  //   let first = goalsGrid.firstElementChild;
-  //   while (first) {
-  //     first.remove();
-  //     first = goalsGrid.firstElementChild;
-  //   }
-  // }
 
 
 

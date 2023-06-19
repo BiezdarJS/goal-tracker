@@ -62,19 +62,20 @@ export class GoalsService {
             }
             // Filter by Date
             if (dateValue === 'creation date') {
-              let creationDates = response.map((item:any) => item.creationDate.split('-')).map((item:any) => {
+              let endDates = response.map((item:any) => item.endDate.split('-')).map((item:any) => {
                 return {
                   timepstamp: new Date(item[0], item[1]-1, item[2]).getTime()
                 }
               }).map((item:any) => item.timepstamp);
               response = response.map((item:any,idx:number) => {
                 return {
-                  category: item.category,
-                  creationDate: creationDates[idx],
-                  details: item.details,
                   id: item.id,
+                  name: item.name,
                   isMainGoal: item.isMainGoal,
-                  name: item.name
+                  details: item.details,
+                  category: item.category,
+                  creationDate: item.creationDate,
+                  endDate: endDates[idx],
                 }
               })
               // Sort the result

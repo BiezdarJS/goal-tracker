@@ -78,18 +78,12 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
       el: this.elRef.nativeElement,
       backdrop: 'static'
     });
-    this.newGoalForm.on('show', function(myModal:any, event:Event) {
-      // Do something before we start showing modal.
-      // myModal.setAttribute('class', 'test');
-      myModal.el.childNodes[0].classList = 'modal new-goal animate__animated animate__bounceIn';
-    });
     this.newGoalForm.show();
-
-    // Dynamic New Task Component
-    this.taskContainerRef = this.newTaskHost.viewContainerRef;
   }
 
   ngAfterViewInit():void {
+    // Dynamic New Task Component
+    this.taskContainerRef = this.newTaskHost.viewContainerRef;
     // Select
     new (Select as any)(this.select_category.nativeElement, {
       placeholder: 'Select Category...'
@@ -191,9 +185,7 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
       form.value.isMainGoal,
       form.value.details,
       form.value.select_category,
-      form.value.lifeArea,
       form.value.creationDate,
-      form.value.priority,
       form.value.endDate
     );
     await this.goalsService.postGoal(this.newGoal).pipe(

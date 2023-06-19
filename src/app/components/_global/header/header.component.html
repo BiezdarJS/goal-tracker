@@ -1,7 +1,7 @@
 <div class="header__left">
   <button class="user user--mobile"></button>
   <h2 class="title title--main">
-    Good morning, Eva <br>
+    Good morning, {{ this.welcomeName }} <br>
     <span class="smaller">
         Welcome back, nice to see you again!
     </span>
@@ -29,7 +29,7 @@
       <div class="header-dropdown">
         <ul class="header-dropdown-list list">
           <li class="header-dropdown__item">
-            <a class="header-dropdown__link">
+            <a class="header-dropdown__link" routerLink="/settings">
               <i class="icon icon--settings"></i>
               <span>Settings</span>
             </a>

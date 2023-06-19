@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 
 

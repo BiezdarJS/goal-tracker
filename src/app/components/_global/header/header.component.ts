@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { Subscription } from 'rxjs';
 // Services
 import { AuthService } from 'src/app/services/login/auth.service';
+import { NameNotificationService } from 'src/app/services/login/name-notification.service';
 import { SetThemeService } from 'src/app/services/set-theme.service';
 
 @Component({
@@ -14,11 +15,13 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('checkbox') checkbox!: ElementRef;
   themeName!: string | null;
+  // Welcome Name
+  welcomeName!:any;
 
   constructor(
     private authService: AuthService,
     private setThemeService: SetThemeService,
-    private elRef: ElementRef
+    private nameNotificationS: NameNotificationService,
   ) {}
 
 		// function to set a given theme/color-scheme
@@ -28,13 +31,15 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit():void {
     this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
+    // Welcome Name
+    this.welcomeName = sessionStorage.getItem('welcome-name');
   }
 
 
 
 
   ngAfterViewInit():void {
-    if (localStorage.getItem('theme') === 'theme-dark') {
+    if (sessionStorage.getItem('theme') === 'theme-dark') {
       this.checkbox.nativeElement.checked = true;
     } else {
       this.checkbox.nativeElement.checked = false;

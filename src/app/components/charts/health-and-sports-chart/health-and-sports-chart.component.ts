@@ -16,7 +16,7 @@ export class HealthAndSportsChartComponent implements OnInit, OnDestroy, AfterVi
   currentThemeName!: string | null;
   healthAndSportsData!: ChartData<'bar'>;
   healthAndSportsOptions: ChartConfiguration<'bar'>['options'];
-  colors: any = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+  colors: any = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
 
   constructor(
     private setThemeService: SetThemeService
@@ -35,7 +35,7 @@ export class HealthAndSportsChartComponent implements OnInit, OnDestroy, AfterVi
    }
 
    ngAfterContentChecked():void {
-    this.colors = localStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
+    this.colors = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
     if (this.currentThemeName !== this.themeName) {
       this.healthAndSportsOptions = {
 

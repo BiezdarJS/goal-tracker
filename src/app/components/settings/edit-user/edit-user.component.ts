@@ -33,7 +33,7 @@ export class EditUserComponent {
       form.value.phone
     );
 
-    await this.userService.postUser(this.newUser);
+    // await this.userService.postUser(this.newUser);
   }
 
 }

@@ -1,0 +1,24 @@
+.modal__heading {
+  font-size: 30px;
+}
+
+p {
+  letter-spacing: 0;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+}
+
+.info-popup {
+  &__img-box {
+    display: grid;
+    grid-template-columns: 150px;
+    justify-content: center;
+  }
+  &__img {
+    display: block;
+    margin: 0 auto;
+    max-width: 150px;
+    height: auto;
+  }
+}

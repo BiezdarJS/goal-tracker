@@ -10,7 +10,7 @@
   right: 0;
   transition: all .2s ease;
   z-index: 1;
-  width: 150px;
+  width: 140px;
   visibility: hidden;
   &-list {
     margin: 0;
@@ -20,8 +20,12 @@
     color: $secondText;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 24px 1fr;
+    grid-template-columns: 20px 1fr;
     padding: 10px 0;
+    i {
+      width: 20px;
+      height: 20px;
+    }
     span {
       display: inline-block;
       margin-left: 10px;

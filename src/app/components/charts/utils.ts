@@ -4,10 +4,10 @@ export function textInCenter(chart:any, value:any) {
 	ctx.restore();
 
   // Draw value
-  if (localStorage.getItem('theme') === 'theme-light') {
+  if (sessionStorage.getItem('theme') === 'theme-light') {
     ctx.fillStyle = '#333333';
   }
-  if (localStorage.getItem('theme') === 'theme-dark') {
+  if (sessionStorage.getItem('theme') === 'theme-dark') {
     ctx.fillStyle = '#fbfbfd';
   }
   ctx.font = '18px sans-serif';
@@ -34,10 +34,10 @@ export function textInCenterWithLineBreak(chart:any) {
 	ctx.restore();
 
   // Draw value
-  if (localStorage.getItem('theme') === 'theme-light') {
+  if (sessionStorage.getItem('theme') === 'theme-light') {
     ctx.fillStyle = '#333333';
   }
-  if (localStorage.getItem('theme') === 'theme-dark') {
+  if (sessionStorage.getItem('theme') === 'theme-dark') {
     ctx.fillStyle = '#fbfbfd';
   }
   ctx.font = '22px sans-serif';

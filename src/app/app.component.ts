@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   subscription!: Subscription;
 
   constructor(
-    private elRef: ElementRef,
     private setThemeService: SetThemeService,
     private authService: AuthService,
     router: Router
@@ -30,10 +29,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit():void {
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName)
-    // window.onbeforeunload = function() {
-    //   localStorage.removeItem('ACCESS_TOKEN');
-    //   return '';
-    // };
   }
 
   ngOnDestroy() {
