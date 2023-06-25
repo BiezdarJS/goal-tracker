@@ -15,7 +15,7 @@ import { IGoalsGrid } from '../../../models/calendar.model';
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
-import { Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 
 
@@ -30,7 +30,7 @@ dayjs.extend(weekOfYear);
 export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
-  public loading$!: boolean;
+  public loading$: boolean = true;
   public imagesURL: string = '';
 
   firstYearMonths!: any;
@@ -79,11 +79,6 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     // Settings
     this.imagesURL = this.globalVars.imagesURL;
-    this.loading$ = true;
-  }
-
-
-  ngAfterViewInit(): void {
     // Fetch Goals
     setTimeout(() => {
       this.goalsService.fetchGoalsWithFilter(this.selectCategoryValue,this.selectDateValue)
@@ -92,6 +87,11 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
           this.loading$ = false;
         })
     }, 550);
+
+  }
+
+
+  ngAfterViewInit(): void {
 
   }
 

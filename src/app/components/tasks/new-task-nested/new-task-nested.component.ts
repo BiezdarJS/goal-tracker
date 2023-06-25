@@ -40,7 +40,7 @@ export class NewTaskNestedComponent implements OnInit, AfterViewChecked {
 
 
   onSubmit(form:NgForm) {
-    console.log(form);
+
   }
 
 

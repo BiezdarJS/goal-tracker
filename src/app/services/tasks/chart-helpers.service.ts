@@ -75,6 +75,7 @@ export class ChartHelpersService {
         map(tasksArr => {
             // get number of IDs-matching-tasks on each week day
             let finalTasks = [] as any;
+            console.log(daysFromThisWeek);
             daysFromThisWeek.forEach((day:any) => {
                 const forFinalTasks = tasksArr.filter((task:any) => task.taskDate === day);
                 finalTasks = finalTasks.concat(forFinalTasks.length);

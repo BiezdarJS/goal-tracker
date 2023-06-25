@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 // Services
 import { AuthService } from 'src/app/services/login/auth.service';
@@ -13,6 +13,10 @@ import { SetThemeService } from 'src/app/services/set-theme.service';
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @Output() infoPopupEvent = new EventEmitter();
+  handleInfoPopup() {
+    this.infoPopupEvent.emit();
+  }
   @ViewChild('checkbox') checkbox!: ElementRef;
   themeName!: string | null;
   // Welcome Name
@@ -52,6 +56,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   logout() {
     this.authService.logout();
+  }
+
+  openInfoPopup() {
+
   }
 
 

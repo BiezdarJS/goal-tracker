@@ -15,7 +15,7 @@
         right: 0;
         bottom: 0;
         transform: translate3d(0, 0, 0);
-        
+
         transition: transform 0.35s ease-in-out;
     }
     &.hidden {
@@ -39,6 +39,9 @@
         &:before,
         &:after {
             background-color: $white;
+            @include mobile {
+              height: 12px;
+            }
         }
         @media (max-width: 350px) {
             right: 3px;

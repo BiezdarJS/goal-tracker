@@ -62,6 +62,7 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
   btnBackIsActive: boolean = false;
   btnNextIsActive: boolean = false;
   btnCreateIsActive: boolean = false;
+  priorityValue!: string;
 
 
   constructor(
@@ -103,7 +104,6 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
 
   ngAfterViewChecked(): void {
     if (this.newGoalSubmitTriggered) {
-      console.log('newGoalSubmitTrittred jest true');
       this.submitBtn.nativeElement.click();
       this.submitNotificationS.sendSubmitNotification(false);
     }
@@ -214,53 +214,30 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
     this.submitNotificationS.sendSubmitNotification(true);
   }
 
-  // FORM
-  onSubmit(form: NgForm) {
-
-    if (form.invalid) {
-      return;
-    }
-    // Post New Goal
-    this.newGoal = new Goal(
-      form.value.name,
-      form.value.isMainGoal,
-      form.value.details,
-      form.value.select_category,
-      form.value.creationDate,
-      form.value.endDate
-    );
-    console.log(this.newGoal);
-    this.goalsS.postGoal(this.newGoal).subscribe(response => { });
-    // await this.goalsS.postGoal(this.newGoal).pipe(
-    //   switchAll()
-    // ).subscribe((newGoalId:any) => {
-    //   // this.accordion_items.toArray().forEach(item => {
-
-    //   //   console.log(item);
-    //   // });
-    //   // console.log(this.accordion_items);
-    //   this.accordion_items.toArray().forEach(item => {
-    //     form.value.taskPriority = this.priority.nativeElement.querySelector('.active').innerText;
-    //     console.log(item);
-    //     // this.newTask = new Task(
-    //     //   newGoalId.name,
-    //     //   form.value.taskName,
-    //     //   form.value.taskDescription,
-    //     //   form.value.taskPriority,
-    //     //   form.value.taskDate,
-    //     // );
-    //     // this.tasksS.postTask(this.newTask);
-
-    //   });
-      // Remove New Goal Modal
-      this.parentRef.removeNewGoal();
-      // Refresh goals Grid
-      this.parentRef.refreshGoalsGrid();
-
+// FORM
+onSubmit(form: NgForm) {
+  if (form.invalid) {
+    return;
   }
+  this.priorityValue = this.priority.nativeElement.querySelector('.active').innerText;
+  this.newGoal = new Goal(
+    form.value.name,
+    form.value.isMainGoal,
+    form.value.details,
+    form.value.select_category,
+    this.priorityValue,
+    form.value.creationDate,
+    form.value.endDate
+  );
+  this.goalsS.postGoal(this.newGoal);
+  // Remove New Goal Modal
+  this.parentRef.removeNewGoal();
+  // Refresh goals Grid
+  this.parentRef.refreshGoalsGrid();
+}
 
   tasksFormSubmit(form:NgForm) {
-    console.log(form);
+
   }
 
 

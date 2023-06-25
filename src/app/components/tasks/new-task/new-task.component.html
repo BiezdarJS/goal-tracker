@@ -10,11 +10,10 @@
   <main class="modal__main">
       <form (ngSubmit)="onSubmit(form)" #form="ngForm">
           <p class="modal__heading modal__heading--center">
-              Action plan
+              New Task
           </p>
           <p class="txt-center">
-              Make a to-do list. This will clarify the path to the goal and<br>
-              make it more interesting to achieve it by deleting cases.
+              Create a new task by writting down all the necessary information.
           </p>
           <div class="modal__section">
               <h3 class="modal__section-name headline">
@@ -96,7 +95,7 @@
                 <h3 class="modal__section-name headline">
                     A priority
                 </h3>
-                <ul class="priority list" getTaskPriority #priority>
+                <ul class="priority list" getPriority #priority>
                     <li class="priority__item">
                         <button type="button" class="label label-priority label-priority--high label--105width">
                             High priority

@@ -52,6 +52,9 @@
   .sidenav-mobile-open {
     background-color: #252c3e;
   }
+  .site-logo:after {
+    display: none;
+  }
   .dashboard {
     background-color: #252c3e;
     &__top,

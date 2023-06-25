@@ -34,7 +34,7 @@ import { ActionsNavTasksComponent } from './components/tasks/actions-nav-tasks/a
 import { CalendarTypeDayComponent } from './components/calendars/calendar-type-day/calendar-type-day.component';
 import { CalendarTypeMonthComponent } from './components/calendars/calendar-type-month/calendar-type-month.component';
 import { CalendarTypeWeekComponent } from './components/calendars/calendar-type-week/calendar-type-week.component';
-import { GetTaskPriorityDirective } from './directives/tasks/get-task-priority.directive';
+import { GetPriorityDirective } from './directives/get-priority.directive';
 import { TasksHostDirective } from './directives/tasks/tasks-host.directive';
 import { SetThemeService } from './services/set-theme.service';
 import { TasksTypeDayComponent } from './components/tasks/tasks-type-day/tasks-type-day.component';
@@ -93,7 +93,7 @@ import { TasksNotificationsService } from './services/tasks/tasks-notifications.
     CalendarTypeMonthComponent,
     CalendarTypeWeekComponent,
     ActionsNavTasksComponent,
-    GetTaskPriorityDirective,
+    GetPriorityDirective,
     TasksHostDirective,
     TasksTypeDayComponent,
     SingleDayComponent,

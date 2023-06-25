@@ -28,11 +28,12 @@ export class GoalsService {
       .get('https://goal-mangement-system-default-rtdb.europe-west1.firebasedatabase.app/goals.json');
   }
 
-  postGoal(newGoal:any):Observable<any> {
-    return of(this.http.post(
+  postGoal(newGoal:any):void {
+    this.http.post(
       'https://goal-mangement-system-default-rtdb.europe-west1.firebasedatabase.app/goals.json',
       newGoal
-    ));
+    ).subscribe(responseData => {
+    })
   }
 
   // GOALS

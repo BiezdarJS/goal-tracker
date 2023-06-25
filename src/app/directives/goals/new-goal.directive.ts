@@ -1,4 +1,4 @@
-import { Directive, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[newGoalHost]'
@@ -6,8 +6,10 @@ import { Directive, ViewContainerRef } from '@angular/core';
 export class NewGoalDirective {
 
   constructor(
-    public viewContainerRef: ViewContainerRef
+    public viewContainerRef: ViewContainerRef,
   ) { }
+
+
 
 
 }

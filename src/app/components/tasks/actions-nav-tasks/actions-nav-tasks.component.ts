@@ -65,7 +65,6 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit, AfterVie
   ngAfterContentChecked():void {
     this.selectedMonth = parseInt(this.calendarTasksService.selectedMonth.format('M'),10)-1;
     this.selectedMonth = this.calendarTasksService.monthNames[this.selectedMonth];
-    console.log(this.selectedMonth);
   }
 
 

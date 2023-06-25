@@ -70,7 +70,8 @@ export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewIni
     this.colors = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
     if (this.currentThemeName !== this.themeName) {
       this.chartHelpersS.getTasksByCategory('health and sports').subscribe(d => {
-        d = this.healthAndSportsData = d;
+        this.healthAndSportsData = d;
+        console.log(this.healthAndSportsData );
         this.myActicityOptions = {
           scales: {
             x: {

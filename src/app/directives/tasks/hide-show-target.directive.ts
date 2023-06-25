@@ -14,7 +14,6 @@ export class HideShowTargetDirective {
     const target = this.elRef.nativeElement;
     let targetPanel = target.nextElementSibling;
     // targetPanel.scrollHeight + "px";
-    console.log(target.parentNode);
     target.parentNode.classList.toggle('active');
     if (targetPanel.style.maxHeight) {
       targetPanel.style.maxHeight = null;

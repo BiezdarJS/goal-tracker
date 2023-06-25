@@ -1,16 +1,16 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[getTaskPriority]'
+  selector: '[getPriority]'
 })
-export class GetTaskPriorityDirective {
+export class GetPriorityDirective {
 
   constructor(
     private elRef: ElementRef
   ) { }
 
   @HostListener('click', ['$event'])
-  taskPriority(event:any) {
+  getPriority(event:any) {
     if (event.target.matches('.label-priority')) {
       const buttonsCollection = document.querySelectorAll('.label-priority');
       Array.from(buttonsCollection).forEach(item => {

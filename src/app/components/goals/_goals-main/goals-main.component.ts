@@ -30,8 +30,8 @@ export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewCheck
   @ViewChild('actionsNav') actionsNav: any;
   @ViewChild('goalsGrid') goalsGrid: any;
   // Values for goal filter
-  selectCategoryValue!: string;
-  selectDateValue!: string;
+  selectCategoryValue: string = '';
+  selectDateValue: string = '';
   // Other
   public get GoalsViewType() {
     return GoalsViewType;
@@ -44,12 +44,14 @@ export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewCheck
     private goalsNotificationsS: GoalsNotificationsService,
     // Change Detector
     private cdr: ChangeDetectorRef
+
   ) {}
 
   ngOnInit():void {
     // Initialize Host Containers
     this.goalsContainerRef = this.goalsHost.viewContainerRef;
     this.newGoalContainerRef = this.newGoalHost.viewContainerRef;
+
     // Subscribe to Filter Button Event
     this.goalsNotificationsS.filterBtnHasBeenFired.subscribe(d => {
       this.filterBtnHasBeenFired = d;
@@ -63,8 +65,7 @@ export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewCheck
     // Collect initial Select Data
     this.selectCategoryValue = this.actionsNav.select_category.nativeElement.value;
     this.selectDateValue = this.actionsNav.select_date.nativeElement.value;
-    // Change Detector
-    this.cdr.detectChanges();
+
   }
 
   ngAfterViewChecked() {
@@ -75,6 +76,7 @@ export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewCheck
   // Goals Grid methods
   createGoalsGrid() {
     this.goalsContainerRef.createComponent(GoalsGridComponent);
+
   }
   refreshGoalsGrid() {
     this.goalsContainerRef.clear();
