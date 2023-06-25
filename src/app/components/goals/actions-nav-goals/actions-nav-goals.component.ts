@@ -37,11 +37,11 @@ export class ActionsNavGoalsComponent implements AfterViewInit, AfterViewChecked
   ) {}
 
   ngOnInit():void {
-    // Change Filter Notification
+    // Filter Notification
     this.goalsNotificationsS.activeGoalsViewType.subscribe(d => {
       this.goalsViewType = d;
     });
-    // Change View Notification
+    // View Notification
     this.goalsNotificationsS.goalsSelectChanged.subscribe(d => {
       this.goalsSelectChanged = d;
     });

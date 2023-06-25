@@ -1,7 +1,7 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 // Types
-import { Goal } from 'src/app/types/goal.type';
+import { IGoal } from 'src/app/interfaces/goal.interface';
 // Services
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 // RxJS
@@ -26,6 +26,14 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
   // set ready(isReady: boolean) {
   //   if (isReady) this.makeSomething();
   // }
+  @Output() taskCloseEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+  closeEventFn() {
+        this.taskCloseEvent.emit(true)
+  }
+  @Output() taskSubmitEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+  submitEventFn() {
+        this.taskSubmitEvent.emit(true)
+  }
   @ViewChildren('allTheseThings') things!: QueryList<any>;
   @ViewChild('select_goal') select_goal!: ElementRef;
   @ViewChild('priority') priority!: ElementRef;
@@ -36,7 +44,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
 
   constructor(
     private elRef: ElementRef,
-    private parentRef: TasksMainComponent,
+    // private parentRef: TasksMainComponent,
     private goalsService: GoalsService,
     private tasksService: TasksService
   ) {}
@@ -52,6 +60,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
   }
   closeModal() {
     this.newTask.hide();
+    this.closeEventFn();
   }
 
   ngAfterViewChecked():void {
@@ -66,7 +75,7 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
     this.goalsService.fetchGoals()
     .pipe(
       map(response => {
-        const goalsArray = [];
+        const goalsArray = [] as any;
         for (const key in response) {
           if (response.hasOwnProperty(key)) {
             goalsArray.push({ ...response[key], id: key })
@@ -93,6 +102,9 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
   // FORM
   onSubmit(form: NgForm) {
     if (form.invalid) {
+      Object.keys(form.controls).forEach(key => {
+        form.controls[key].markAsTouched();
+      });
       return;
     }
     this.priorityValue = this.priority.nativeElement.querySelector('.active').innerText;
@@ -106,13 +118,12 @@ export class NewTaskComponent implements OnInit, AfterViewInit, AfterViewChecked
     );
 
     this.tasksService.postTask(this.newTask);
-    this.parentRef.removeNewTask();
-    this.parentRef.refreshTasksGrid();
+    this.submitEventFn();
   }
 
 
   ngOnDestroy():void {
-    this.parentRef.newTaskContainerRef.clear();
+    // this.parentRef.newTaskContainerRef.clear();
     this.elRef.nativeElement.remove();
   }
 

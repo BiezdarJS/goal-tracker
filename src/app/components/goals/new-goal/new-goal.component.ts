@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 // Components
@@ -9,13 +9,15 @@ import { NewTaskDirective } from 'src/app/directives/tasks/new-task.directive';
 // Services
 import { GoalsService } from 'src/app/services/goals/goals.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
-import { TaskNestedService } from 'src/app/services/tasks/task-nested.service';
+import { TasksNestedService } from 'src/app/services/tasks/tasks-nested.service';
+import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifications.service';
 // Models
 import { Goal } from 'src/app/models/goal.model';
 import { Task } from 'src/app/models/task.model';
 // Types
 import { switchAll } from 'rxjs';
-import { TaskNested } from 'src/app/types/task-nested.type';
+import { NgFor } from '@angular/common';
+
 
 
 
@@ -32,18 +34,19 @@ declare function Select(): void;
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./new-goal.component.scss']
 })
-export class NewGoalComponent implements OnInit, AfterViewInit {
+export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentChecked {
 
+  // Modal
   @ViewChild('modal') modal!: ElementRef<HTMLDivElement>;
-
+  // New Goal Form
   @ViewChild('submitBtn') submitBtn!: ElementRef<HTMLInputElement>;
   @ViewChildren('newGoalStep') newGoalSteps!: QueryList<ElementRef>;
   @ViewChildren('progressBarStep') progressBarSteps!: QueryList<ElementRef>;
   @ViewChild('select_category') select_category!: ElementRef;
   // Task Priority
   @ViewChild('priority') priority!: ElementRef;
-  // Dynamic New Task Component
-  @ViewChild(NewTaskDirective, {static: true}) newTaskHost!: NewTaskDirective;
+  // New Tasks
+  @ViewChild('submitBtn2') submitBtn2!: ElementRef<HTMLInputElement>;
   @ViewChildren('accordion_item') accordion_items!: QueryList<ElementRef>;
   taskContainerRef!:any;
   // Event Emitters
@@ -51,21 +54,24 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
 
   // goal Modal
   newGoalForm!:any;
-  // New Elements
+  // New Goal Elements
+  newGoalSubmitTriggered:boolean = false;
   newGoal!:any;
   newGoalId!:any;
   newTask!:any;
   btnBackIsActive: boolean = false;
   btnNextIsActive: boolean = false;
   btnCreateIsActive: boolean = false;
-  taskNested: TaskNested[] = [];
+
 
   constructor(
     private elRef: ElementRef,
     private parentRef: GoalsMainComponent,
-    private goalsService: GoalsService,
-    private tasksService: TasksService,
-    private taskNestedService: TaskNestedService
+    private goalsS: GoalsService,
+    private tasksS: TasksService,
+    private tasksNestedS: TasksNestedService,
+    private submitNotificationS: GoalsNotificationsService,
+
   ) {}
 
   ngOnInit():void {
@@ -79,21 +85,46 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
       backdrop: 'static'
     });
     this.newGoalForm.show();
+
+    // Submit Notification
+    this.submitNotificationS.submitValue.subscribe(d => {
+      this.newGoalSubmitTriggered = d;
+    });
+
   }
 
   ngAfterViewInit():void {
-    // Dynamic New Task Component
-    this.taskContainerRef = this.newTaskHost.viewContainerRef;
     // Select
     new (Select as any)(this.select_category.nativeElement, {
       placeholder: 'Select Category...'
     });
+    // Change detector
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.newGoalSubmitTriggered) {
+      console.log('newGoalSubmitTrittred jest true');
+      this.submitBtn.nativeElement.click();
+      this.submitNotificationS.sendSubmitNotification(false);
+    }
+
+  }
+
+  ngAfterContentChecked() {
+    // if (this.newGoalSubmitTriggered) {
+    //   this.submitBtn.nativeElement.click();
+    //   this.submitNotificationS.sendNewGoalSubmitNotification(false);
+    // }
   }
 
   closeModal() {
     this.newGoalForm.hide();
+    setTimeout(() => {
+      this.parentRef.removeNewGoal();
+    },1000);
     // Reset Nested Task Service number
-    this.taskNestedService.number = 1;
+    this.tasksNestedS.number = 0;
+    this.tasksNestedS.tasks = [];
   }
 
   handleBackAndNextBtn() {
@@ -161,21 +192,31 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
     this.handleBackAndNextBtn();
   }
 
+  get tasksNested() {
+    return this.tasksNestedS.tasks;
+  }
+
   // Handle New Task Component
   addNewTask() {
-    this.taskNestedService.number = this.taskNestedService.number+1;
-    this.taskNested = this.taskNestedService.getTask();
-    const componentRef = this.taskContainerRef.createComponent(this.taskNested[0].component);
-    componentRef.instance.data = this.taskNested[0].data;
+    this.tasksNestedS.number = this.tasksNestedS.number+1;
+    this.tasksNestedS.tasks.push({
+      goal_id: '',
+      name: '',
+      description: '',
+      priority: '',
+      taskDate: '',
+      number: this.tasksNestedS.number
+    })
   }
 
 
-  triggerFormSubmit(submitBtn: any) {
-    this.submitBtn.nativeElement.click();
+  triggerFormSubmit() {
+    this.submitNotificationS.sendSubmitNotification(true);
   }
 
   // FORM
-  async onSubmit(form: NgForm) {
+  onSubmit(form: NgForm) {
+
     if (form.invalid) {
       return;
     }
@@ -188,33 +229,38 @@ export class NewGoalComponent implements OnInit, AfterViewInit {
       form.value.creationDate,
       form.value.endDate
     );
-    await this.goalsService.postGoal(this.newGoal).pipe(
-      switchAll()
-    ).subscribe((newGoalId:any) => {
-      // this.accordion_items.toArray().forEach(item => {
+    console.log(this.newGoal);
+    this.goalsS.postGoal(this.newGoal).subscribe(response => { });
+    // await this.goalsS.postGoal(this.newGoal).pipe(
+    //   switchAll()
+    // ).subscribe((newGoalId:any) => {
+    //   // this.accordion_items.toArray().forEach(item => {
 
-      //   console.log(item);
-      // });
-      console.log(this.accordion_items);
-      // this.accordion_items.toArray().forEach(item => {
-      //   // form.value.taskPriority = this.priority.nativeElement.querySelector('.active').innerText;
+    //   //   console.log(item);
+    //   // });
+    //   // console.log(this.accordion_items);
+    //   this.accordion_items.toArray().forEach(item => {
+    //     form.value.taskPriority = this.priority.nativeElement.querySelector('.active').innerText;
+    //     console.log(item);
+    //     // this.newTask = new Task(
+    //     //   newGoalId.name,
+    //     //   form.value.taskName,
+    //     //   form.value.taskDescription,
+    //     //   form.value.taskPriority,
+    //     //   form.value.taskDate,
+    //     // );
+    //     // this.tasksS.postTask(this.newTask);
 
-      //   // this.newTask = new Task(
-      //   //   newGoalId.name,
-      //   //   form.value.taskName,
-      //   //   form.value.taskDescription,
-      //   //   form.value.taskPriority,
-      //   //   form.value.taskDate,
-      //   // );
-      //   // this.tasksService.postTask(this.newTask);
-
-      // });
+    //   });
       // Remove New Goal Modal
       this.parentRef.removeNewGoal();
       // Refresh goals Grid
       this.parentRef.refreshGoalsGrid();
-    })
 
+  }
+
+  tasksFormSubmit(form:NgForm) {
+    console.log(form);
   }
 
 

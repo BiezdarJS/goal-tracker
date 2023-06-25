@@ -32,6 +32,7 @@ $arrow_color: $gray !default;
   font-weight: normal;
   height: $input_height;
   line-height: $input_height;
+  margin: 0 0 10px;
   outline: none;
   padding-left: $dropdown_padding;
   padding-right: $dropdown_padding + 12;
@@ -60,26 +61,26 @@ $arrow_color: $gray !default;
     border-color: $primary_light;
   }
   // Arrow
-  &:after { 
+  &:after {
     border-bottom: 2px solid $arrow_color;
     border-right: 2px solid $arrow_color;
     content: '';
-    display: block; 
+    display: block;
     height: 5px;
     margin-top: -4px;
     pointer-events: none;
-    position: absolute; 
-    right: 18px; 
-    top: calc(50% - 2px); 
+    position: absolute;
+    right: 18px;
+    top: calc(50% - 2px);
     transform-origin: 66% 66%;
     transform: rotate(45deg);
     transition: all 0.15s ease-in-out;
     width: 5px;
     @include desktop-md {
       height: 5px;
-      right: 18px; 
+      right: 18px;
       width: 5px;
-      top: calc(50% - 2px); 
+      top: calc(50% - 2px);
     }
   }
   &--dashboard {
@@ -121,11 +122,11 @@ $arrow_color: $gray !default;
     border-color: lighten($gray_light, 2%);
     color: $gray;
     pointer-events: none;
-    &:after { 
+    &:after {
       border-color: lighten($arrow_color, 20%);
     }
   }
-  
+
   // Modifiers
   &.wide {
     width: 100%;
@@ -145,7 +146,7 @@ $arrow_color: $gray !default;
     font-size: $font_size_small;
     height: $input_height_small;
     line-height: $input_height_small - 2;
-    &:after { 
+    &:after {
       height: 4px;
       width: 4px;
     }
@@ -193,10 +194,10 @@ $arrow_color: $gray !default;
     padding-right: $dropdown_padding + 11;
     text-align: left;
     transition: all 0.2s;
-    &:hover, &.focus, &.selected.focus { 
+    &:hover, &.focus, &.selected.focus {
       background-color: $gray_lighter;
     }
-    &.selected { 
+    &.selected {
       font-weight: bold;
     }
     &.disabled {
@@ -205,11 +206,11 @@ $arrow_color: $gray !default;
       cursor: default;
     }
   }
-  
+
   .optgroup{
     font-weight: bold;
   }
-  
+
 }
 
 // Use display instead of opacity for IE <= 10

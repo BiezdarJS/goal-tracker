@@ -8,6 +8,7 @@ declare function Modal(): void;
 @Component({
   selector: 'gt-info-popup',
   templateUrl: './info-popup.component.html',
+  host: {'class': 'modal__wrap'},
   styleUrls: ['./info-popup.component.scss']
 })
 export class InfoPopupComponent implements OnInit {

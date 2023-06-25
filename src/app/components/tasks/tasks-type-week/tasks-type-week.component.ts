@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { GoalsService } from 'src/app/services/goals/goals.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 // Types
-import { Goal } from 'src/app/types/goal.type';
-import { Task } from 'src/app/types/task.type';
+import { IGoal } from 'src/app/interfaces/goal.interface';
+import { ITask } from 'src/app/interfaces/task.interface';
 
 @Component({
   selector: 'gt-tasks-type-week',
@@ -14,8 +14,8 @@ import { Task } from 'src/app/types/task.type';
 export class TasksTypeWeekComponent {
 
   public loading$!: boolean;
-  allGoals: Array<Goal> = [];
-  allTasks: Array<Task> = [];
+  allGoals: Array<IGoal> = [];
+  allTasks: Array<ITask> = [];
   objectValues = Object.values;
 
   constructor(

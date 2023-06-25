@@ -1,22 +1,25 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, AfterViewChecked, AfterContentChecked } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, AfterViewChecked, AfterContentChecked, Output, EventEmitter } from '@angular/core';
 // Select
 declare function Select(): void;
 // Services
 import { SetThemeService } from 'src/app/services/set-theme.service';
 import { GoalsService } from 'src/app/services/goals/goals.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { TasksNotificationsService } from 'src/app/services/tasks/tasks-notifications.service';
 // chartjs
 import { ChartData, ChartConfiguration } from "chart.js";
 import { chartColors } from '../charts/charts.config';
 import { textInCenter } from '../charts/utils';
-import { Subscription, filter, map } from 'rxjs';
-import { Goal } from 'src/app/types/goal.type';
+import { Observable, Subscription, forkJoin, map } from 'rxjs';
+import { IGoal } from 'src/app/interfaces/goal.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Task } from 'src/app/models/task.model';
 // Day.js
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
+import { ITaskWithGoalCategory } from 'src/app/interfaces/task-with-goal-category.interface';
+
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
 
@@ -29,8 +32,10 @@ dayjs.extend(weekOfYear);
 })
 export class DashboardComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentChecked {
 
-  allGoals: Array<Goal> = [];
-  allTasks:any = [];
+
+  // Goals
+  allGoals: Array<IGoal> = [];
+  allTasks:any[] = [];
   // categories
   familyAndCommunication:any;
   money:any;
@@ -55,12 +60,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     private goalsService: GoalsService,
     private tasksService: TasksService,
     private setThemeService: SetThemeService,
+    private tasksNotificationsS: TasksNotificationsService,
     private router: ActivatedRoute
   ) {
     this.allGoals = this.router.snapshot.data['allGaols'];
   }
 
   ngOnInit() {
+    // Theme
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
     // Fetch Goals
     this.goalsService.goalsCollection()
@@ -70,27 +77,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
       }
     )
     // Fetch Tasks
-    this.tasksService.tasksCollection()
-      .pipe(
-        // filter(item => item.taskDate === '2023-06-10'),
-        map(tasksArray => {
-          tasksArray = tasksArray.filter((item:any) => item.taskDate === dayjs().format('YYYY-MM-DD'));
-          return tasksArray;
-        }),
-        map(tasksArray => {
-            return tasksArray.map(async (item:any) => {
-                return {
-                    ...item,
-                    goalCategory: await this.getGoalCategory(item)
-                }
-            })
-        })
-      )
-      .subscribe(async (tasks: Promise<Task>[]) => {
-        const completedTasks = await Promise.all(tasks);
-        this.allTasks = completedTasks;
-        }
-      )
+    this.taskCollectionWithGoalCategory$.subscribe(tasks => this.allTasks = tasks);
 
   }
 
@@ -130,52 +117,32 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
       }
     )
     // Fetch Tasks
-    this.tasksService.tasksCollection()
-        .pipe(
-          // filter(item => item.taskDate === '2023-06-10'),
-          map(tasksArray => {
-            tasksArray = tasksArray.filter((item:any) => item.taskDate === dayjs().format('YYYY-MM-DD'));
-            return tasksArray;
-          }),
-          map(tasksArray => {
-              return tasksArray.map(async (item:any) => {
-                  return {
-                      ...item,
-                      goalCategory: await this.getGoalCategory(item)
-                  }
-              })
-          })
-        )
-        .subscribe(async (tasks: Promise<Task>[]) => {
-          const completedTasks = await Promise.all(tasks);
-          this.allTasks = completedTasks;
-          }
-        )
+
+
   }
 
 
+  taskCollectionWithGoalCategory$: Observable<ITaskWithGoalCategory[]> =
+    forkJoin({
+      tasks: this.tasksService.tasksCollection(),
+      goals: this.goalsService.goalsCollection(),
+    }).pipe(
+      map(({ tasks, goals }) => {
+        return tasks.map((task:Task) => {
+          const goal: IGoal = goals.find((goal:IGoal) => goal.id === task.goal_id);
 
-  // public getGoalCategory() {
-  //  return this.goalsService.getGoalById('-NXRb_fNBUUvKxPoSL5W').subscribe(d => {
-  //   this.goalCategory = d;
-  //   console.log(this.goalCategory);
-  //  });
-  // }
+          return {
+            ...task,
+            goalCategory: goal.category,
+          };
+        });
+      }),
+      // filter(task => task.taskDate === dayjs().format('YYYY-MM-DD'))
+      map((tasks:ITaskWithGoalCategory[]) => {
+        return tasks.filter((task:ITaskWithGoalCategory) => task.taskDate === dayjs().format('YYYY-MM-DD'))
+      })
+    )
 
-  // getGoalCategory(item:any) {
-	// 	this.goalsService.getGoalById(item.goal_id).subscribe(d => {
-  //     this.goalCategory = d[0].category;
-  //   })
-  //  }
-
-  getGoalCategory(item:any) {
-    return new Promise((res) => {
-        this.goalsService.getGoalById(item.goal_id)
-            .subscribe(d => {
-                res(d[0].category);
-            })
-    })
-  }
 
 
 
@@ -209,6 +176,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
 
   ngAfterViewChecked():void {
     this.currentThemeName = this.themeName;
+
   }
 
   ngAfterContentChecked():void {
@@ -250,6 +218,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
 
     }
 
+  }
+
+  createNewTask() {
+    this.tasksNotificationsS.sendTasksNotification(true);
   }
 
 }

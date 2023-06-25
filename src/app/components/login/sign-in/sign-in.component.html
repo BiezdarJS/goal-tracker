@@ -5,12 +5,16 @@
   </h2>
 
   <form class="form" [formGroup]="signinForm" (ngSubmit)="signIn()">
-    <img class="login-box__img" src="{{ imagesURL }}/adventurer.svg" alt="">
       <div class="form-field__wrap">
           <label class="form-field__label" for="email">Enter your username</label>
           <div class="form-field form-field--user">
               <input id="email" class="form-field__input form-field__input--border form-field__input--email"
                   type="text" value="" placeholder="username" formControlName="username">
+          </div>
+          <div *ngIf="username!.invalid && (username!.dirty || username!.touched)">
+            <div *ngIf="username!.errors?.['required']" class="valid-msg valid-msg--invalid">
+              This field is required
+            </div>
           </div>
       </div>
       <div class="form-field__wrap">
@@ -20,12 +24,22 @@
                   value="" placeholder="Password" formControlName="password">
               <i class="password-toggle" passwordToggle></i>
           </div>
+          <div *ngIf="password!.invalid && (password!.dirty || password!.touched)">
+            <div *ngIf="password!.errors?.['required']" class="valid-msg valid-msg--invalid">
+              This field is required
+            </div>
+          </div>
       </div>
       <div class="form-field__wrap">
         <label class="form-field__label form-field__label--diamond" for="password">Enter Your Name</label>
         <div class="form-field form-field--diamond">
             <input class="form-field__input form-field__input--border form-field__input--diamond" type="text"
                 value="" placeholder="Your Name" formControlName="your_name">
+        </div>
+        <div *ngIf="yourName!.invalid && (yourName!.dirty || yourName!.touched)">
+          <div *ngIf="yourName!.errors?.['required']" class="valid-msg valid-msg--invalid">
+            Enter your name :)
+          </div>
         </div>
       </div>
       <input type="submit" class="form-submit" value="Sign in">

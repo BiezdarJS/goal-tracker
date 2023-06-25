@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Task } from '../../types/task.type';
+import { ITask } from 'src/app/interfaces/task.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
-  allTasks: Array<Task> = [];
+  allTasks: Array<ITask> = [];
   components: any = [];
   // flag indicating whether loading is complete
   public loading$!: boolean;

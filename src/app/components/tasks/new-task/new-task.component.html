@@ -18,14 +18,21 @@
           </p>
           <div class="modal__section">
               <h3 class="modal__section-name headline">
-                  Task 1
+                  Task name
               </h3>
               <input
                 type="text"
                 name="name"
                 placeholder="Formulate a task"
                 ngModel
+                required
+                #name="ngModel"
               />
+              <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                <div *ngIf="name!.errors?.['required']" class="valid-msg valid-msg--invalid">
+                  This field is required
+                </div>
+              </div>
           </div>
           <div class="modal__section">
               <h3 class="modal__section-name headline">
@@ -34,15 +41,26 @@
               <textarea
                 placeholder="Describe the task you are trying to complete."
                 name="description"
-                ngModel>
+                ngModel
+                required
+                minlength="10"
+                #description="ngModel">
               </textarea>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                <div *ngIf="description!.errors?.['required']" class="valid-msg valid-msg--invalid">
+                  This field is required
+                </div>
+                <div *ngIf="description!.errors?.['minlength']" class="valid-msg valid-msg--invalid">
+                  This field requires at least 10 characters
+                </div>
+              </div>
           </div>
           <div class="modal__section d-flex">
               <div class="modal__half">
                 <h3 class="modal__section-name headline">
                   Goal to which this task belongs
                 </h3>
-                <select class="select--modal list" name="goal_id" ngModel #select_goal>
+                <select class="select--modal list" name="goal_id" ngModel required #select_goal #goal_id="ngModel">
                   <option
                     *ngFor="let goal of this.allGoals"
                     value="{{goal.id}}"
@@ -51,6 +69,11 @@
                     {{goal.name}}
                   </option>
                 </select>
+                <div *ngIf="goal_id.invalid && (goal_id.dirty || goal_id.touched)">
+                  <div *ngIf="goal_id!.errors?.['required']" class="valid-msg valid-msg--invalid">
+                    This field is required
+                  </div>
+                </div>
               </div>
               <div class="modal__half">
                   <h3 class="modal__section-name headline">
@@ -60,9 +83,16 @@
                     type="date"
                     name="taskDate"
                     ngModel
+                    required
+                    #taskDate="ngModel"
                     >
+                    <div *ngIf="taskDate.invalid && (taskDate.dirty || taskDate.touched)">
+                      <div *ngIf="taskDate!.errors?.['required']" class="valid-msg valid-msg--invalid">
+                        This field is required
+                      </div>
+                    </div>
               </div>
-              <div>
+              <div class="modal__half">
                 <h3 class="modal__section-name headline">
                     A priority
                 </h3>

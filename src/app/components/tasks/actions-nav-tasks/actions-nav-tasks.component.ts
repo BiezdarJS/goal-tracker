@@ -19,7 +19,7 @@ dayjs.extend(weekOfYear);
 })
 export class ActionsNavTasksComponent implements OnInit, AfterViewInit, AfterViewChecked, AfterContentChecked {
 
-  // Emit New Goal Event
+  // Emit New Task Event
   @Output() taskEvent = new EventEmitter();
   emitNewTaskEvent() {
     this.taskEvent.emit();

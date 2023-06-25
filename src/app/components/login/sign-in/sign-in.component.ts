@@ -26,13 +26,23 @@ export class SignInComponent {
   ) {}
 
   ngOnInit():void {
+    // Settings
+    this.imagesURL = this.globalVars.imagesURL;
+    // Form
     this.signinForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
       your_name: ['', Validators.required]
     });
-    this.imagesURL = this.globalVars.imagesURL;
 
+  }
+
+  get username() {
+    return this.signinForm.get('username');
+  }
+
+  get password() {
+    return this.signinForm.get('password');
   }
 
   get yourName() {
@@ -43,6 +53,9 @@ export class SignInComponent {
   signIn() {
     this.isSubmitted = true;
     if (this.signinForm.invalid) {
+      this.username!.markAsTouched();
+      this.password!.markAsTouched();
+      this.yourName!.markAsTouched();
       return;
     }
     this.nameNotificationS.setName(this.signinForm.value.your_name);

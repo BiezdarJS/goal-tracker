@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, of } from 'rxjs';
 // Types
-import { Goal } from '../../types/goal.type';
+import { IGoal } from 'src/app/interfaces/goal.interface';
 
 
 
@@ -14,7 +14,7 @@ export class GoalsService {
   // View
   activeView!:any;
   // GOALS
-  allGoals: Array<Goal> = [];
+  allGoals: Array<IGoal> = [];
   components: any = [];
 
   constructor(

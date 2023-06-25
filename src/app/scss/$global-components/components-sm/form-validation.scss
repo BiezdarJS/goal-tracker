@@ -1,0 +1,12 @@
+.valid-msg {
+  letter-spacing: 0.5px;
+  padding: 10px 0 0;
+  text-align: center;
+  &--invalid {
+    color: #8cff05;
+  }
+}
+
+.modal .valid-msg {
+  padding: 0;
+}

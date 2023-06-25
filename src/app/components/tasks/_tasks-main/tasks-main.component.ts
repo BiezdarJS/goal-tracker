@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 // Components
 import { TasksTypeDayComponent } from '../tasks-type-day/tasks-type-day.component';
 import { TasksTypeWeekComponent } from '../tasks-type-week/tasks-type-week.component';
@@ -24,7 +24,7 @@ import { map } from 'rxjs';
   host: { 'class' : 'tasks-main'},
   styleUrls: ['./tasks-main.component.scss']
 })
-export class TasksMainComponent implements OnInit, OnDestroy  {
+export class TasksMainComponent implements OnInit, OnDestroy, AfterViewChecked  {
 
   @ViewChild(TasksHostDirective, {static:true}) tasksHost!: TasksHostDirective;
   @ViewChild(NewTaskDirective, {static:true}) newTaskHost!: NewTaskDirective;
@@ -37,6 +37,8 @@ export class TasksMainComponent implements OnInit, OnDestroy  {
   tasksContainerRef!: any;
   newTaskContainerRef!: any;
   switcherBtnHasBeenFired!:boolean;
+  taskCloseEventSubscription:boolean = false;
+  taskSubmitEventSubscription:boolean = false;
 
   constructor(
     private calendarTasksService: CalendarTasksService,
@@ -80,12 +82,20 @@ export class TasksMainComponent implements OnInit, OnDestroy  {
 
 
   createNewTask() {
-    this.newTaskContainerRef.createComponent(NewTaskComponent);
+    const newTask = this.newTaskContainerRef.createComponent(NewTaskComponent);
+    newTask.instance.taskCloseEvent.subscribe((d:boolean) => {
+      this.taskCloseEventSubscription = d;
+    });
+    newTask.instance.taskSubmitEvent.subscribe((d:boolean) => {
+      this.taskCloseEventSubscription = d;
+    });
   }
 
   removeNewTask() {
-    this.newTaskContainerRef.clear();
-    this.tasksService.components = [];
+    setTimeout(() => {
+      this.newTaskContainerRef.clear();
+      this.tasksService.components = [];
+    }, 1000);
   }
 
 
@@ -105,6 +115,20 @@ export class TasksMainComponent implements OnInit, OnDestroy  {
 
     },50);
   }
+
+  ngAfterViewChecked():void {
+    if (this.taskCloseEventSubscription === true) {
+      this.removeNewTask();
+      this.taskCloseEventSubscription = false;
+    }
+    if (this.taskSubmitEventSubscription === true) {
+      this.removeNewTask();
+      this.refreshTasksGrid();
+      this.taskSubmitEventSubscription = false;
+    }
+  }
+
+
 
   ngOnDestroy():void {
     this.newTaskContainerRef.clear();

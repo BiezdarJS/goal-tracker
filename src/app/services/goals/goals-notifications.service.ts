@@ -57,4 +57,13 @@ export class GoalsNotificationsService {
     this.dateValueSubject.next(data);
   }
 
+
+  // New Goal Submit Notification
+  public newGoalSubmitSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  submitValue = this.newGoalSubmitSubject.asObservable();
+
+  sendSubmitNotification(data:boolean) {
+    this.newGoalSubmitSubject.next(data);
+  }
+
 }

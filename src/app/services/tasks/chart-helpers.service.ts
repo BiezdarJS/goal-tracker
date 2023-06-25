@@ -6,7 +6,10 @@ import { TasksService } from './tasks.service';
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
-import { map } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
+import { IGoal } from 'src/app/interfaces/goal.interface';
+import { ITask } from 'src/app/interfaces/task.interface';
+
 
 dayjs.extend(weekday);
 dayjs.extend(weekOfYear);
@@ -26,8 +29,8 @@ export class ChartHelpersService {
   travelsData!:any;
 
   constructor(
-    private goalsService: GoalsService,
-    private tasksService: TasksService,
+    private goalsS: GoalsService,
+    private tasksS: TasksService,
   ) { }
 
 
@@ -39,50 +42,118 @@ export class ChartHelpersService {
     return daysArr;
   }
 
-  getTasksByCategory(dataConsumer:any, category:string) {
+
+
+
+  getTasksByCategory(category: string): Observable<ITask[]> {
+    const goalIds$ = this.goalsS.goalsCollection().pipe(
+        map((goals) =>
+            goals
+                // filter goals with category from parameter
+                .filter((goal: any) => goal.category === category)
+                // get ID's of found goals in the previous step
+                .map((goal: any) => goal.id)
+        )
+    );
+
+    const tasks$ = this.tasksS.tasksCollection();
     const daysFromThisWeek = this.getDaysFromThisWeek();
-    this.goalsService.goalsCollection()
-    .pipe(
-      map((goalsArr:any) => {
-        goalsArr = goalsArr.filter((item:any) => item.category === category);
-        return goalsArr;
-      }),
-      map((goalsArr:any) => {
-        const goalsIDs = goalsArr.map((item:any) => item.id);
-        return goalsIDs;
-      })
-    )
-    .subscribe((goalsIDs:any) => {
-      this.tasksService.tasksCollection()
-        .pipe(
-          // get category-matching-tasks
-          map((tasksArr:any) => {
+
+    return forkJoin({
+      goalsIDs: goalIds$,
+        tasks: tasks$,
+    }).pipe(
+      // get IDs-matching-tasks
+        map(({ tasks, goalsIDs }) => {
             let modArr = [] as any;
             goalsIDs.forEach((goalId:any) => {
-              const forModArr = tasksArr.filter((task:any) => task.goal_id === goalId);
-              modArr = modArr.concat(forModArr);
-          })
-          return modArr;
+                const forModArr = tasks.filter((task:any) => task.goal_id === goalId);
+                modArr = modArr.concat(forModArr);
+            })
+            return modArr;
         }),
         map(tasksArr => {
-          // get number of category-matching-tasks on each week day
-          let finalTasks = [] as any;
-          daysFromThisWeek.forEach((day:any) => {
-              const forFinalTasks = tasksArr.filter((task:any) => task.taskDate === day);
-              finalTasks = finalTasks.concat(forFinalTasks.length);
-          })
-          return finalTasks;
+            // get number of IDs-matching-tasks on each week day
+            let finalTasks = [] as any;
+            daysFromThisWeek.forEach((day:any) => {
+                const forFinalTasks = tasksArr.filter((task:any) => task.taskDate === day);
+                finalTasks = finalTasks.concat(forFinalTasks.length);
+            });
+            return finalTasks;
         })
-        )
-        // .subscribe(d => {
-        //   res = d;
-        // })
-        .subscribe(async (finalTasks: Promise<Number>[]) => {
-          const completedTasks = await Promise.all(finalTasks);
-          dataConsumer = completedTasks;
-          // przypisz wartość do zmiennej wewnątrz subskrypcji
-          }
-        )
-      }) // Subscribe
-  }
+    )
+}
+
+
+
+  // getTasksByCategory(category:string):Observable<any> {
+  //   const daysFromThisWeek = this.getDaysFromThisWeek();
+  //   return forkJoin({
+  //     tasks: this.tasksS.tasksCollection(),
+  //     goals: this.goalsS.goalsCollection(),
+  //   })
+  //   // OPERATIONS ON GOALS
+  //   .pipe(
+  //     // filter goals with category from parameter
+  //     map(({ tasks, goals }) => {
+  //       return goals.filter((item:any) => item.category === category);
+  //     }),
+  //     // get ID's of found goals in the previous step
+  //     map((goals:any) => {
+  //       const goalsIDs = goals.map((item:any) => item.id);
+  //       return goalsIDs;
+  //     })
+  //   )
+  //   // OPERATIONS ON TASKS
+  //   .pipe(
+  //     // get IDs-matching-tasks
+  //     map(({ tasks, goalsIDs }) => {
+  //       let modArr = [] as any;
+  //       goalsIDs.forEach((goalId:any) => {
+  //         const forModArr = tasks.filter((task:any) => task.goal_id === goalId);
+  //         modArr = modArr.concat(forModArr);
+  //     })
+  //     return modArr;
+  //   }),
+  //   map(tasksArr => {
+  //     // get number of IDs-matching-tasks on each week day
+  //     let finalTasks = [] as any;
+  //     daysFromThisWeek.forEach((day:any) => {
+  //         const forFinalTasks = tasksArr.filter((task:any) => task.taskDate === day);
+  //         finalTasks = finalTasks.concat(forFinalTasks.length);
+  //     })
+  //     return finalTasks;
+  //   })
+  //   )
+  //   // .subscribe((goalsIDs:any) => {
+  //   //   this.tasksS.tasksCollection()
+  //   //     .pipe(
+  //   //       // get IDs-matching-tasks
+  //   //       map((tasksArr:any) => {
+  //   //         let modArr = [] as any;
+  //   //         goalsIDs.forEach((goalId:any) => {
+  //   //           const forModArr = tasksArr.filter((task:any) => task.goal_id === goalId);
+  //   //           modArr = modArr.concat(forModArr);
+  //   //       })
+  //   //       return modArr;
+  //   //     }),
+  //   //     map(tasksArr => {
+  //   //       // get number of IDs-matching-tasks on each week day
+  //   //       let finalTasks = [] as any;
+  //   //       daysFromThisWeek.forEach((day:any) => {
+  //   //           const forFinalTasks = tasksArr.filter((task:any) => task.taskDate === day);
+  //   //           finalTasks = finalTasks.concat(forFinalTasks.length);
+  //   //       })
+  //   //       return finalTasks;
+  //   //     })
+  //   //     )
+  //   //     .subscribe(async (finalTasks: Promise<any>[]) => {
+  //   //       const completedTasks = await Promise.all(finalTasks);
+  //   //       dataConsumer = completedTasks;
+  //   //       }
+  //   //     )
+  //   //   })
+  // }
+
+
 }

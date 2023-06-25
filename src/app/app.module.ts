@@ -50,7 +50,7 @@ import { SingleMonthComponent } from './components/calendars/single-month/single
 import { GoalsHostDirective } from './directives/goals/goals-host.directive';
 import { NewTaskNestedComponent } from './components/tasks/new-task-nested/new-task-nested.component';
 import { AddNewTaskDirective } from './directives/goals/add-new-task.directive';
-import { TaskNestedService } from './services/tasks/task-nested.service';
+import { TasksNestedService } from './services/tasks/tasks-nested.service';
 import { HideShowTargetDirective } from './directives/tasks/hide-show-target.directive';
 import { HideNotCurrentTargetDirective } from './directives/tasks/hide-not-current-target.directive';
 import { SettingsMainComponent } from './components/settings/_settings-main/settings-main.component';
@@ -61,6 +61,7 @@ import { LoginNavComponent } from './components/login/login-nav/login-nav.compon
 import { AuthGuard } from 'src/auth.guard';
 import { InfoPopupComponent } from './components/_info-popup/info-popup.component';
 import { InfoPopupHostDirective } from './directives/info/info-popup-host.directive';
+import { TasksNotificationsService } from './services/tasks/tasks-notifications.service';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { InfoPopupHostDirective } from './directives/info/info-popup-host.direct
     SetThemeService,
     GoalsNotificationsService,
     CalendarNotificationService,
-    TaskNestedService,
+    TasksNestedService,
+    TasksNotificationsService,
     AuthGuard,
     Permissions
   ],

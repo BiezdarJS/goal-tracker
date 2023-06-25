@@ -1,6 +1,6 @@
 import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ContentChild, ElementRef, OnInit, TemplateRef } from '@angular/core';
 // Types
-import { Goal } from 'src/app/types/goal.type';
+import { IGoal } from 'src/app/interfaces/goal.interface';
 // Enums
 import { GoalsViewType } from 'src/app/enums/goals.view-type';
 // Services
@@ -41,7 +41,7 @@ export class CalendarTypeYearComponent implements OnInit, AfterContentChecked, A
   // select values
   selectCategoryValue!: string;
   selectDateValue = 'all';
-  allGoals: Array<Goal> = [];
+  allGoals: Array<IGoal> = [];
 
   constructor(
     private globalVars: GlobalVariablesService,

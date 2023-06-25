@@ -9,20 +9,24 @@
     </h4>
     <span class="open-btn"></span>
 </div>
+
 <div class="accordion__content-wrap">
   <div class="accordion__content">
       <div class="modal__section">
           <h3 class="modal__section-name headline justify-content-center">
               Name
           </h3>
-          <input type="text" name="" placeholder="Formulate a task" />
+          <input type="text" name="name" placeholder="Formulate a task" ngModel />
       </div>
       <div class="modal__section">
           <h3 class="modal__section-name headline justify-content-center">
               Description
           </h3>
           <textarea
-              placeholder="Describe the task you are trying to complete."></textarea>
+              placeholder="Describe the task you are trying to complete."
+              name="description"
+              ngModel>
+          </textarea>
       </div>
       <div class="modal__section d-flex">
         <div class="modal__half">
@@ -50,6 +54,7 @@
               class="visuallyhidden"
               type="hidden"
               name="taskPriority"
+              ngModel
             />
         </ul>
       </div>
@@ -65,4 +70,5 @@
       </div>
   </div>
   </div>
+  <input class="visuallyhidden" type="submit" #submitBtn>
 </div>

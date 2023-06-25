@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 // Types
-import { Goal } from 'src/app/types/goal.type';
+import { IGoal } from 'src/app/interfaces/goal.interface';
 // Enums
 import { GoalsViewType } from 'src/app/enums/goals.view-type';
 // Services
@@ -15,6 +15,7 @@ import { IGoalsGrid } from '../../../models/calendar.model';
 import * as dayjs from 'dayjs';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
+import { Subscriber, Subscription } from 'rxjs';
 
 
 
@@ -38,7 +39,7 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedMonth:any;
   calendar!: IGoalsGrid;
   monthsCollection!: any;
-  allGoals: Array<Goal> = [];
+  allGoals: Array<IGoal> = [];
 
   objectValues = Object.values;
   goalsViewType!:string;
@@ -48,6 +49,10 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
   // Values for goal filter
   selectCategoryValue!: string;
   selectDateValue!: string;
+  // Subscriptions
+  subscr1!:Subscription;
+  subscr2!:Subscription;
+  subscr3!:Subscription;
 
 
   constructor(
@@ -56,20 +61,20 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
     private calendarTasksService: CalendarGoalsService,
     private goalsService: GoalsService,
     private goalsNotificationsS: GoalsNotificationsService,
-    private calendarNotificationS: CalendarNotificationService
+    private calendarNotificationS: CalendarNotificationService,
   ) {}
 
   ngOnInit():void {
     // Subscribe to Change View Notification
-    this.goalsNotificationsS.activeGoalsViewType.subscribe(d => {
+    this.subscr1 = this.goalsNotificationsS.activeGoalsViewType.subscribe(d => {
       this.goalsViewType = d;
     });
     // Subscribe to Filter Button Event
-    this.goalsNotificationsS.categoryValue.subscribe(d => {
+    this.subscr2 = this.goalsNotificationsS.categoryValue.subscribe(d => {
       this.selectCategoryValue = d;
     });
     // Subscribe to Filter Button Event
-    this.goalsNotificationsS.dateValue.subscribe(d => {
+    this.subscr3 = this.goalsNotificationsS.dateValue.subscribe(d => {
       this.selectDateValue = d;
     });
     // Settings
@@ -82,11 +87,12 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
     // Fetch Goals
     setTimeout(() => {
       this.goalsService.fetchGoalsWithFilter(this.selectCategoryValue,this.selectDateValue)
-        .subscribe((tasks:any) => {
-          this.allGoals = tasks;
+        .subscribe((goals:any) => {
+          this.allGoals = goals;
           this.loading$ = false;
         })
     }, 550);
+
   }
 
 
@@ -94,6 +100,9 @@ export class GoalsGridComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy():void {
     // this.loading$ = false;
+    this.subscr1.unsubscribe();
+    this.subscr2.unsubscribe();
+    this.subscr3.unsubscribe();
   }
 
 

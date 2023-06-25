@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 // Components
 import { NewGoalComponent } from '../new-goal/new-goal.component';
 import { GoalsGridComponent } from '../goals-grid/goals-grid.component';
@@ -41,7 +41,9 @@ export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewCheck
 
   constructor(
     private goalsService: GoalsService,
-    private goalsNotificationsS: GoalsNotificationsService
+    private goalsNotificationsS: GoalsNotificationsService,
+    // Change Detector
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit():void {
@@ -58,10 +60,11 @@ export class GoalsMainComponent implements OnInit, AfterViewInit, AfterViewCheck
 
 
   ngAfterViewInit(): void {
-
     // Collect initial Select Data
     this.selectCategoryValue = this.actionsNav.select_category.nativeElement.value;
     this.selectDateValue = this.actionsNav.select_date.nativeElement.value;
+    // Change Detector
+    this.cdr.detectChanges();
   }
 
   ngAfterViewChecked() {
