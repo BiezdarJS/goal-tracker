@@ -41,7 +41,7 @@ export class AuthService {
     ).subscribe(users => {
       if (users.length > 0) {
         this.router.navigateByUrl('');
-        sessionStorage.setItem('theme', "theme-dark");
+        sessionStorage.setItem('theme', "theme-light");
         sessionStorage.setItem('access-token', "logged-in");
         sessionStorage.setItem('welcome-name', this.welcomeName);
       }
