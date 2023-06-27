@@ -235,7 +235,7 @@
               <option value="month">Month</option>
           </select>
       </div>
-      <gt-my-activity-chart myActivityChart></gt-my-activity-chart>
+      <gt-my-activity-chart myActivityChart [myActicitySelectValue]="this.myActivitySelectValue"></gt-my-activity-chart>
   </div>
   <div class="box box--health-and-sports">
       <div class="hstack justify-content-between mb-20">
@@ -247,7 +247,7 @@
               <option value="month">Month</option>
           </select>
       </div>
-      <gt-health-and-sports-chart healthAndSportsChart></gt-health-and-sports-chart>
+      <gt-health-and-sports-chart healthAndSportsChart [healthAndSportsSelectValue]="this.healthAndSportsValue"></gt-health-and-sports-chart>
 
   </div>
   <div class="box box--today-tasks">

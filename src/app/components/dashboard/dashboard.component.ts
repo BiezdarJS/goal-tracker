@@ -51,6 +51,10 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
   progressTowardsTheGoalData2!: ChartData<'doughnut'>;
   progressTowardsTheGoalData3!: ChartData<'doughnut'>;
   progressTowardsTheGoalData4!: ChartData<'doughnut'>;
+  // My Activity
+  myActivitySelectValue!:string;
+  healthAndSportsValue!:string;
+  // Settings
   currentThemeName!: string | null;
   colors: any = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
   // Today Tasks
@@ -86,9 +90,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
 
 
   ngAfterViewInit():void {
+    // My Activity Select Value
+    this.myActivitySelectValue = this.select_my_activity.nativeElement.value;
+    // My Activity Select Init
     new (Select as any)(this.select_my_activity.nativeElement, {
       placeholder: 'Week'
     });
+    // Health and Sports Select Value
+    this.healthAndSportsValue = this.select_health_and_sports.nativeElement.value;
+    // Health and sports Select Init
     new (Select as any)(this.select_health_and_sports.nativeElement, {
       placeholder: 'Week'
     });
@@ -118,6 +128,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     )
     // Fetch Tasks
 
+  }
+
+  ngAfterViewChecked():void {
+    // My Activity Select Value
+    this.myActivitySelectValue = this.select_my_activity.nativeElement.value;
+    // Health and Sports Select Value
+    this.healthAndSportsValue = this.select_health_and_sports.nativeElement.value;
+    // Current Theme
+    this.currentThemeName = this.themeName;
 
   }
 
@@ -174,10 +193,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, AfterViewCheck
     events: []
   };
 
-  ngAfterViewChecked():void {
-    this.currentThemeName = this.themeName;
 
-  }
 
   ngAfterContentChecked():void {
     this.colors = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;

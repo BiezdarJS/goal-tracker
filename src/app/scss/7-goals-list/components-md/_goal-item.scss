@@ -11,7 +11,7 @@
 .goals-grid--box {
 		.goal-item {
 				background-color: $white;
-				border: 1px solid #ddd;
+				box-shadow: 0 1px 15px rgba(4, 15, 21, 0.06), 0 1px 15px rgba(4, 15, 21, 0.06);
 				border-radius: 14px;
 				margin: 20px 0;
 				padding: 45px;

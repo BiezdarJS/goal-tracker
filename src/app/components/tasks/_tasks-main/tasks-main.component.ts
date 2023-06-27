@@ -87,15 +87,13 @@ export class TasksMainComponent implements OnInit, OnDestroy, AfterViewChecked  
       this.taskCloseEventSubscription = d;
     });
     newTask.instance.taskSubmitEvent.subscribe((d:boolean) => {
-      this.taskCloseEventSubscription = d;
+      this.taskSubmitEventSubscription = d;
     });
   }
 
   removeNewTask() {
-    setTimeout(() => {
-      this.newTaskContainerRef.clear();
-      this.tasksService.components = [];
-    }, 1000);
+    this.newTaskContainerRef.clear();
+    this.tasksService.components = [];
   }
 
 

@@ -5,7 +5,10 @@
 <gt-sidenav></gt-sidenav>
 
 <!-- MAIN -->
-<router-outlet></router-outlet>
+<!-- Tutaj w zależności czy search ma value czy nie -->
+
+<router-outlet *ngIf="this.searchTextSubscription === ''"></router-outlet>
+<gt-search *ngIf="this.searchTextSubscription !== ''"></gt-search>
 
 <!-- FOOTER -->
 <gt-footer></gt-footer>

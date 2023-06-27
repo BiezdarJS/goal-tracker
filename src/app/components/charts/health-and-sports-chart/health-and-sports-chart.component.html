@@ -1,8 +1,16 @@
 <div class="chart-container" style="position: relative; height:100%; width:100%">
-<canvas baseChart class="chart"
-  [data]="healthAndSportsData"
-  [options]="healthAndSportsOptions"
-  [type]="'bar'"
-  >
-</canvas>
+  <canvas baseChart class="chart"
+    [data]="healthAndSportsDataWeek"
+    [options]="healthAndSportsOptions"
+    [type]="'bar'"
+    *ngIf="healthAndSportsSelectValue === 'week'"
+    >
+  </canvas>
+  <canvas baseChart class="chart"
+    [data]="healthAndSportsDataMonth"
+    [options]="healthAndSportsOptions"
+    [type]="'bar'"
+    *ngIf="healthAndSportsSelectValue === 'month'"
+    >
+  </canvas>
 </div>

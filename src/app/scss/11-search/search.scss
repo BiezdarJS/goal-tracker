@@ -1,0 +1,8 @@
+.search-grid {
+  @include desktop-sm {
+    padding: 45px 25px 0;
+  }
+  @include desktop-md {
+      padding: 45px 45px 0;
+  }
+}

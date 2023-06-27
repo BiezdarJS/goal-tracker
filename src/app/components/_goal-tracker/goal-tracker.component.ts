@@ -11,6 +11,7 @@ import { NewTaskDirective } from 'src/app/directives/tasks/new-task.directive';
 import { SetThemeService } from 'src/app/services/set-theme.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { TasksNotificationsService } from 'src/app/services/tasks/tasks-notifications.service';
+import { SearchNotificationsService } from 'src/app/services/search/search-notifications.service';
 
 
 
@@ -40,6 +41,8 @@ export class GoalTrackerComponent implements OnInit, AfterViewInit, AfterViewChe
   // New Task Subscriptions
   taskCloseEventSubscription:boolean = false;
   taskSubmitEventSubscription:boolean = false;
+  // Search Subscription
+  searchTextSubscription:string = '';
 
 
   constructor(
@@ -47,6 +50,7 @@ export class GoalTrackerComponent implements OnInit, AfterViewInit, AfterViewChe
     private setThemeService: SetThemeService,
     private tasksService: TasksService,
     private tasksNotificationsS: TasksNotificationsService,
+    private searchNotificationsS: SearchNotificationsService,
     private elRef: ElementRef
   ) {}
 
@@ -62,9 +66,13 @@ export class GoalTrackerComponent implements OnInit, AfterViewInit, AfterViewChe
     document.body.classList.add(''+this.themeName+'');
     // Initialize Host Containers
     this.newTaskContainerRef = this.newTaskHost.viewContainerRef;
-    // Task Notification
+    // Task Notification Subscription
     this.tasksNotificationsS.newTaskSubject.subscribe(d => {
       this.triggerNewTask = d;
+    });
+    // Search Subscription
+    this.searchNotificationsS.searchValueSubject.subscribe((d:string) => {
+      this.searchTextSubscription = d;
     });
   }
 

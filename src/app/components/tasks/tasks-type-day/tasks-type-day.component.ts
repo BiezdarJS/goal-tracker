@@ -48,7 +48,6 @@ export class TasksTypeDayComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy():void {
-    this.loading$ = true;
     this.allTasks = [];
   }
 

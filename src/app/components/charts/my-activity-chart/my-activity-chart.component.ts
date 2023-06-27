@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, AfterContentChecked, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, AfterContentChecked, AfterViewInit, Input } from '@angular/core';
 // Chart
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { chartColors } from '../charts.config';
@@ -18,6 +18,7 @@ import { ChartHelpersService } from 'src/app/services/tasks/chart-helpers.servic
 })
 export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked, AfterContentChecked {
 
+  @Input('myActicitySelectValue') myActicitySelectValue!:string;
   themeName!: string | null;
   subscription!: Subscription;
   myActicityOptions: ChartConfiguration<'line'>['options'];
@@ -92,7 +93,11 @@ export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewIni
               }
             },
           },
-          // tension: 0.4,
+          elements: {
+            line: {
+              tension: 0.4,
+            }
+          },
           responsive: true,
           maintainAspectRatio: true,
           plugins: {
@@ -129,18 +134,18 @@ export class MyActivityChartComponent implements OnInit, OnDestroy, AfterViewIni
           }]
         }
         this.myActivityDataMonth = {
-          labels: ["Mon", "Tue", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Sep", "Oct", "Nov", "Dec"],
           datasets: [{
             label: "Income",
             backgroundColor: this.colors.green,
             borderColor: this.colors.green,
-            data: [2, 1, 3, 2, 1, 3, 2],
+            data: [2, 1, 3, 2, 1, 3, 2, 2,5, 7,5, 3],
             pointHitRadius: 16,
           }, {
             label: "More data",
             backgroundColor: this.colors.red,
             borderColor: this.colors.red,
-            data: [6, 4, 2, 5, 1, 2, 6]
+            data: [6, 4, 2, 5, 1, 2, 6, 2, 1, 5,2, 4]
           }]
         }
       });

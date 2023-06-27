@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { chartColors } from '../charts.config';
 import { Subscription } from 'rxjs';
@@ -11,10 +11,12 @@ import { SetThemeService } from 'src/app/services/set-theme.service';
 })
 export class HealthAndSportsChartComponent implements OnInit, OnDestroy, AfterViewChecked, AfterContentChecked {
 
+  @Input('healthAndSportsSelectValue') healthAndSportsSelectValue!:string;
   themeName!: string | null;
   subscription!: Subscription;
   currentThemeName!: string | null;
-  healthAndSportsData!: ChartData<'bar'>;
+  healthAndSportsDataWeek!: ChartData<'bar'>;
+  healthAndSportsDataMonth!: ChartData<'bar'>;
   healthAndSportsOptions: ChartConfiguration<'bar'>['options'];
   colors: any = sessionStorage.getItem('theme') === 'theme-light' ? chartColors.themeLight : chartColors.themeDark;
 
@@ -69,24 +71,45 @@ export class HealthAndSportsChartComponent implements OnInit, OnDestroy, AfterVi
         }
       };
 
-      this.healthAndSportsData = {
-        labels: ["<  1", "1 - 2", "3 - 4", "5 - 9", "10 - 14", "15 - 19", "20 - 24", "25 - 29", "> - 29"],
+      this.healthAndSportsDataWeek = {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [{
-          label: 'Employee',
-          backgroundColor: this.colors.blue,
-          data: [12, 59, 5, 56, 58, 12, 59, 87, 45]
-        }, {
-          label: 'Engineer',
-          backgroundColor: this.colors.green,
-          data: [12, 59, 5, 56, 58, 12, 59, 85, 23]
-        }, {
-          label: 'Government',
-          backgroundColor: this.colors.yellow,
-          data: [12, 59, 5, 56, 58, 12, 59, 65, 51]
-        }, {
-          label: 'Political parties',
+          label: 'Run',
           backgroundColor: this.colors.red,
-          data: [12, 59, 5, 56, 58, 12, 59, 12, 74]
+          data: [1, 59, 5, 56, 58, 12, 59]
+        }, {
+          label: 'Yoga',
+          backgroundColor: this.colors.yellow,
+          data: [12, 59, 5, 56, 58, 12, 59]
+        }, {
+          label: 'Workout',
+          backgroundColor: this.colors.red,
+          data: [12, 59, 5, 56, 58, 12, 59]
+        }, {
+          label: 'Swim',
+          backgroundColor: '#ddd',
+          data: [12, 59, 5, 56, 58, 12, 59]
+        }]
+      };
+
+      this.healthAndSportsDataMonth = {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+          label: 'Run',
+          backgroundColor: this.colors.red,
+          data: [12, 59, 5, 56, 58, 12, 59, 87, 45, 40, 50, 12]
+        }, {
+          label: 'Yoga',
+          backgroundColor: this.colors.yellow,
+          data: [12, 59, 5, 56, 58, 12, 59, 85, 23, 12, 56, 43]
+        }, {
+          label: 'Workout',
+          backgroundColor: this.colors.red,
+          data: [12, 59, 5, 56, 58, 12, 59, 65, 51, 12, 56, 22]
+        }, {
+          label: 'Swim',
+          backgroundColor: '#ddd',
+          data: [12, 59, 5, 56, 58, 12, 59, 12, 74, 12, 23, 43]
         }]
       };
 

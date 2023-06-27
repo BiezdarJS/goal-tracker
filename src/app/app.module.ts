@@ -62,6 +62,8 @@ import { AuthGuard } from 'src/auth.guard';
 import { InfoPopupComponent } from './components/_info-popup/info-popup.component';
 import { InfoPopupHostDirective } from './directives/info/info-popup-host.directive';
 import { TasksNotificationsService } from './services/tasks/tasks-notifications.service';
+import { SearchComponent } from './components/search/search/search.component';
+import { SearchInputComponent } from './components/search/search-input/search-input.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,9 @@ import { TasksNotificationsService } from './services/tasks/tasks-notifications.
     LoginComponent,
     LoginNavComponent,
     InfoPopupComponent,
-    InfoPopupHostDirective
+    InfoPopupHostDirective,
+    SearchComponent,
+    SearchInputComponent
   ],
   imports: [
     BrowserModule,

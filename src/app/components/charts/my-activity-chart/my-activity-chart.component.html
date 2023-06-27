@@ -1,11 +1,19 @@
 <div class="chart-container" style="position: relative; height:100%; width:100%">
   <div *ngIf="this.test$ | async">
     <canvas baseChart class="myActivityChart"
-    [data]="myActivityDataWeek"
-    [options]="myActicityOptions"
-    [type]="'line'"
-    >
-  </canvas>
+        [data]="myActivityDataWeek"
+        [options]="myActicityOptions"
+        [type]="'line'"
+        *ngIf="myActicitySelectValue === 'week'"
+        >
+      </canvas>
+      <canvas baseChart class="myActivityChart"
+      [data]="myActivityDataMonth"
+      [options]="myActicityOptions"
+      [type]="'line'"
+      *ngIf="myActicitySelectValue === 'month'"
+      >
+    </canvas>
   </div>
 
 </div>
