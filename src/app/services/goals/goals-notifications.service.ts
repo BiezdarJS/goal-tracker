@@ -66,4 +66,13 @@ export class GoalsNotificationsService {
     this.newGoalSubmitSubject.next(data);
   }
 
+
+  // is Valid Form ?
+  public isValidFormSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  isValidForm = this.isValidFormSubject.asObservable();
+
+  sendGoalFormValidation(data:boolean) {
+    this.isValidFormSubject.next(data);
+  }
+
 }

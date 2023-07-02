@@ -26,6 +26,9 @@
           border-radius: 30px;
           border: 2px solid transparent;
           box-shadow: 0 2px 2px #ddd;
+          &-invalid {
+            border: 1px solid #f74040!important;
+          }
       }
 
       &--search {
@@ -37,7 +40,6 @@
 
       &--password {
           padding: 15px 40px 15px 50px;
-          font-size: 30px;
           height: 53px;
       }
       &--edit {
@@ -148,14 +150,14 @@
         mask-position: center;
         mask-repeat: no-repeat;
       }
-      .icon-toggle {
+      .password-toggle {
               &:after {
                 mask-image: url(#{$assetsPath}/icons/eye.svg);
               }
           }
 
       &.swap-on {
-          .icon-toggle {
+          .password-toggle {
               &:after {
                 mask-image: url(#{$assetsPath}/icons/eye-off.svg);
               }
@@ -258,4 +260,24 @@ textarea {
     max-width: 200px;
     margin: 40px auto 0;
     letter-spacing: 0.5px;
+}
+
+
+.password-toggle {
+  cursor: pointer;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 13px;
+  right: 15px;
+
+  &:after {
+      content: "";
+      background: url(#{$assetsPath}/icons/eye.svg) center/cover no-repeat;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 1;
+  }
 }

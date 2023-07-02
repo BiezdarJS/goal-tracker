@@ -83,7 +83,7 @@ export class HealthAndSportsChartComponent implements OnInit, OnDestroy, AfterVi
           data: [12, 59, 5, 56, 58, 12, 59]
         }, {
           label: 'Workout',
-          backgroundColor: this.colors.red,
+          backgroundColor: this.colors.green,
           data: [12, 59, 5, 56, 58, 12, 59]
         }, {
           label: 'Swim',
@@ -104,7 +104,7 @@ export class HealthAndSportsChartComponent implements OnInit, OnDestroy, AfterVi
           data: [12, 59, 5, 56, 58, 12, 59, 85, 23, 12, 56, 43]
         }, {
           label: 'Workout',
-          backgroundColor: this.colors.red,
+          backgroundColor: this.colors.green,
           data: [12, 59, 5, 56, 58, 12, 59, 65, 51, 12, 56, 22]
         }, {
           label: 'Swim',

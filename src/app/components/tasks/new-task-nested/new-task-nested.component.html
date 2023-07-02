@@ -10,7 +10,7 @@
     <span class="open-btn"></span>
 </div>
 
-<div class="accordion__content-wrap">
+<form class="accordion__content-wrap" (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
   <div class="accordion__content">
       <div class="modal__section">
           <h3 class="modal__section-name headline justify-content-center">
@@ -33,7 +33,7 @@
           <h3 class="modal__section-name headline justify-content-center">
               Task priority
           </h3>
-          <ul class="priority list" getTaskPriority #priority>
+          <ul class="priority list" getTaskPriority #taskPriority>
             <li class="priority__item">
                 <button type="button" class="label label-priority label-priority--high label--nested">
                     High priority
@@ -71,4 +71,4 @@
   </div>
   </div>
   <input class="visuallyhidden" type="submit" #submitBtn>
-</div>
+</form>

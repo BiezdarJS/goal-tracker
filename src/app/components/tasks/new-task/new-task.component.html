@@ -20,6 +20,7 @@
                   Task name
               </h3>
               <input
+                [ngClass]="name!.invalid && (name!.dirty || name!.touched) ? 'form-field__input--border-invalid' : ''"
                 type="text"
                 name="name"
                 placeholder="Formulate a task"
@@ -38,6 +39,7 @@
                   Task description
               </h3>
               <textarea
+                [ngClass]="description!.invalid && (description!.dirty || description!.touched) ? 'form-field__input--border-invalid' : ''"
                 placeholder="Describe the task you are trying to complete."
                 name="description"
                 ngModel
@@ -59,7 +61,14 @@
                 <h3 class="modal__section-name headline">
                   Goal to which this task belongs
                 </h3>
-                <select class="select--modal list" name="goal_id" ngModel required #select_goal #goal_id="ngModel">
+                <select
+                  [ngClass]="goal_id!.invalid && (goal_id!.dirty || goal_id!.touched) ? 'form-field__input--border-invalid' : ''"
+                  class="select--modal list"
+                  name="goal_id"
+                  ngModel
+                  required
+                  #select_goal
+                  #goal_id="ngModel">
                   <option
                     *ngFor="let goal of this.allGoals"
                     value="{{goal.id}}"
@@ -79,6 +88,7 @@
                       Task Date
                   </h3>
                   <input
+                    [ngClass]="taskDate!.invalid && (taskDate!.dirty || taskDate!.touched) ? 'form-field__input--border-invalid' : ''"
                     type="date"
                     name="taskDate"
                     ngModel

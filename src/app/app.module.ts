@@ -64,6 +64,7 @@ import { InfoPopupHostDirective } from './directives/info/info-popup-host.direct
 import { TasksNotificationsService } from './services/tasks/tasks-notifications.service';
 import { SearchComponent } from './components/search/search/search.component';
 import { SearchInputComponent } from './components/search/search-input/search-input.component';
+import { PasswordToggleDirective } from './directives/forms/password-show-hide.directive';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { SearchInputComponent } from './components/search/search-input/search-in
     FooterComponent,
     GoalTrackerComponent,
     DashboardComponent,
+    PasswordToggleDirective,
     ModalNewTaskComponent,
     BalanceOfGoalsChartComponent,
     MyActivityChartComponent,

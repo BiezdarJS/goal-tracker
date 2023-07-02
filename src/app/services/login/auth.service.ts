@@ -7,7 +7,8 @@ import { NameNotificationService } from './name-notification.service';
 // Router
 import { Router } from '@angular/router';
 // RxJS
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
+import { LoginNotificationsService } from './login-notifications.service';
 
 
 
@@ -20,12 +21,12 @@ export class AuthService {
   welcomeName!:any;
 
   constructor(
-    private nameNotificationS: NameNotificationService,
+    private loginNotificationS: LoginNotificationsService,
     private router: Router,
     private userService: UserService
   ) {
     // Welcome Name
-    this.nameNotificationS.nameSubject.subscribe(d => {
+    this.loginNotificationS.nameSubject.subscribe(d => {
       this.welcomeName = d;
     });
   }
@@ -44,9 +45,12 @@ export class AuthService {
         sessionStorage.setItem('theme', "theme-light");
         sessionStorage.setItem('access-token', "logged-in");
         sessionStorage.setItem('welcome-name', this.welcomeName);
+        // Set Not Found User
+        this.loginNotificationS.sendUserNotification(false);
       }
       if (users.length === 0) {
-        console.log('Nie znaleziono użytkownika');
+        // Set Not Found User
+        this.loginNotificationS.sendUserNotification(true);
       }
     });
   }
@@ -61,5 +65,8 @@ export class AuthService {
     sessionStorage.removeItem('welcome-name');
     sessionStorage.removeItem('welcome-message');
   }
+
+
+
 
 }

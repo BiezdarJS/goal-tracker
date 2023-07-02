@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 // Types
 import { IGoal } from 'src/app/interfaces/goal.interface';
 
@@ -28,12 +28,18 @@ export class GoalsService {
       .get('https://goal-mangement-system-default-rtdb.europe-west1.firebasedatabase.app/goals.json');
   }
 
-  postGoal(newGoal:any):void {
-    this.http.post(
+  postGoal(newGoal:any): Observable<any>  {
+    return this.http.post(
       'https://goal-mangement-system-default-rtdb.europe-west1.firebasedatabase.app/goals.json',
       newGoal
-    ).subscribe(responseData => {
-    })
+    );
+  }
+
+  // Goal Value Subject
+  public idValueSubject: BehaviorSubject<string> = new BehaviorSubject('');
+  idValue = this.idValueSubject.asObservable();
+  sendIDNotification(data:any) {
+    this.idValueSubject.next(data);
   }
 
   // GOALS
@@ -86,6 +92,7 @@ export class GoalsService {
             })
         )
   }
+
 
 
   getGoalById(id:string):Observable<any> {

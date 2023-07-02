@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class NameNotificationService {
+export class LoginNotificationsService {
 
   constructor() { }
 
@@ -22,5 +22,4 @@ export class NameNotificationService {
   sendUserNotification(data:any) {
     this.userNotFoundSubject.next(data);
   }
-
 }

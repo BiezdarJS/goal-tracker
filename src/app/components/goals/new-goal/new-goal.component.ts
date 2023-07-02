@@ -15,7 +15,7 @@ import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifica
 import { Goal } from 'src/app/models/goal.model';
 import { Task } from 'src/app/models/task.model';
 // Types
-import { switchAll } from 'rxjs';
+import { Observable, switchAll } from 'rxjs';
 import { NgFor } from '@angular/common';
 
 
@@ -57,13 +57,15 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
   // New Goal Elements
   newGoalSubmitTriggered:boolean = false;
   newGoal!:any;
+  newTask!:Task;
   newGoalId!:any;
-  newTask!:any;
+  newGoal$!:any;
   btnBackIsActive: boolean = false;
   btnNextIsActive: boolean = false;
   btnCreateIsActive: boolean = false;
   priorityValue!: string;
-
+  // is Valid Form ?
+  isValidForm:boolean = true;
 
   constructor(
     private elRef: ElementRef,
@@ -71,7 +73,7 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
     private goalsS: GoalsService,
     private tasksS: TasksService,
     private tasksNestedS: TasksNestedService,
-    private submitNotificationS: GoalsNotificationsService,
+    private goalsNotificationsS: GoalsNotificationsService,
 
   ) {}
 
@@ -86,10 +88,17 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
       backdrop: 'static'
     });
     this.newGoalForm.show();
-
     // Submit Notification
-    this.submitNotificationS.submitValue.subscribe(d => {
+    this.goalsNotificationsS.submitValue.subscribe(d => {
       this.newGoalSubmitTriggered = d;
+    });
+    // New GoalId Subscription
+    this.goalsS.idValue.subscribe(d => {
+      this.newGoalId = d;
+    });
+    // is Valid New Goal Form ?
+    this.goalsNotificationsS.isValidForm.subscribe(d => {
+      this.isValidForm = d;
     });
 
   }
@@ -105,15 +114,14 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
   ngAfterViewChecked(): void {
     if (this.newGoalSubmitTriggered) {
       this.submitBtn.nativeElement.click();
-      this.submitNotificationS.sendSubmitNotification(false);
+      this.goalsNotificationsS.sendSubmitNotification(false);
     }
-
   }
 
   ngAfterContentChecked() {
     // if (this.newGoalSubmitTriggered) {
     //   this.submitBtn.nativeElement.click();
-    //   this.submitNotificationS.sendNewGoalSubmitNotification(false);
+    //   this.goalsNotificationsS.sendNewGoalSubmitNotification(false);
     // }
   }
 
@@ -190,6 +198,8 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
     results.filter((el, idx) => idx == index - 1)[0].nativeElement.classList.add('active');
     // handle back and next btn
     this.handleBackAndNextBtn();
+    // reset isValidForm message
+    this.goalsNotificationsS.sendGoalFormValidation(true);
   }
 
   get tasksNested() {
@@ -211,14 +221,18 @@ export class NewGoalComponent implements OnInit, AfterViewInit, AfterViewChecked
 
 
   triggerFormSubmit() {
-    this.submitNotificationS.sendSubmitNotification(true);
+    this.goalsNotificationsS.sendSubmitNotification(true);
   }
 
+
+
 // FORM
-onSubmit(form: NgForm) {
+onGoalSubmit(form: NgForm) {
   if (form.invalid) {
+    this.goalsNotificationsS.sendGoalFormValidation(false);
     return;
   }
+
   this.priorityValue = this.priority.nativeElement.querySelector('.active').innerText;
   this.newGoal = new Goal(
     form.value.name,
@@ -229,16 +243,29 @@ onSubmit(form: NgForm) {
     form.value.creationDate,
     form.value.endDate
   );
-  this.goalsS.postGoal(this.newGoal);
+  this.newGoal$ = this.goalsS.postGoal(this.newGoal)
+  this.newGoal$.subscribe((response:any) => {
+    this.goalsS.sendIDNotification(response);
+  });
+
   // Remove New Goal Modal
   this.parentRef.removeNewGoal();
   // Refresh goals Grid
   this.parentRef.refreshGoalsGrid();
 }
 
-  tasksFormSubmit(form:NgForm) {
+onTaskSubmit(form:NgForm) {
+  console.log(this.newGoalId);
+  // this.newTask = new Task(
+  //   this.newGoalId,
+  //   form.value.name,
+  //   form.value.description,
+  //   form.value.priority,
+  //   form.value.taskDate
+  // );
+  // this.tasksS.postTask(this.newTask);
+}
 
-  }
 
 
   // modalToggle(x:string) {

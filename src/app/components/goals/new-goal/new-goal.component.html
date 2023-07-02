@@ -40,7 +40,7 @@
               </div>
           </li>
       </ul>
-      <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+      <form (ngSubmit)="onGoalSubmit(form)" #form="ngForm">
         <ul class="modal-list list">
             <li class="modal-list__step active" data-id="0" #newGoalStep>
                 <p class="modal__heading modal__heading--center">
@@ -50,7 +50,15 @@
                     <h3 class="modal__section-name headline">
                         Goal name
                     </h3>
-                    <input type="text" name="name" placeholder="State your goal" required minlength=5 ngModel #name="ngModel"/>
+                    <input
+                      [ngClass]="name!.invalid && (name!.dirty || name!.touched) ? 'form-field__input--border-invalid' : ''"
+                      type="text"
+                      name="name"
+                      placeholder="State your goal"
+                      required
+                      minlength=5
+                      ngModel
+                      #name="ngModel"/>
                     <div *ngIf="name.invalid && (name.dirty || name!.touched)">
                       <div *ngIf="name!.errors?.['required']" class="valid-msg valid-msg--invalid">
                         This field is required
@@ -85,17 +93,33 @@
                     <h3 class="modal__section-name headline">
                         Goal completion criterion
                     </h3>
-                    <textarea name="details"
+                    <textarea
+                        [ngClass]="details!.invalid && (details!.dirty || details!.touched) ? 'form-field__input--border-invalid' : ''"
+                        name="details"
                         placeholder="Describe your goal in details. This will help break down&#10;into tasks more accurately and get exactly what you want."
-                        ngModel>
+                        required
+                        ngModel
+                        #details="ngModel">
                     </textarea>
+                    <div *ngIf="details.invalid && (details.dirty || details!.touched)">
+                      <div *ngIf="details!.errors?.['required']" class="valid-msg valid-msg--invalid">
+                        This field is required
+                      </div>
+                    </div>
                 </div>
                 <div class="modal__section d-flex">
                     <div class="modal__half">
                         <h3 class="modal__section-name headline headline--minheight">
                             Which area of life will this goal improve ?
                         </h3>
-                        <select class="select--categories select--modal list" name="select_category" #select_category [(ngModel)]="select_category.value">
+                        <select
+                          [ngClass]="select_cat!.invalid && (select_cat!.dirty || select_cat!.touched) ? 'form-field__input--border-invalid' : ''"
+                          class="select--categories select--modal list"
+                          name="select_category"
+                          required
+                          #select_cat="ngModel"
+                          #select_category
+                          [(ngModel)]="select_category.value">
                             <option value="family/communication">
                                 Family/communication
                             </option>
@@ -115,12 +139,28 @@
                                 Travels
                             </option>
                         </select>
+                        <div *ngIf="select_cat.invalid && (select_cat.dirty || select_cat!.touched)">
+                          <div *ngIf="select_cat!.errors?.['required']" class="valid-msg valid-msg--invalid">
+                            This field is required
+                          </div>
+                        </div>
                     </div>
                     <div class="modal__half">
                         <h3 class="modal__section-name headline headline--minheight">
                             Creation Date
                         </h3>
-                        <input type="date" name="creationDate" ngModel>
+                        <input
+                          [ngClass]="creationDate!.invalid && (creationDate!.dirty || creationDate!.touched) ? 'form-field__input--border-invalid' : ''"
+                          type="date"
+                          name="creationDate"
+                          required
+                          ngModel
+                          #creationDate="ngModel">
+                        <div *ngIf="creationDate.invalid && (creationDate.dirty || creationDate!.touched)">
+                          <div *ngIf="creationDate!.errors?.['required']" class="valid-msg valid-msg--invalid">
+                            This field is required
+                          </div>
+                        </div>
                     </div>
                 </div>
             </li>
@@ -137,9 +177,12 @@
                     make it more interesting to achieve it by deleting cases.
                 </p>
                 <div class="accordion">
-                  <div *ngFor="let task of tasksNested">
-                      <gt-new-task-nested [data]="task" #accordion_item></gt-new-task-nested>
-                  </div>
+                  <gt-new-task-nested
+                      *ngFor="let task of tasksNested"
+                      [data]="task"
+                      #accordion_item
+                      (formEvent)="onTaskSubmit($event)">
+                  </gt-new-task-nested>
                 </div>
                 <div class="modal__section my-0">
                   <div class="modal-task-btn" (click)="addNewTask()">
@@ -180,7 +223,18 @@
                       <h3 class="modal__section-name headline headline--minheight">
                         Deadline Date
                       </h3>
-                      <input type="date" name="endDate" ngModel>
+                      <input
+                        [ngClass]="endDate!.invalid && (endDate!.dirty || endDate!.touched) ? 'form-field__input--border-invalid' : ''"
+                        type="date"
+                        name="endDate"
+                        required
+                        ngModel
+                        #endDate="ngModel">
+                      <div *ngIf="endDate.invalid && (endDate.dirty || endDate!.touched)">
+                        <div *ngIf="endDate!.errors?.['required']" class="valid-msg valid-msg--invalid">
+                          This field is required
+                        </div>
+                      </div>
                   </div>
                 </div>
 
@@ -217,6 +271,11 @@
 
                         </li>
                     </ul>
+                </div>
+                <div
+                  *ngIf="!this.isValidForm"
+                  class="valid-msg valid-msg--invalid">
+                    Formularz zawiera błędy
                 </div>
             </li>
         </ul>

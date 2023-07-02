@@ -1,8 +1,10 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 // Form
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 // Services
 import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifications.service';
+import { GoalsService } from 'src/app/services/goals/goals.service';
 
 @Component({
   selector: 'gt-new-task-nested',
@@ -13,12 +15,22 @@ import { GoalsNotificationsService } from 'src/app/services/goals/goals-notifica
 export class NewTaskNestedComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('submitBtn') submitBtn!: ElementRef<HTMLInputElement>;
+  @Output() formEvent = new EventEmitter();
   @Input() data: any;
+  // New Goal Input
+  @Input() goalId: any;
   // New Goal
   newGoalSubmitTriggered!:boolean;
+  newGoalId!:any;
+  // Priority Reference
+  @ViewChild('priority') priority!: ElementRef;
+  // Priority Value
+  priorityValue!: string;
+
 
   constructor(
     private submitNotificationS: GoalsNotificationsService,
+    private goalsS: GoalsService,
   ) {}
 
 
@@ -26,12 +38,16 @@ export class NewTaskNestedComponent implements OnInit, AfterViewChecked {
     this.submitNotificationS.submitValue.subscribe(d => {
       this.newGoalSubmitTriggered = d;
     })
+
   }
 
-  ngAfterViewChecked(): void {
+
+  async ngAfterViewChecked() {
     if (this.newGoalSubmitTriggered) {
-      this.submitBtn.nativeElement.click();
-      this.submitNotificationS.sendSubmitNotification(false);
+      await console.log(this.goalId);
+      if (this.goalId) {
+        this.submitBtn.nativeElement.click();
+      }
     }
 
   }
@@ -40,7 +56,7 @@ export class NewTaskNestedComponent implements OnInit, AfterViewChecked {
 
 
   onSubmit(form:NgForm) {
-
+    this.formEvent.emit(form);
   }
 
 

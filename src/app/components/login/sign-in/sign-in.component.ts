@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/login/auth.service';
 import { GlobalVariablesService } from 'src/app/services/global-variables.service';
 import { NameNotificationService } from 'src/app/services/login/name-notification.service';
+import { LoginNotificationsService } from 'src/app/services/login/login-notifications.service';
 
 @Component({
   selector: 'gt-sign-in',
@@ -17,11 +18,13 @@ export class SignInComponent {
   isSubmitted = false;
   // Name
   welcomeName!:any;
+  // isValid
+  userNotFound:boolean = false;
 
   constructor(
     private globalVars: GlobalVariablesService,
     private authService: AuthService,
-    private nameNotificationS: NameNotificationService,
+    private loginNotificationS: LoginNotificationsService,
     private fb: FormBuilder
   ) {}
 
@@ -34,7 +37,10 @@ export class SignInComponent {
       password: ['', Validators.required],
       your_name: ['', Validators.required]
     });
-
+    // View Notification
+    this.loginNotificationS.userNotFound.subscribe(d => {
+      this.userNotFound = d;
+    });
   }
 
   get username() {
@@ -58,8 +64,9 @@ export class SignInComponent {
       this.yourName!.markAsTouched();
       return;
     }
-    this.nameNotificationS.setName(this.signinForm.value.your_name);
+    this.loginNotificationS.setName(this.signinForm.value.your_name);
     this.authService.signIn(this.signinForm.value);
+
   }
 
 }
