@@ -5,7 +5,7 @@
 Angular CLI: 15.2.7<br />
 Node: 18.10.0<br />
 Package Manager: npm 8.19.2<br />
-OS: win32 x64<br /><br />
+OS: win32 x64<br />
 
 Goal Tracker to aplikacja do zarządzania celami życiowymi. <br />
 Działanie aplikacji:<br />
