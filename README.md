@@ -7,7 +7,7 @@ Node: 18.10.0<br />
 Package Manager: npm 8.19.2<br />
 OS: win32 x64<br />
 
-Goal Tracker to aplikacja do zarządzania celami życiowymi. <br />
+**Goal Tracker** to aplikacja do zarządzania celami życiowymi. <br />
 Działanie aplikacji:<br />
 Najpierw tworzy się cele, a następnie, można tworzyć zadania przyporządkowane do tego celu.<br />
 Diagramy w panelu głównym są wizualnym podsumowaniem wszystkich celów oraz zadań i pomagają w mierzeniu postępów.<br />
