@@ -8,7 +8,7 @@ export class SetThemeService {
 
 
 
-  public activeThemeSource: BehaviorSubject<string | null> = new BehaviorSubject(sessionStorage.getItem('theme'));
+  public activeThemeSource: BehaviorSubject<string> = new BehaviorSubject('');
   activeTheme = this.activeThemeSource.asObservable();
   colors!: any;
 

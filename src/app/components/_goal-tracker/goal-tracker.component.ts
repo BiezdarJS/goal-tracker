@@ -60,9 +60,7 @@ export class GoalTrackerComponent implements OnInit, AfterViewInit, AfterViewChe
     this.welcomeMessage = sessionStorage.getItem('welcome-message');
     // Set Active Theme
     this.subscription = this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
-    if (this.themeName === null) {
-      this.setThemeService.setTheme('theme-light');
-    }
+    this.setThemeService.setTheme('theme-light');
     document.body.classList.add(''+this.themeName+'');
     // Initialize Host Containers
     this.newTaskContainerRef = this.newTaskHost.viewContainerRef;

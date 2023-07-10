@@ -19,15 +19,10 @@ export class LoginComponent implements OnInit, AfterViewChecked {
 
   ngOnInit():void {
     this.setThemeService.activeTheme.subscribe(themeName => this.themeName = themeName);
-    if (this.themeName === null) {
-      this.setThemeService.setTheme('theme-light');
-    }
-    document.body.classList.add(''+this.themeName+'');
   }
 
   ngAfterViewChecked():void {
     document.body.classList.remove('theme-light', 'theme-dark');
-    document.body.classList.add(''+this.themeName+'');
   }
 
 

@@ -72,6 +72,7 @@
                           {{item['category']}}
                       </div>
                       <ng-container [ngSwitch]="item['category']">
+                        <img *ngSwitchCase="'family/communication'" alt="" class="goal-item__img" src="{{ imagesURL }}/family.webp">
                         <img *ngSwitchCase="'self knowledge'" alt="" class="goal-item__img" src="{{ imagesURL }}/self-knowledge.jpg">
                         <img *ngSwitchCase="'health and sports'" alt="" class="goal-item__img" src="{{ imagesURL }}/sport.jpg">
                         <img *ngSwitchCase="'work/career'" alt="" class="goal-item__img" src="{{ imagesURL }}/work.jpg">
