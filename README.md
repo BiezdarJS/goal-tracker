@@ -7,7 +7,7 @@ Node: 18.10.0<br />
 Package Manager: npm 8.19.2<br />
 OS: win32 x64<br />
 
-demo: https://gt.piotrdeja.pl/
+**Demo**: https://gt.piotrdeja.pl/
 
 **Goal Tracker** to aplikacja do zarządzania celami życiowymi. <br />
 Działanie aplikacji:<br />
