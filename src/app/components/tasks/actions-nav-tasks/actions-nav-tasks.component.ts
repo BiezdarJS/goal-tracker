@@ -26,6 +26,8 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit, AfterVie
   }
   @Output() prevBtnEvent = new EventEmitter();
   @Output() nextBtnEvent = new EventEmitter();
+  // current Year
+  currentYear!:any;
 
   currentCalendarType:any;
   selectedMonth:any;
@@ -55,11 +57,12 @@ export class ActionsNavTasksComponent implements OnInit, AfterViewInit, AfterVie
     this.selectedMonth = this.calendarTasksService.monthNames[this.selectedMonth];
   }
   ngAfterViewInit(): void {
+    this.currentYear = this.calendarTasksService.selectedMonth.format("YYYY");
     this.setActiveIndicatior();
   }
 
   ngAfterViewChecked():void {
-
+    this.currentYear = this.calendarTasksService.selectedMonth.format("YYYY");
   }
 
   ngAfterContentChecked():void {

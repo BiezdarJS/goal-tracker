@@ -41,15 +41,16 @@ export class AuthService {
       })
     ).subscribe(users => {
       if (users.length > 0) {
-        this.router.navigateByUrl('');
         sessionStorage.setItem('theme', "theme-light");
         sessionStorage.setItem('access-token', "logged-in");
         sessionStorage.setItem('welcome-name', this.welcomeName);
-        // Set Not Found User
+        // User found true/false
         this.loginNotificationS.sendUserNotification(false);
+        // navigate
+        this.router.navigateByUrl('');
       }
       if (users.length === 0) {
-        // Set Not Found User
+        // User found true/false
         this.loginNotificationS.sendUserNotification(true);
       }
     });

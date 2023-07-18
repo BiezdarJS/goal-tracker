@@ -71,6 +71,7 @@ export class CalendarTypeYearComponent implements OnInit, AfterContentChecked, A
       year: this.calendarGoalsService.selectedMonth.format("YYYY"),
       month: this.calendarGoalsService.selectedMonth.format("M")
     }
+
     // this.collectMonths(this.calendar);
     this.currentMonthsArray = this.collectMonths(this.calendar);
   }
@@ -78,6 +79,7 @@ export class CalendarTypeYearComponent implements OnInit, AfterContentChecked, A
 
 
    ngAfterContentChecked():void {
+    console.log(this.calendar);
     if (this.switcherBtnHasBeenFired === true) {
       // Collect Goals Grid Data
       this.calendar = {
@@ -109,7 +111,7 @@ export class CalendarTypeYearComponent implements OnInit, AfterContentChecked, A
 
   createFirstYearMonths(calendar:ICalendar) {
 
-    let visibleNumberOfMonthsFromFirstYear = 12 - parseInt(calendar.month,10);
+    let visibleNumberOfMonthsFromFirstYear = 12 - parseInt(calendar.month,10) + 1;
     visibleNumberOfMonthsFromFirstYear = visibleNumberOfMonthsFromFirstYear <= 3 ? visibleNumberOfMonthsFromFirstYear : 0;
 
     return [...Array(visibleNumberOfMonthsFromFirstYear)].map((month, index) => {
@@ -126,7 +128,7 @@ export class CalendarTypeYearComponent implements OnInit, AfterContentChecked, A
 
   createSecondYearMonths(calendar:ICalendar) {
 
-    let visibleNumberOfMonthsFromFirstYear = 12 - parseInt(calendar.month,10);
+    let visibleNumberOfMonthsFromFirstYear = 12 - parseInt(calendar.month,10) + 1;
     visibleNumberOfMonthsFromFirstYear = visibleNumberOfMonthsFromFirstYear <= 3 ? visibleNumberOfMonthsFromFirstYear : 0;
 
     let numberOfSecondYearMonths = 3 - visibleNumberOfMonthsFromFirstYear;

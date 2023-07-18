@@ -29,9 +29,7 @@ export class TasksMainComponent implements OnInit, OnDestroy, AfterViewChecked  
   @ViewChild(TasksHostDirective, {static:true}) tasksHost!: TasksHostDirective;
   @ViewChild(NewTaskDirective, {static:true}) newTaskHost!: NewTaskDirective;
 
-
   allTasks: any;
-  WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   value: boolean = false;
   currentCalendarType!: string;
   tasksContainerRef!: any;

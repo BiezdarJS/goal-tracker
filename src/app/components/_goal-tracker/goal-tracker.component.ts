@@ -55,6 +55,8 @@ export class GoalTrackerComponent implements OnInit, AfterViewInit, AfterViewChe
   ) {}
 
 
+
+
   ngOnInit():void {
     // Session Storage
     this.welcomeMessage = sessionStorage.getItem('welcome-message');

@@ -1,7 +1,11 @@
 <section class="login-box">
 
   <h2 class="title title--login txt-center">
-      Sign in
+      Sign in<br>
+      <span class="font-additional" style="font-size: 14px;line-height: 16px;">
+        Login:admin<br>
+        Password: 123
+      </span>
   </h2>
 
   <form class="form" [formGroup]="signinForm" (ngSubmit)="signIn()">
